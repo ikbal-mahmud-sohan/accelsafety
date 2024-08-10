@@ -2,64 +2,51 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SafetyObservationRequest;
+use App\Http\Requests\UpdateSafetyObservationRequest;
+use App\Http\Resources\SafetyObservation as ResourcesSafetyObservation;
 use App\Models\SafetyObservation;
 use Illuminate\Http\Request;
 
 class SafetyObservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        //
+        $safetyObservation = ResourcesSafetyObservation::collection(SafetyObservation::all());
+        $totalCount = $safetyObservation->count();
+
+        return response()->json([
+            'data' => $safetyObservation,
+            'total_count' => $totalCount,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(SafetyObservationRequest $request)
     {
-        //
+       $safetyObservation = SafetyObservation::create($request->validated());
+       return ResourcesSafetyObservation::make($safetyObservation);
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(SafetyObservation $safetyObservation)
     {
-        //
+        return ResourcesSafetyObservation::make($safetyObservation);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SafetyObservation $safetyObservation)
+    public function update( UpdateSafetyObservationRequest $request, SafetyObservation $safetyObservation)
     {
-        //
-    }
+        dd($safetyObservation);
+        $safetyObservation->update($request->validated());
+        return ResourcesSafetyObservation::make($safetyObservation);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, SafetyObservation $safetyObservation)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    }
+    
     public function destroy(SafetyObservation $safetyObservation)
     {
-        //
+        $safetyObservation->delete();
+        return response()->noContent();
+
     }
 }
