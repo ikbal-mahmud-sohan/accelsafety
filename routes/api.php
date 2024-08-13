@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccidentController;
-use App\Http\Controllers\CompleteSafetyObservation;
+use App\Http\Controllers\ApprovedAccidentController;
 use App\Http\Controllers\CompleteSafetyObservationController;
 use App\Http\Controllers\SafetyObservationController;
 use Illuminate\Http\Request;
@@ -13,9 +13,14 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function(){
     Route::apiResource('accident', AccidentController::class);
+    Route::patch('accident/{accident}/approved', ApprovedAccidentController::class);
 });
 
 Route::prefix('v1')->group(function(){
-    Route::apiResource('safety-observation', SafetyObservationController::class);
-    Route::patch('/safety-observation/{safety}/complete', CompleteSafetyObservationController::class);
+    Route::get('/safety', [SafetyObservationController::class,'index']);
+    Route::post('/safety', [SafetyObservationController::class,'store']);
+    Route::get('/safety/{safetyObservation}', [SafetyObservationController::class,'show']);
+    Route::put('/safety/{safetyObservation}', [SafetyObservationController::class,'update']);
+    Route::delete('/safety/{safetyObservation}', [SafetyObservationController::class,'destroy']);
+    Route::patch('/safety/{safety}/complete', CompleteSafetyObservationController::class);
 });

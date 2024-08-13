@@ -33,7 +33,8 @@ return new class extends Migration
             $table->string('type_of_victim_employee');
             $table->string('responsible_name');
             $table->date('deadline');
-            $table->boolean('status');
+            $table->boolean('status')->default(0);
+            $table->string('verified_image')->nullable(); 
             $table->timestamps();
         });
     }

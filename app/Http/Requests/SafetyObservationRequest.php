@@ -22,14 +22,14 @@ class SafetyObservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'required|string|max:255',
+            'auditor' => 'required|string|max:255',
             'plant_name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'audit_date' => 'required|date',
             'category' => 'required|string|max:255',
             'problem_description' => 'required|string',
-            'problematic_progressive_images' => 'nullable|array',
-            'problematic_progressive_images.*' => 'string',
+            'problematic_progressive_images' => 'sometimes|array',
+            'problematic_progressive_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'root_cause' => 'required|string',
             'resp_department' => 'required|string|max:255',
             'owner_department' => 'required|string|max:255',
