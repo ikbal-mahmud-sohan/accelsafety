@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSafetyObservationRequest extends FormRequest
+class UpdateAccidentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class UpdateSafetyObservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'remarks' => 'required|string',
-            'corrective_image' => 'required|string',
-            'importance_level' => 'nullable|string|max:255',
-            'work_accomplished_by' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string',
+            'verified_image' => 'nullable|string',
         ];
     }
 }
