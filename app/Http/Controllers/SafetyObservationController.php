@@ -53,8 +53,24 @@ class SafetyObservationController extends Controller
     }
 
     public function update( UpdateSafetyObservationRequest $request, SafetyObservation $safetyObservation)
-    {
-        $safetyObservation->update($request->validated());
+    {  
+        $validatedData = $request->validated();
+    
+        $imageUrls = [];
+        if ($request->hasFile('corrective_image')) {
+            foreach ($request->file('corrective_image') as $image) {
+                $path = $image->store('corrective_image', 'public');
+                $imageUrls[] = Storage::url($path);
+            }
+            // Assign the uploaded image URLs to validatedData
+            $validatedData['corrective_image'] = $imageUrls;
+        }
+    
+        if ($safetyObservation->update($validatedData)) {
+            $safetyObservation->status = 1;
+            $safetyObservation->save();
+        }
+    
         return ResourcesSafetyObservation::make($safetyObservation);
 
 
@@ -63,7 +79,15 @@ class SafetyObservationController extends Controller
     public function destroy(SafetyObservation $safetyObservation)
     {
         $safetyObservation->delete();
-        return response()->noContent();
+        $safetyObservation = ResourcesSafetyObservation::collection(SafetyObservation::all());
+        $totalCount = $safetyObservation->count();
+
+        return response()->json([
+            'data' => $safetyObservation,
+            'total_count' => $totalCount,
+        ]);
 
     }
 }
+
+

@@ -30,6 +30,7 @@ class SafetyObservation extends Model
     ];
 
     protected $casts = [
-        'problematic_progressive_images' => 'array', // This line ensures the array is cast to JSON
+        'problematic_progressive_images' => 'array', 
+        'corrective_image' => 'array', 
     ];
 }

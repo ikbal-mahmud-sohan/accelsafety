@@ -22,7 +22,7 @@ class UpdateAccidentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'remarks' => 'nullable|string',
+            'remarks' => 'required|string',
             'verified_image' => 'nullable|string',
         ];
     }
