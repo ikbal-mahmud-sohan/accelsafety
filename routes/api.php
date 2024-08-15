@@ -20,7 +20,8 @@ Route::prefix('v1')->group(function(){
     Route::get('/safety', [SafetyObservationController::class,'index']);
     Route::post('/safety', [SafetyObservationController::class,'store']);
     Route::get('/safety/{safetyObservation}', [SafetyObservationController::class,'show']);
-    Route::put('/safety/{safetyObservation}', [SafetyObservationController::class,'update']);
+    Route::post('/safety/{safetyObservation}', [SafetyObservationController::class,'update']);
     Route::delete('/safety/{safetyObservation}', [SafetyObservationController::class,'destroy']);
+    
     Route::patch('/safety/{safety}/complete', CompleteSafetyObservationController::class);
 });

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('status')->default(0); 
             $table->string('priority_type'); 
             $table->text('remarks')->nullable();
-            $table->string('corrective_image')->nullable(); 
+            $table->json('corrective_image')->nullable(); 
             $table->string('importance_level')->nullable(); 
             $table->string('work_accomplished_by')->nullable(); 
             $table->timestamps(); 

@@ -23,7 +23,8 @@ class UpdateSafetyObservationRequest extends FormRequest
     {
         return [
             'remarks' => 'required|string',
-            'corrective_image' => 'required|string',
+            'corrective_image' => 'sometimes|array',
+            'corrective_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'importance_level' => 'nullable|string|max:255',
             'work_accomplished_by' => 'nullable|string|max:255',
         ];

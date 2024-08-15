@@ -23,7 +23,6 @@ class SafetyObservation extends JsonResource
         'category' => $this->category,
         'problem_description' => $this->problem_description,
         'problematic_progressive_images' => $this->problematic_progressive_images,
-        'problematic_progressive_images' => $this->problematic_progressive_images,
         'root_cause' => $this->root_cause,
         'resp_department' => $this->resp_department,
         'owner_department' => $this->owner_department,
