@@ -23,7 +23,8 @@ class UpdateAccidentRequest extends FormRequest
     {
         return [
             'remarks' => 'required|string',
-            'verified_image' => 'nullable|string',
+            'verified_image' => 'sometimes|array',
+            'verified_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

@@ -12,7 +12,12 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::prefix('v1')->group(function(){
-    Route::apiResource('accident', AccidentController::class);
+    // Route::apiResource('accident', AccidentController::class);
+    Route::get('/accident', [AccidentController::class,'index']);
+    Route::post('/accident', [AccidentController::class,'store']);
+    Route::get('/accident/{accident}', [AccidentController::class,'show']);
+    Route::post('/accident/{accident}', [AccidentController::class,'update']);
+    Route::delete('/accident/{accident}', [AccidentController::class,'destroy']);
     Route::patch('accident/{accident}/approved', ApprovedAccidentController::class);
 });
 
