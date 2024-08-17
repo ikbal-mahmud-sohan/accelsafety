@@ -29,6 +29,10 @@ class Accident extends Model
     'type_of_victim_employee',
     'responsible_name',
     'deadline',
-    'status'
+    'status',
+    'verified_image'
+    ];
+    protected $casts = [
+        'verified_image' => 'array', 
     ];
 }

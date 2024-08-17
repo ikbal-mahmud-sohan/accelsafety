@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('responsible_name');
             $table->date('deadline');
             $table->boolean('status')->default(0);
-            $table->string('verified_image')->nullable(); 
+            $table->json('verified_image')->nullable(); 
             $table->timestamps();
         });
     }
