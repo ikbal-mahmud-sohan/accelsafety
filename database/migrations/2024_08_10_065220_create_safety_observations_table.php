@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('plant_name');
             $table->string('location'); 
             $table->date('audit_date'); 
-            $table->string('category'); 
+            $table->string('category');
             $table->text('problem_description'); 
             $table->json('problematic_progressive_images')->nullable(); 
             $table->text('root_cause'); 
