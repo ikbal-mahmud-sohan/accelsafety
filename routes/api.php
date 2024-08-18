@@ -4,6 +4,7 @@ use App\Http\Controllers\AccidentController;
 use App\Http\Controllers\ApprovedAccidentController;
 use App\Http\Controllers\CompleteSafetyObservationController;
 use App\Http\Controllers\SafetyObservationController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ Route::prefix('v1')->group(function(){
     Route::get('/accident/{accident}', [AccidentController::class,'show']);
     Route::post('/accident/{accident}', [AccidentController::class,'update']);
     Route::delete('/accident/{accident}', [AccidentController::class,'destroy']);
+
     Route::patch('accident/{accident}/approved', ApprovedAccidentController::class);
 });
 
@@ -29,4 +31,12 @@ Route::prefix('v1')->group(function(){
     Route::delete('/safety/{safetyObservation}', [SafetyObservationController::class,'destroy']);
     
     Route::patch('/safety/{safety}/complete', CompleteSafetyObservationController::class);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/training', [TrainingController::class,'index']);
+    Route::post('/training', [TrainingController::class,'store']);
+    Route::get('/training/{training}', [TrainingController::class,'show']);
+    Route::post('/training/{training}', [TrainingController::class,'update']);
+    Route::delete('/training/{training}', [TrainingController::class,'destroy']);
 });
