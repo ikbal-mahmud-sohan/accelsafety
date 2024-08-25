@@ -17,7 +17,18 @@ class TrainingAttendenceFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'serial_number' => $this->faker->unique()->numerify('SN#####'),
+            'training_topic' => $this->faker->word,
+            'iso_standard' => $this->faker->word,
+            'venue' => $this->faker->city,
+            'facilitator' => $this->faker->name,
+            'training_date' => $this->faker->optional()->date(),
+            'training_duration' => $this->faker->word,
+            'name' => $this->faker->name,
+            'title' => $this->faker->word,
+            'function' => $this->faker->word,
+            'business' => $this->faker->company,
+            'signature' => $this->faker->optional()->word,
         ];
     }
 }
