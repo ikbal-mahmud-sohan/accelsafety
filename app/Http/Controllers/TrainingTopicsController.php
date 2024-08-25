@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTrainingTopics;
 use App\Http\Resources\TrainingTopicsResource;
 use App\Models\TrainingTopics;
 use Illuminate\Http\Request;
@@ -33,9 +34,10 @@ class TrainingTopicsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTrainingTopics $request)
     {
-        //
+        $training = TrainingTopics::create($request->validated());
+        return TrainingTopicsResource::make($training);
     }
 
     /**
