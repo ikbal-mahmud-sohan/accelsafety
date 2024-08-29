@@ -10,13 +10,13 @@ class TrainingAttendence extends Model
     use HasFactory;
     protected $fillable = [
         'serial_number',
-        'training_topic',
+        'training_topic_id',
         'iso_standard',
         'venue',
         'facilitator',
         'training_date',
         'training_duration',
-        'name',
+        'emp_id',
         'title',
         'function',
         'business',

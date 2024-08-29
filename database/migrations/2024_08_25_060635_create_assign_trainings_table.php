@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained('employee_infos')->onDelete('cascade');
             $table->foreignId('training_topic_id')->constrained('training_topics')->onDelete('cascade');
             $table->boolean('status')->default(0);
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }
