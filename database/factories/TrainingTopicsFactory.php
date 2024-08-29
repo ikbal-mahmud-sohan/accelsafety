@@ -16,9 +16,65 @@ class TrainingTopicsFactory extends Factory
      */
     public function definition(): array
     {
+        $topics = [
+            'Accident /Incident Investigation',
+            'Chemical Management System',
+            'Emergency Preparedness & Response',
+            'Electrical Work Safety',
+            'HIRA',
+            'Hot Work Safety',
+            'HSE Handbook',
+            'Material Handling',
+            'Melting Shop Safety',
+            'Preparing SOP & HIRA',
+            'Introduction of Fire Fighting Equipment and Operating Procedure',
+            'First Aid',
+            'Mechanical Work Safety',
+            'Machine Guarding',
+            'HSE SOP (PTW & LOTO)',
+            'Scrap & Goods Movement',
+            'HSE SOP & Relevent Guidelines & PTW',
+            'Fire Fighter & Rescue Training',
+            'Near Miss Reporting',
+            'IOSH Managing Safely',
+            'Safety Violation and Progressive Consequence Management',
+        ];
+
         return [
-            'name' => fake()->name(),
-            'descriptions' => $this->faker->word(),
+            'name' => $this->faker->randomElement($topics),
+            'descriptions' => $this->faker->sentence(),
+        ];
+    }
+
+    /**
+     * Get all training topics names.
+     *
+     * @return array<string>
+     */
+    public static function topicNames(): array
+    {
+        return [
+            'Accident /Incident Investigation',
+            'Chemical Management System',
+            'Emergency Preparedness & Response',
+            'Electrical Work Safety',
+            'HIRA',
+            'Hot Work Safety',
+            'HSE Handbook',
+            'Material Handling',
+            'Melting Shop Safety',
+            'Preparing SOP & HIRA',
+            'Introduction of Fire Fighting Equipment and Operating Procedure',
+            'First Aid',
+            'Mechanical Work Safety',
+            'Machine Guarding',
+            'HSE SOP (PTW & LOTO)',
+            'Scrap & Goods Movement',
+            'HSE SOP & Relevent Guidelines & PTW',
+            'Fire Fighter & Rescue Training',
+            'Near Miss Reporting',
+            'IOSH Managing Safely',
+            'Safety Violation and Progressive Consequence Management',
         ];
     }
 }

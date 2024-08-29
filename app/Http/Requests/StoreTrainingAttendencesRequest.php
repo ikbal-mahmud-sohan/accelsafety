@@ -23,13 +23,13 @@ class StoreTrainingAttendencesRequest extends FormRequest
     {
         return [
             'serial_number' => 'required|string|max:255',
-            'training_topic' => 'required|string|max:255',
+            'training_topic_id' => 'required',
             'iso_standard' => 'required|string|max:255',
             'venue' => 'required|string|max:255',
             'facilitator' => 'required|string|max:255',
             'training_date' => 'required|date',
             'training_duration' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
+            'emp_id' => 'required',
             'title' => 'required|string|max:255',
             'function' => 'required|string|max:255',
             'business' => 'required|string|max:255',

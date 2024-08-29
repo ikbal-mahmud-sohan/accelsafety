@@ -26,6 +26,11 @@ class StoreEmployeeInfoRequest extends FormRequest
             'designation' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'employee_type' => 'required|string|max:255',
+            'emp_id' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'unit_name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
         ];
     }
 }

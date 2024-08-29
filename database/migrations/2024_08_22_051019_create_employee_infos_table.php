@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('employee_infos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('emp_id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('unit_name');
+            $table->string('location');
             $table->string('designation');
             $table->string('department');
             $table->string('employee_type');
@@ -29,3 +34,4 @@ return new class extends Migration
         Schema::dropIfExists('employee_infos');
     }
 };
+

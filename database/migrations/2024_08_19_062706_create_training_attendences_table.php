@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('training_attendences', function (Blueprint $table) {
             $table->id();
             $table->string('serial_number');
-            $table->string('training_topic');
+            $table->string('training_topic_id');
             $table->string('iso_standard');
             $table->string('venue');
             $table->string('facilitator');
             $table->date('training_date')->nullable();
             $table->string('training_duration');
-            $table->string('name');
+            $table->string('emp_id');
             $table->string('title');
             $table->string('function');
             $table->string('business');

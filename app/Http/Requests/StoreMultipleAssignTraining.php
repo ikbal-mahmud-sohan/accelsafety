@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAssignTraining extends FormRequest
+class StoreMultipleAssignTraining extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class StoreAssignTraining extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => ['required', 'exists:employee_infos,id'],
-            'training_topic_id' => ['required', 'exists:training_topics,id'],
+            'trainings' => 'required|array',
+            'trainings.*.employee_id' => 'required|exists:employee_infos,id',
+            'trainings.*.training_topic_id' => 'required|exists:training_topics,id',
+            'trainings.*.status' => 'sometimes|boolean',
         ];
     }
 }

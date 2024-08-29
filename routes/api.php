@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\AccidentController;
 use App\Http\Controllers\ApprovedAccidentController;
+use App\Http\Controllers\AssignMultipleTrainingController;
 use App\Http\Controllers\AssignSpecialTrainingController;
 use App\Http\Controllers\AssignTrainingController;
 use App\Http\Controllers\CompleteSafetyObservationController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
+use App\Http\Controllers\EmployeeUnitController;
 use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
@@ -64,6 +66,10 @@ Route::prefix('v1')->group(function(){
     Route::post('/department/{employee_department}', [EmployeeDepartmentController::class,'update']);
     Route::delete('/department/{employee_department}', [EmployeeDepartmentController::class,'destroy']);
 });
+Route::prefix('v1')->group(function(){
+    Route::get('/unit', EmployeeUnitController::class);
+
+});
 
 Route::prefix('v1')->group(function(){
     Route::get('/designation', [EmployeeDesignationController::class,'index']);
@@ -98,6 +104,7 @@ Route::prefix('v1')->group(function(){
     Route::post('/assign-training/{assignTraining}', [AssignTrainingController::class,'update']);
     Route::delete('/assign-training/{assignTraining}', [AssignTrainingController::class,'destroy']);
 
+    Route::post('/assign-multiple-training', AssignMultipleTrainingController::class);
     Route::get('/training-assesments', TrainingAssesmentController::class);
 });
 

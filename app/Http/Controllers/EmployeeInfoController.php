@@ -11,14 +11,32 @@ use Illuminate\Http\Request;
 class EmployeeInfoController extends Controller
 {
     
-    public function index()
+    public function index(Request $request)
     {
-        $employee = ResourcesEmployeeInfo::collection(EmployeeInfo::all());
-        $totlCount = $employee->count();
+            // Retrieve filters from the request
+        $department = $request->input('department');
+        $unitName = $request->input('unit_name');
+
+        // Start a query builder for EmployeeInfo
+        $query = EmployeeInfo::query();
+
+        // Apply filters if provided
+        if ($department) {
+            $query->where('department', $department);
+        }
+
+        if ($unitName) {
+            $query->where('unit_name', $unitName);
+        }
+
+        // Execute the query and get the results
+        $employee = ResourcesEmployeeInfo::collection($query->get());
+        $totalCount = $employee->count();
+
         return response()->json([
             'data' => $employee,
-            'total' => $totlCount,
-        ]); 
+            'total' => $totalCount,
+        ]);
     }
 
     public function store(StoreEmployeeInfoRequest $request)
