@@ -28,8 +28,19 @@ class AccidentController extends Controller
 
     public function store(StoreAccidentRequest $request)
     {
-        
-        $accident = Accident::create($request->validated());
+        $validatedData = $request->validated();
+        $validatedData['property_damaged'] = filter_var($validatedData['property_damaged'], FILTER_VALIDATE_BOOLEAN);
+        $imageUrls = [];
+        if ($request->hasFile('attachment')) {
+            foreach ($request->file('attachment') as $image) {
+                $path = $image->store('attachment', 'public');
+                $imageUrls[] = Storage::url($path);
+            }
+    
+            // Assign the uploaded image URLs to validatedData
+            $validatedData['attachment'] = $imageUrls;
+        }        
+        $accident = Accident::create($validatedData);
         return ResourcesAccident::make($accident);
     }
 

@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('accidents', function (Blueprint $table) {
             $table->id();
             $table->string('month');
-            $table->date('date');
-            $table->string('name');
-            $table->string('designation');
-            $table->string('supervisor');
-            $table->string('department');
+            $table->string('date');
             $table->string('type_of_accident');
             $table->text('description');
             $table->string('zone_location');
@@ -32,9 +28,22 @@ return new class extends Migration
             $table->text('remarks')->nullable();
             $table->string('type_of_victim_employee');
             $table->string('responsible_name');
-            $table->date('deadline');
+            $table->string('deadline');
             $table->boolean('status')->default(0);
             $table->json('verified_image')->nullable(); 
+            // $table->string('name');
+            // $table->string('designation');
+            // $table->string('supervisor');
+            // $table->string('department');
+            $table->string('type_of_employee');
+            $table->string('site_name');
+            $table->string('time_date');
+            $table->string('incident_category');
+            $table->text('immidiate_cause');
+            $table->text('incident_location');
+            $table->text('incident_descriptions');
+            $table->text('investigation_lead');
+            $table->json('attachment')->nullable(); 
             $table->timestamps();
         });
     }

@@ -38,6 +38,15 @@ class Accident extends JsonResource
             'deadline' => $this->deadline,
             'status' => (bool)$this->status,
             'verified_image' => $this->verified_image,
+            'type_of_employee' => $this->type_of_employee,
+            'site_name' => $this->site_name,
+            'time_date' => $this->time_date,
+            'incident_category' => $this->incident_category,
+            'immidiate_cause' => $this->immidiate_cause,
+            'incident_location' => $this->incident_location,
+            'incident_descriptions' => $this->incident_descriptions,
+            'investigation_lead' => $this->investigation_lead,
+            'attachment' => $this->attachment,
         ];
     }
 }
