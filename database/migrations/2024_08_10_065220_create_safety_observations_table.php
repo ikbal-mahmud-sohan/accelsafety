@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('auditor'); 
             $table->string('plant_name');
             $table->string('location'); 
-            $table->date('audit_date'); 
+            $table->string('audit_date'); 
             $table->string('category');
             $table->text('problem_description'); 
             $table->json('problematic_progressive_images')->nullable(); 
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('resp_department'); 
             $table->string('owner_department'); 
             $table->text('improvement_actions'); 
-            $table->date('due_date'); 
+            $table->string('due_date'); 
             $table->boolean('status')->default(0); 
             $table->string('priority_type'); 
             $table->text('remarks')->nullable();

@@ -25,7 +25,7 @@ class SafetyObservationRequest extends FormRequest
             'auditor' => 'required|string|max:255',
             'plant_name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'audit_date' => 'required|date',
+            'audit_date' => 'required',
             'category' => 'required|string|max:255',
             'problem_description' => 'required|string',
             'problematic_progressive_images' => 'sometimes|array',
@@ -34,7 +34,7 @@ class SafetyObservationRequest extends FormRequest
             'resp_department' => 'required|string|max:255',
             'owner_department' => 'required|string|max:255',
             'improvement_actions' => 'required|string',
-            'due_date' => 'required|date',
+            'due_date' => 'required',
             'priority_type' => 'required|string|max:255',
         ];
     }
