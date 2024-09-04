@@ -14,12 +14,14 @@ use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
 use App\Http\Controllers\EmployeeUnitController;
+use App\Http\Controllers\safetyDropDownController;
 use App\Http\Controllers\SafetyObservationController;
+use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
+use App\Http\Controllers\SafetyObservationPlantNameController;
+use App\Http\Controllers\SafetyObservationRespDepartmentController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
-use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TrainingTopicsController;
-use App\Models\AccidentInjuryType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +67,26 @@ Route::prefix('v1')->group(function(){
     Route::delete('/safety/{safetyObservation}', [SafetyObservationController::class,'destroy']);
     
     Route::patch('/safety/{safety}/complete', CompleteSafetyObservationController::class);
+    Route::get('/safety-drop-down', safetyDropDownController::class);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/safety-resp-department', [SafetyObservationRespDepartmentController::class,'index']);
+    Route::post('/safety-resp-department', [SafetyObservationRespDepartmentController::class,'store']);
+    Route::delete('/safety-resp-department/{safetyObservationRespDepartment}', [SafetyObservationRespDepartmentController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/safety-owner-department', [SafetyObservationOwnerDepartmentController::class,'index']);
+    Route::post('/safety-owner-department', [SafetyObservationOwnerDepartmentController::class,'store']);
+    Route::delete('/safety-owner-department/{safetyObservationOwnerDepartment}', [SafetyObservationOwnerDepartmentController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/safety-plant', [SafetyObservationPlantNameController::class,'index']);
+    Route::post('/safety-plant', [SafetyObservationPlantNameController::class,'store']);
+    Route::delete('/safety-plant/{safetyObservationPlantName}', [SafetyObservationPlantNameController::class,'destroy']);
 });
 
 Route::prefix('v1')->group(function(){

@@ -13,6 +13,9 @@ use App\Models\EmployeeDepartment;
 use App\Models\EmployeeDesignation;
 use App\Models\EmployeeInfo;
 use App\Models\SafetyObservation;
+use App\Models\SafetyObservationOwnerDepartment;
+use App\Models\SafetyObservationPlantName;
+use App\Models\SafetyObservationRespDepartment;
 use App\Models\Training;
 use App\Models\TrainingAttendence;
 use App\Models\TrainingTopics;
@@ -64,6 +67,48 @@ class DatabaseSeeder extends Seeder
         foreach ($typeInjurAccident  as $ta) {
             AccidentInjuryType::create(['name' => $ta]);
         }
+
+        $PlantName   = [
+            'BISCO', 
+            'KEW',
+        ];
+
+        foreach ($PlantName   as $ta) {
+            SafetyObservationPlantName::create(['name' => $ta]);
+        }
+
+        $respDepartment   = [
+            'MML', 
+            'Electrical',
+            'Mechanical',
+            'SMS',
+            'CCM',
+            'Admin & Facilities',
+            'HSE',
+            'All Over',
+            'QCM',
+        ];
+
+        foreach ($respDepartment   as $ta) {
+            SafetyObservationRespDepartment::create(['name' => $ta]);
+        }
+        
+        $ownerDepartment   = [
+            'MML', 
+            'Electrical',
+            'Mechanical',
+            'SMS',
+            'CCM',
+            'Admin & Facilities',
+            'HSE',
+            'All Over',
+            'QCM',
+        ];
+
+        foreach ($ownerDepartment   as $ta) {
+            SafetyObservationOwnerDepartment::create(['name' => $ta]);
+        }
+
         EmployeeDepartment::factory()->create();
         EmployeeDesignation::factory()->create();
         EmployeeInfo::factory(5)->create();

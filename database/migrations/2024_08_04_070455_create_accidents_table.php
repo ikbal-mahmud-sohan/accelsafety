@@ -35,7 +35,6 @@ return new class extends Migration
             // $table->string('designation');
             // $table->string('supervisor');
             // $table->string('department');
-            $table->string('type_of_employee');
             $table->string('site_name');
             $table->string('time_date');
             $table->string('incident_category');

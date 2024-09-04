@@ -41,7 +41,6 @@ class StoreAccidentRequest extends FormRequest
             // 'designation' => 'required|string|max:255',
             // 'supervisor' => 'required|string|max:255',
             // 'department' => 'required|string|max:255',
-            'type_of_employee' => 'required|string|max:255',
             'site_name' => 'required|string|max:255',
             'time_date' => 'required',
             'incident_category' => 'required|string|max:255',
