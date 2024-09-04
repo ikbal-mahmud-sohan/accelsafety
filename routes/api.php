@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\AccidentController;
+use App\Http\Controllers\AccidentDropDownController;
+use App\Http\Controllers\AccidentInjuryTypeController;
+use App\Http\Controllers\AccidentMonthController;
+use App\Http\Controllers\AccidentTypeController;
 use App\Http\Controllers\ApprovedAccidentController;
 use App\Http\Controllers\AssignMultipleTrainingController;
 use App\Http\Controllers\AssignSpecialTrainingController;
@@ -15,6 +19,7 @@ use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TrainingTopicsController;
+use App\Models\AccidentInjuryType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +36,26 @@ Route::prefix('v1')->group(function(){
     Route::delete('/accident/{accident}', [AccidentController::class,'destroy']);
 
     Route::patch('accident/{accident}/approved', ApprovedAccidentController::class);
+    Route::get('/accident-drop-down', AccidentDropDownController::class);
+
 });
+Route::prefix('v1')->group(function(){
+    Route::get('/accident-month', [AccidentMonthController::class,'index']);
+    Route::post('/accident-month', [AccidentMonthController::class,'store']);
+    Route::delete('/accident-month/{accidentMonth}', [AccidentMonthController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/accident-injury-type', [AccidentInjuryTypeController::class,'index']);
+    Route::post('/accident-injury-type', [AccidentInjuryTypeController::class,'store']);
+    Route::delete('/accident-injury-type/{accidentInjuryType}', [AccidentInjuryTypeController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/accident-type', [AccidentTypeController::class,'index']);
+    Route::post('/accident-type', [AccidentTypeController::class,'store']);
+    Route::delete('/accident-type/{accidentType}', [AccidentTypeController::class,'destroy']);
+});
+
+// End Accident
 
 Route::prefix('v1')->group(function(){
     Route::get('/safety', [SafetyObservationController::class,'index']);
