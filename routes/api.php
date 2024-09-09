@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccidentController;
 use App\Http\Controllers\AccidentDropDownController;
 use App\Http\Controllers\AccidentInjuryTypeController;
+use App\Http\Controllers\AccidentInvestigationController;
 use App\Http\Controllers\AccidentMonthController;
 use App\Http\Controllers\AccidentTypeController;
 use App\Http\Controllers\ApprovedAccidentController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
 use App\Http\Controllers\SafetyObservationPlantNameController;
 use App\Http\Controllers\SafetyObservationRespDepartmentController;
+use App\Http\Controllers\TestPurposeController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
@@ -55,6 +57,15 @@ Route::prefix('v1')->group(function(){
     Route::get('/accident-type', [AccidentTypeController::class,'index']);
     Route::post('/accident-type', [AccidentTypeController::class,'store']);
     Route::delete('/accident-type/{accidentType}', [AccidentTypeController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/accident-investigation', [AccidentInvestigationController::class,'index']);
+    Route::post('/accident-investigation', [AccidentInvestigationController::class,'store']);
+    Route::get('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'show']);
+    Route::post('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'update']);
+    Route::delete('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'destroy']);
+
 });
 
 // End Accident
@@ -152,6 +163,9 @@ Route::prefix('v1')->group(function(){
 
     Route::post('/assign-multiple-training', AssignMultipleTrainingController::class);
     Route::get('/training-assesments', TrainingAssesmentController::class);
+});
+Route::prefix('v1')->group(function(){
+    Route::post('/test-purpose', [TestPurposeController::class,'store']);
 });
 
 

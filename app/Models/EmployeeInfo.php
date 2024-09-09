@@ -28,5 +28,9 @@ class EmployeeInfo extends Model
         {
             return $this->hasMany(AssignSpecialTraining::class, 'employee_id');
         }
+        public function accidentInvestigation()
+        {
+            return $this->hasMany(AccidentInvestigation::class, 'employee_id');
+        }
 }
 

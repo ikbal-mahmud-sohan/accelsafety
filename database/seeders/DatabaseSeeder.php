@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AccidentInjuryType;
+use App\Models\AccidentInvestigation;
 use App\Models\AccidentMonth;
 use App\Models\AccidentType;
 use App\Models\AssignSpecialTraining;
@@ -20,6 +21,7 @@ use App\Models\Training;
 use App\Models\TrainingAttendence;
 use App\Models\TrainingTopics;
 use App\Models\User;
+use Database\Factories\AccidentInvestigationFactory;
 use Database\Factories\TrainingTopicsFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -67,6 +69,8 @@ class DatabaseSeeder extends Seeder
         foreach ($typeInjurAccident  as $ta) {
             AccidentInjuryType::create(['name' => $ta]);
         }
+
+        // AccidentInvestigation::factory(1)->create();
 
         $PlantName   = [
             'BISCO', 
