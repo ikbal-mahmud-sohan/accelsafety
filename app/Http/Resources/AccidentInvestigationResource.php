@@ -60,6 +60,10 @@ class AccidentInvestigationResource extends JsonResource
         'reviewed_by_unit_signature' => $this->reviewed_by_unit_signature,
         'approved_by_signature' => $this->approved_by_signature,
         'employee_name' => $this->employee_name,
+        'name_1' => $this->name_1,
+        'name_2' => $this->name_2,
+        'name_3' => $this->name_3,
+        'name_4' => $this->name_4,
         ];;
     }
 }

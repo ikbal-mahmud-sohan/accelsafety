@@ -19,10 +19,20 @@ class AccidentInvestigationController extends Controller
         
     $accidentInvestigations = AccidentInvestigation::all();
     $accidentInvestigationData = $accidentInvestigations->map(function ($investigation) {
+        // dd($investigation);
+
         $employee = EmployeeInfo::find($investigation->employee_id);
+        $investigation_name_1 = EmployeeInfo::find($investigation->investigation_name_1);
+        $investigation_name_2 = EmployeeInfo::find($investigation->investigation_name_2);
+        $investigation_name_3 = EmployeeInfo::find($investigation->investigation_name_3);
+        $investigation_name_4 = EmployeeInfo::find($investigation->investigation_name_4);
         
         $investigationData = new AccidentInvestigationResource($investigation);
         $investigationData['employee_name'] = $employee ? $employee->name : null;
+        $investigationData['name_1'] = $investigation_name_1 ? $investigation_name_1->name : null;
+        $investigationData['name_2'] = $investigation_name_2 ? $investigation_name_2->name : null;
+        $investigationData['name_3'] = $investigation_name_3 ? $investigation_name_3->name : null;
+        $investigationData['name_4'] = $investigation_name_4 ? $investigation_name_4->name : null;
         
         return $investigationData;
     });
@@ -145,20 +155,30 @@ class AccidentInvestigationController extends Controller
     {
         $accidentInvestigation->delete();
         $accidentInvestigations = AccidentInvestigation::all();
-        $accidentInvestigationData = $accidentInvestigations->map(function ($investigation) {
-            $employee = EmployeeInfo::find($investigation->employee_id);
-            
-            $investigationData = new AccidentInvestigationResource($investigation);
-            $investigationData['employee_name'] = $employee ? $employee->name : null;
-            
-            return $investigationData;
-        });
+    $accidentInvestigationData = $accidentInvestigations->map(function ($investigation) {
+        // dd($investigation);
 
-        $totalCount = $accidentInvestigationData->count();
+        $employee = EmployeeInfo::find($investigation->employee_id);
+        $investigation_name_1 = EmployeeInfo::find($investigation->investigation_name_1);
+        $investigation_name_2 = EmployeeInfo::find($investigation->investigation_name_2);
+        $investigation_name_3 = EmployeeInfo::find($investigation->investigation_name_3);
+        $investigation_name_4 = EmployeeInfo::find($investigation->investigation_name_4);
+        
+        $investigationData = new AccidentInvestigationResource($investigation);
+        $investigationData['employee_name'] = $employee ? $employee->name : null;
+        $investigationData['name_1'] = $investigation_name_1 ? $investigation_name_1->name : null;
+        $investigationData['name_2'] = $investigation_name_2 ? $investigation_name_2->name : null;
+        $investigationData['name_3'] = $investigation_name_3 ? $investigation_name_3->name : null;
+        $investigationData['name_4'] = $investigation_name_4 ? $investigation_name_4->name : null;
+        
+        return $investigationData;
+    });
 
-        return response()->json([
-            'data' => $accidentInvestigation,
-            'total_count' => $totalCount,
-        ]);
+    $totalCount = $accidentInvestigationData->count();
+
+    return response()->json([
+        'data' => $accidentInvestigationData,
+        'total_count' => $totalCount,
+    ]);
     }
 }
