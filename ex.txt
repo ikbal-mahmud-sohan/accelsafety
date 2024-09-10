@@ -1,21 +1,57 @@
-Month,
-Date,
-Name,
-Designation,
-Supervisor,
-Department,
-Type of Accident,
-Description,
-Zone Location,
-Precise Location,
-Injury Type,
-Effected Body Parts,
-Property damaged (boolean), 
-Root cause,
-Action,
-Days Lost,
-Remarks,
-Type of Victim Employee,
-Responsible Name,
-Deadline,
-Status (boolean) 					
+InvestigationName1
+InvestigationDesignation11
+InvestigationSign1
+
+InvestigationName2
+InvestigationDesignation2
+InvestigationSign2
+
+InvestigationName3
+InvestigationDesignation3
+InvestigationSign3
+
+InvestigationName4
+InvestigationDesignation4
+InvestigationSign4
+
+Type of Employee
+Type of Accident
+Nature of Injury
+
+Employee name
+Employee Department
+Employee ID
+
+Accident Details
+
+taken Action
+
+Unsafe Acts  //checkbox
+Unsafe Conditions  //checkbox
+Management Deficiencies  //checkbox
+
+root cause 1
+corrective Action 1
+person assigned 1
+target date 1
+complete date 1
+
+root cause 2
+corrective Action 2
+person assigned 2
+target date 2
+complete date 2
+
+root cause 3
+corrective Action 3
+person assigned 3
+target date 3
+complete date 3
+
+Reviewed By Department name
+Reviewed By unit name
+Approved By name
+
+Reviewed By Department signature
+Reviewed By unit signature
+Approved By signature
