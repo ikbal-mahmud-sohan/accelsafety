@@ -15,15 +15,27 @@ use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
 use App\Http\Controllers\EmployeeUnitController;
+use App\Http\Controllers\HiraActivityController;
+use App\Http\Controllers\HiraAdministrativeController;
+use App\Http\Controllers\HiraCauseController;
+use App\Http\Controllers\HiraController;
+use App\Http\Controllers\HiraEngineeringController;
+use App\Http\Controllers\HiraEventController;
+use App\Http\Controllers\HiraImpactController;
+use App\Http\Controllers\HiraOccupationsController;
+use App\Http\Controllers\HiraPPEController;
+use App\Http\Controllers\HiraProcessController;
+use App\Http\Controllers\HiraTypeOfActivityController;
 use App\Http\Controllers\safetyDropDownController;
 use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
 use App\Http\Controllers\SafetyObservationPlantNameController;
 use App\Http\Controllers\SafetyObservationRespDepartmentController;
-use App\Http\Controllers\TestPurposeController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
+use App\Models\HiraProcess;
+use App\Models\HiraTypeOfActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -164,8 +176,73 @@ Route::prefix('v1')->group(function(){
     Route::post('/assign-multiple-training', AssignMultipleTrainingController::class);
     Route::get('/training-assesments', TrainingAssesmentController::class);
 });
+
 Route::prefix('v1')->group(function(){
-    Route::post('/test-purpose', [TestPurposeController::class,'store']);
+    Route::get('/hira', [HiraController::class,'index']);
+    Route::post('/hira', [HiraController::class,'store']);
+    Route::get('/hira/{hira}', [HiraController::class,'show']);
+    Route::post('/hira/{hira}', [HiraController::class,'update']);
+    Route::delete('/hira/{hira}', [HiraController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-process', [HiraProcessController::class,'index']);
+    Route::post('/hira-process', [HiraProcessController::class,'store']);
+    Route::delete('/hira-process/{hiraProcess}', [HiraProcessController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-activity', [HiraActivityController::class,'index']);
+    Route::post('/hira-activity', [HiraActivityController::class,'store']);
+    Route::delete('/hira-activity/{hiraActivity}', [HiraActivityController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-type-of-Activity', [HiraTypeOfActivityController::class,'index']);
+    Route::post('/hira-type-of-Activity', [HiraTypeOfActivityController::class,'store']);
+    Route::delete('/hira-type-of-Activity/{hiraTypeOfActivity}', [HiraTypeOfActivityController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-occupations', [HiraOccupationsController::class,'index']);
+    Route::post('/hira-occupations', [HiraOccupationsController::class,'store']);
+    Route::delete('/hira-occupations/{hiraOccupations}', [HiraOccupationsController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-event', [HiraEventController::class,'index']);
+    Route::post('/hira-event', [HiraEventController::class,'store']);
+    Route::delete('/hira-event/{hiraEvent}', [HiraEventController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-cause', [HiraCauseController::class,'index']);
+    Route::post('/hira-cause', [HiraCauseController::class,'store']);
+    Route::delete('/hira-cause/{hiraCause}', [HiraCauseController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-impact', [HiraImpactController::class,'index']);
+    Route::post('/hira-impact', [HiraImpactController::class,'store']);
+    Route::delete('/hira-impact/{hiraImpact}', [HiraImpactController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-ppe', [HiraPPEController::class,'index']);
+    Route::post('/hira-ppe', [HiraPPEController::class,'store']);
+    Route::delete('/hira-ppe/{hiraPPE}', [HiraPPEController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-administrative', [HiraAdministrativeController::class,'index']);
+    Route::post('/hira-administrative', [HiraAdministrativeController::class,'store']);
+    Route::delete('/hira-administrative/{hiraAdministrative}', [HiraAdministrativeController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-engineering', [HiraEngineeringController::class,'index']);
+    Route::post('/hira-engineering', [HiraEngineeringController::class,'store']);
+    Route::delete('/hira-engineering/{hiraEngineering}', [HiraEngineeringController::class,'destroy']);
 });
 
 
