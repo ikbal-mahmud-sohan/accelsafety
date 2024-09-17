@@ -87,3 +87,4 @@ class AccidentController extends Controller
         ]);
     }
 }
+
