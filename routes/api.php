@@ -34,6 +34,7 @@ use App\Http\Controllers\SafetyObservationRespDepartmentController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
+use App\Http\Controllers\HiraLocationController;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
 use Illuminate\Http\Request;
@@ -243,6 +244,12 @@ Route::prefix('v1')->group(function(){
     Route::get('/hira-engineering', [HiraEngineeringController::class,'index']);
     Route::post('/hira-engineering', [HiraEngineeringController::class,'store']);
     Route::delete('/hira-engineering/{hiraEngineering}', [HiraEngineeringController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hira-location', [HiraLocationController::class,'index']);
+    Route::post('/hira-location', [HiraLocationController::class,'store']);
+    Route::delete('/hira-location/{hiraLocation}', [HiraLocationController::class,'destroy']);
 });
 
 

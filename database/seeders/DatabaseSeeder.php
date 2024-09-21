@@ -24,6 +24,7 @@ use App\Models\HiraLocation;
 use App\Models\HiraOccupations;
 use App\Models\HiraPPE;
 use App\Models\HiraProcess;
+use App\Models\HiraTypeOfActivity;
 use App\Models\SafetyObservation;
 use App\Models\SafetyObservationOwnerDepartment;
 use App\Models\SafetyObservationPlantName;
@@ -280,7 +281,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($activity   as $ta) {
-            HiraActivity::create(['name' => $ta]);
+            HiraTypeOfActivity::create(['name' => $ta]);
         }
 
         $occupations   = [

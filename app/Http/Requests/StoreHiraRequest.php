@@ -33,7 +33,8 @@ class StoreHiraRequest extends FormRequest
             'impact' => 'required|string|max:255',
             'hazard_type' => 'required|string|max:255',
             'likelihood' => 'required|string|max:255',
-            'impact_rating_factors' => 'required|string|max:255',
+            'impact_rating_factors_regulatory' => 'required|string|max:255',
+            'impact_rating_factors_safety' => 'required|string|max:255',
             'impact_score' => 'required|string|max:255',
             'overall_risk_score' => 'required|string|max:255',
             'operational_control_elimination' => 'nullable|array',
@@ -54,6 +55,9 @@ class StoreHiraRequest extends FormRequest
             'risk_evaluation_level_of_significance' => 'required|string|max:255',
             'mitigation' => 'string|max:255',
             'type_of_mitigation' => 'string|max:255',
+            'status' => 'string|max:255',
         ];
     }
 }
+
+

@@ -26,7 +26,8 @@ class HiraResource extends JsonResource
             'impact' => $this->impact,
             'hazard_type' => $this->hazard_type,
             'likelihood' => $this->likelihood,
-            'impact_rating_factors' => $this->impact_rating_factors,
+            'impact_rating_factors_regulatory' => $this->impact_rating_factors_regulatory,
+            'impact_rating_factors_safety' => $this->impact_rating_factors_safety,
             'impact_score' => $this->impact_score,
             'overall_risk_score' => $this->overall_risk_score,
             'operational_control_elimination' => $this->operational_control_elimination,
@@ -44,6 +45,7 @@ class HiraResource extends JsonResource
             'type_of_mitigation' => $this->type_of_mitigation,
             'status' => $this->status,
             'remarks' => $this->remarks,
+            'status' => $this->status,
         ];
     }
 }

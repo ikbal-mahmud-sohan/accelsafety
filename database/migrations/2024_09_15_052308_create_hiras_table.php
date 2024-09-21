@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('impact');
             $table->string('hazard_type');
             $table->integer('likelihood');
-            $table->string('impact_rating_factors');
+            $table->string('impact_rating_factors_regulatory');
+            $table->string('impact_rating_factors_safety');
             $table->integer('impact_score');
             $table->integer('overall_risk_score');
             $table->json('operational_control_elimination')->nullable();
