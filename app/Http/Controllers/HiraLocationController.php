@@ -12,7 +12,7 @@ class HiraLocationController extends Controller
     
     public function index()
     {
-        $hiraLocation = HiraLocationResource::collection(HiraLocation::all());
+        $hiraLocation = HiraLocationResource::collection(HiraLocation::orderBy('id', 'desc')->get());
         $totacount = $hiraLocation->count();
         return response()->json([
             'data' => $hiraLocation,
@@ -23,13 +23,19 @@ class HiraLocationController extends Controller
     public function store(StoreHiraLocationRequest $request)
     {
         $hiraLocation = HiraLocation::create($request->validated());
-        return HiraLocationResource::make($hiraLocation);
+        HiraLocationResource::make($hiraLocation);
+        $hiraLocation = HiraLocationResource::collection(HiraLocation::orderBy('id', 'desc')->get());
+        $totacount = $hiraLocation->count();
+        return response()->json([
+            'data' => $hiraLocation,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraLocation $hiraLocation)
     {
         $hiraLocation->delete();
-        $hiraLocation = HiraLocationResource::collection(HiraLocation::all());
+        $hiraLocation = HiraLocationResource::collection(HiraLocation::orderBy('id', 'desc')->get());
         $totacount = $hiraLocation->count();
         return response()->json([
             'data' => $hiraLocation,

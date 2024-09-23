@@ -12,7 +12,7 @@ class HiraOccupationsController extends Controller
     
     public function index()
     {
-        $hiraOccupations = HiraOccupationsResource::collection(HiraOccupations::all());
+        $hiraOccupations = HiraOccupationsResource::collection(HiraOccupations::orderBy('id', 'desc')->get());
         $totacount = $hiraOccupations->count();
         return response()->json([
             'data' => $hiraOccupations,
@@ -23,14 +23,20 @@ class HiraOccupationsController extends Controller
     
     public function store(StoreHiraOccupationsRequest $request)
     {
-        $hiraTypeOfActivity = HiraOccupations::create($request->validated());
-        return HiraOccupationsResource::make($hiraTypeOfActivity);
+        $hiraOccupations = HiraOccupations::create($request->validated());
+        HiraOccupationsResource::make($hiraOccupations);
+        $hiraOccupations = HiraOccupationsResource::collection(HiraOccupations::orderBy('id', 'desc')->get());
+        $totacount = $hiraOccupations->count();
+        return response()->json([
+            'data' => $hiraOccupations,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraOccupations $hiraOccupations)
     {
         $hiraOccupations->delete();
-        $hiraOccupations = HiraOccupationsResource::collection(HiraOccupations::all());
+        $hiraOccupations = HiraOccupationsResource::collection(HiraOccupations::orderBy('id', 'desc')->get());
         $totacount = $hiraOccupations->count();
         return response()->json([
             'data' => $hiraOccupations,

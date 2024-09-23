@@ -229,9 +229,9 @@ Route::prefix('v1')->group(function(){
 });
 
 Route::prefix('v1')->group(function(){
-    Route::get('/hira-ppe', [HiraPPEController::class,'index']);
-    Route::post('/hira-ppe', [HiraPPEController::class,'store']);
-    Route::delete('/hira-ppe/{hiraPPE}', [HiraPPEController::class,'destroy']);
+    Route::get('/hira-engineering', [HiraEngineeringController::class,'index']);
+    Route::post('/hira-engineering', [HiraEngineeringController::class,'store']);
+    Route::delete('/hira-engineering/{hiraEngineering}', [HiraEngineeringController::class,'destroy']);
 });
 
 Route::prefix('v1')->group(function(){
@@ -241,10 +241,11 @@ Route::prefix('v1')->group(function(){
 });
 
 Route::prefix('v1')->group(function(){
-    Route::get('/hira-engineering', [HiraEngineeringController::class,'index']);
-    Route::post('/hira-engineering', [HiraEngineeringController::class,'store']);
-    Route::delete('/hira-engineering/{hiraEngineering}', [HiraEngineeringController::class,'destroy']);
+    Route::get('/hira-ppe', [HiraPPEController::class,'index']);
+    Route::post('/hira-ppe', [HiraPPEController::class,'store']);
+    Route::delete('/hira-ppe/{hiraPPE}', [HiraPPEController::class,'destroy']);
 });
+
 
 Route::prefix('v1')->group(function(){
     Route::get('/hira-location', [HiraLocationController::class,'index']);

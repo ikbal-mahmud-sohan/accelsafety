@@ -11,7 +11,7 @@ class HiraAdministrativeController extends Controller
 {
     public function index()
     {
-        $hiraAdministrative = HiraAdministrativeResource::collection(HiraAdministrative::all());
+        $hiraAdministrative = HiraAdministrativeResource::collection(HiraAdministrative::orderBy('id', 'desc')->get());
         $totacount = $hiraAdministrative->count();
         return response()->json([
             'data' => $hiraAdministrative,
@@ -22,13 +22,19 @@ class HiraAdministrativeController extends Controller
     public function store(StoreHiaAdministrativeRequest $request)
     {
         $hiraImpact = HiraAdministrative::create($request->validated());
-        return HiraAdministrativeResource::make($hiraImpact);
+        HiraAdministrativeResource::make($hiraImpact);
+        $hiraAdministrative = HiraAdministrativeResource::collection(HiraAdministrative::orderBy('id', 'desc')->get());
+        $totacount = $hiraAdministrative->count();
+        return response()->json([
+            'data' => $hiraAdministrative,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraAdministrative $hiraAdministrative)
     {
         $hiraAdministrative->delete();
-        $hiraAdministrative = HiraAdministrativeResource::collection(HiraAdministrative::all());
+        $hiraAdministrative = HiraAdministrativeResource::collection(HiraAdministrative::orderBy('id', 'desc')->get());
         $totacount = $hiraAdministrative->count();
         return response()->json([
             'data' => $hiraAdministrative,

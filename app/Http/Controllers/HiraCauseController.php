@@ -11,7 +11,7 @@ class HiraCauseController extends Controller
 {
     public function index()
     {
-        $hiraCause = HiraCauseResource::collection(HiraCause::all());
+        $hiraCause = HiraCauseResource::collection(HiraCause::orderBy('id', 'desc')->get());
         $totacount = $hiraCause->count();
         return response()->json([
             'data' => $hiraCause,
@@ -22,13 +22,19 @@ class HiraCauseController extends Controller
     public function store(StoreHiaCauseRequest $request)
     {
         $hiraImpact = HiraCause::create($request->validated());
-        return HiraCauseResource::make($hiraImpact);
+        HiraCauseResource::make($hiraImpact);
+        $hiraCause = HiraCauseResource::collection(HiraCause::orderBy('id', 'desc')->get());
+        $totacount = $hiraCause->count();
+        return response()->json([
+            'data' => $hiraCause,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraCause $hiraCause)
     {
         $hiraCause->delete();
-        $hiraCause = HiraCauseResource::collection(HiraCause::all());
+        $hiraCause = HiraCauseResource::collection(HiraCause::orderBy('id', 'desc')->get());
         $totacount = $hiraCause->count();
         return response()->json([
             'data' => $hiraCause,

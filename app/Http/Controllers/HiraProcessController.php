@@ -13,7 +13,7 @@ class HiraProcessController extends Controller
     
     public function index()
     {
-        $hiraProcess = HiraProcessResource::collection(HiraProcess::all());
+        $hiraProcess = HiraProcessResource::collection(HiraProcess::orderBy('id', 'desc')->get());
         $totacount = $hiraProcess->count();
         return response()->json([
             'data' => $hiraProcess,
@@ -24,13 +24,19 @@ class HiraProcessController extends Controller
     public function store(StoreHiraProcessRequest $request)
     {
         $hiraProcess = HiraProcess::create($request->validated());
-        return HiraProcessResource::make($hiraProcess);
+        HiraProcessResource::make($hiraProcess);
+        $hiraProcess = HiraProcessResource::collection(HiraProcess::orderBy('id', 'desc')->get());
+        $totlCount = $hiraProcess->count();
+        return response()->json([
+            'data' => $hiraProcess,
+            'total' => $totlCount,
+        ]);
     }
 
     public function destroy(HiraProcess $hiraProcess)
     {
         $hiraProcess->delete();
-        $hiraProcess = HiraProcessResource::collection(HiraProcess::all());
+        $hiraProcess = HiraProcessResource::collection(HiraProcess::orderBy('id', 'desc')->get());
         $totacount = $hiraProcess->count();
         return response()->json([
             'data' => $hiraProcess,
