@@ -11,7 +11,7 @@ class HiraEventController extends Controller
 {
     public function index()
     {
-        $hiraEvent = HiraEventResource::collection(HiraEvent::all());
+        $hiraEvent = HiraEventResource::collection(HiraEvent::orderBy('id', 'desc')->get());
         $totacount = $hiraEvent->count();
         return response()->json([
             'data' => $hiraEvent,
@@ -21,14 +21,20 @@ class HiraEventController extends Controller
 
     public function store(StoreHiraEventRequest $request)
     {
-        $hiraLocation = HiraEvent::create($request->validated());
-        return HiraEventResource::make($hiraLocation);
+        $hiraEvent = HiraEvent::create($request->validated());
+        HiraEventResource::make($hiraEvent);
+        $hiraEvent = HiraEventResource::collection(HiraEvent::orderBy('id', 'desc')->get());
+        $totacount = $hiraEvent->count();
+        return response()->json([
+            'data' => $hiraEvent,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraEvent $hiraEvent)
     {
         $hiraEvent->delete();
-        $hiraEvent = HiraEventResource::collection(HiraEvent::all());
+        $hiraEvent = HiraEventResource::collection(HiraEvent::orderBy('id', 'desc')->get());
         $totacount = $hiraEvent->count();
         return response()->json([
             'data' => $hiraEvent,

@@ -11,7 +11,7 @@ class HiraPPEController extends Controller
 {
     public function index()
     {
-        $hiraPPE = HiraPPEResource::collection(HiraPPE::all());
+        $hiraPPE = HiraPPEResource::collection(HiraPPE::orderBy('id', 'desc')->get());
         $totacount = $hiraPPE->count();
         return response()->json([
             'data' => $hiraPPE,
@@ -21,14 +21,20 @@ class HiraPPEController extends Controller
 
     public function store(StoreHiaPPERequest $request)
     {
-        $hiraImpact = HiraPPE::create($request->validated());
-        return HiraPPEResource::make($hiraImpact);
+        $hiraPPE = HiraPPE::create($request->validated());
+        HiraPPEResource::make($hiraPPE);
+        $hiraPPE = HiraPPEResource::collection(HiraPPE::orderBy('id', 'desc')->get());
+        $totacount = $hiraPPE->count();
+        return response()->json([
+            'data' => $hiraPPE,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraPPE $hiraPPE)
     {
         $hiraPPE->delete();
-        $hiraPPE = HiraPPEResource::collection(HiraPPE::all());
+        $hiraPPE = HiraPPEResource::collection(HiraPPE::orderBy('id', 'desc')->get());
         $totacount = $hiraPPE->count();
         return response()->json([
             'data' => $hiraPPE,

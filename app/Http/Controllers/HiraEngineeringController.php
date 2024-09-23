@@ -12,7 +12,7 @@ class HiraEngineeringController extends Controller
     
     public function index()
     {
-        $hiraEngineering = HiraEngineeringResource::collection(HiraEngineering::all());
+        $hiraEngineering = HiraEngineeringResource::collection(HiraEngineering::orderBy('id', 'desc')->get());
         $totacount = $hiraEngineering->count();
         return response()->json([
             'data' => $hiraEngineering,
@@ -22,14 +22,20 @@ class HiraEngineeringController extends Controller
 
     public function store(StoreHiaEngineeringRequest $request)
     {
-        $hiraImpact = HiraEngineering::create($request->validated());
-        return HiraEngineeringResource::make($hiraImpact);
+        $hiraEngineering = HiraEngineering::create($request->validated());
+         HiraEngineeringResource::make($hiraEngineering);
+        $hiraEngineering = HiraEngineeringResource::collection(HiraEngineering::orderBy('id', 'desc')->get());
+        $totacount = $hiraEngineering->count();
+        return response()->json([
+            'data' => $hiraEngineering,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraEngineering $hiraEngineering)
     {
         $hiraEngineering->delete();
-        $hiraEvent = HiraEngineeringResource::collection(HiraEngineering::all());
+        $hiraEvent = HiraEngineeringResource::collection(HiraEngineering::orderBy('id', 'desc')->get());
         $totacount = $hiraEvent->count();
         return response()->json([
             'data' => $hiraEvent,

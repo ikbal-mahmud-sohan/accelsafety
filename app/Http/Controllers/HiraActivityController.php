@@ -12,7 +12,7 @@ class HiraActivityController extends Controller
     
     public function index()
     {
-        $hiraActivity = HiraActivityResource::collection(HiraActivity::all());
+        $hiraActivity = HiraActivityResource::collection(HiraActivity::orderBy('id', 'desc')->get());
         $totacount = $hiraActivity->count();
         return response()->json([
             'data' => $hiraActivity,
@@ -23,13 +23,19 @@ class HiraActivityController extends Controller
     public function store(StoreHiraActivityRequest $request)
     {
         $hiraActivity = HiraActivity::create($request->validated());
-        return HiraActivityResource::make($hiraActivity);
+        HiraActivityResource::make($hiraActivity);
+        $hiraActivity = HiraActivityResource::collection(HiraActivity::orderBy('id', 'desc')->get());
+        $totacount = $hiraActivity->count();
+        return response()->json([
+            'data' => $hiraActivity,
+            'total' => $totacount,
+        ]);
     }
 
     public function destroy(HiraActivity $hiraActivity)
     {
         $hiraActivity->delete();
-        $hiraActivity = HiraActivityResource::collection(HiraActivity::all());
+        $hiraActivity = HiraActivityResource::collection(HiraActivity::orderBy('id', 'desc')->get());
         $totacount = $hiraActivity->count();
         return response()->json([
             'data' => $hiraActivity,
