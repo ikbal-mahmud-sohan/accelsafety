@@ -35,6 +35,10 @@ use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
 use App\Http\Controllers\HiraLocationController;
+use App\Http\Controllers\HseControlVisitorsDocController;
+use App\Http\Controllers\HseVehicleSafetyController;
+use App\Http\Controllers\HseVehicleSafetyDocController;
+use App\Http\Controllers\StatusHseVehicleSafetyDocsController;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
 use Illuminate\Http\Request;
@@ -251,6 +255,32 @@ Route::prefix('v1')->group(function(){
     Route::get('/hira-location', [HiraLocationController::class,'index']);
     Route::post('/hira-location', [HiraLocationController::class,'store']);
     Route::delete('/hira-location/{hiraLocation}', [HiraLocationController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-control-visitors', [HseControlVisitorsDocController::class,'index']);
+    Route::post('/hse-control-visitors', [HseControlVisitorsDocController::class,'store']);
+    Route::get('/hse-control-visitors/{hseControlVisitorsDoc}', [HseControlVisitorsDocController::class,'show']);
+    Route::post('/hse-control-visitors/{hseControlVisitorsDoc}', [HseControlVisitorsDocController::class,'update']);
+    Route::delete('/hse-control-visitors/{hseControlVisitorsDoc}', [HseControlVisitorsDocController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-vehicle-safety', [HseVehicleSafetyController::class,'index']);
+    Route::post('/hse-vehicle-safety', [HseVehicleSafetyController::class,'store']);
+    Route::get('/hse-vehicle-safety/{hseVehicleSafety}', [HseVehicleSafetyController::class,'show']);
+    Route::post('/hse-vehicle-safety/{hseVehicleSafety}', [HseVehicleSafetyController::class,'update']);
+    Route::delete('/hse-vehicle-safety/{hseVehicleSafety}', [HseVehicleSafetyController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-vehicle-safety-doc', [HseVehicleSafetyDocController::class,'index']);
+    Route::post('/hse-vehicle-safety-doc', [HseVehicleSafetyDocController::class,'store']);
+    Route::get('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'show']);
+    Route::post('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'update']);
+    Route::delete('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'destroy']);
+    Route::post('/hse-vehicle-safety-status/{hseVehicleSafetyDoc}', StatusHseVehicleSafetyDocsController::class);
+
 });
 
 

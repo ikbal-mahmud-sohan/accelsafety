@@ -25,6 +25,7 @@ use App\Models\HiraOccupations;
 use App\Models\HiraPPE;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
+use App\Models\HseVehicleSafety;
 use App\Models\SafetyObservation;
 use App\Models\SafetyObservationOwnerDepartment;
 use App\Models\SafetyObservationPlantName;
@@ -45,7 +46,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(2)->create();
+        User::factory(3)->create();
         // Training::factory(5)->create();
         // SafetyObservation::factory(5)->create();
         // TrainingAttendence::factory(5)->create();
@@ -3213,6 +3214,8 @@ class DatabaseSeeder extends Seeder
         foreach ($PPE   as $ta) {
             HiraPPE::create(['name' => $ta]);
         }
+
+        // HseVehicleSafety::factory(1)->create();
 
         
 
