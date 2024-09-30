@@ -6,24 +6,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class HseControlVisitorsDoc extends Model
+class HseNoiseIntensityMeasurement extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'descriptions',
+        'area',
+        'location',
+        'location_id',
+        'day_time_reading',
+        'night_time_reading',
+        'date_of_test',
+        'standar_limit',
+        'remarks',
         'approved_by',
         'updated_by',
-        'created_by'
+        'created_by',
     ];
-   
+
     public function approvedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by');
     }
 
-    /**
-     * Get the user who created the document.
-     */
+
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

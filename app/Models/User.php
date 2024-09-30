@@ -66,19 +66,84 @@ class User extends Authenticatable
         return $this->hasMany(HseControlVisitorsDoc::class, 'updated_by');
     }
 
-    public function approvedVehicleSafetDocuments(): HasMany
-    {
-        return $this->hasMany(HseVehicleSafetyDoc::class, 'approved_by');
-    }
+    // public function approvedVehicleSafetDocuments(): HasMany
+    // {
+    //     return $this->hasMany(HseVehicleSafetyDoc::class, 'approved_by');
+    // }
 
     
-    public function createdVehicleSafetDocuments(): HasMany
-    {
-        return $this->hasMany(HseVehicleSafetyDoc::class, 'created_by');
-    }
+    // public function createdVehicleSafetDocuments(): HasMany
+    // {
+    //     return $this->hasMany(HseVehicleSafetyDoc::class, 'created_by');
+    // }
 
-    public function updatedVehicleSafetDocuments(): HasMany
-    {
-        return $this->hasMany(HseVehicleSafetyDoc::class, 'updated_by');
-    }
+    // public function updatedVehicleSafetDocuments(): HasMany
+    // {
+    //     return $this->hasMany(HseVehicleSafetyDoc::class, 'updated_by');
+    // }
+
+    
+    // public function approvedSafetyPowerTools(): HasMany
+    // {
+    //     return $this->hasMany(SafetyPowerTools::class, 'approved_by');
+    // }
+
+    
+    // public function createdSafetyPowerTools(): HasMany
+    // {
+    //     return $this->hasMany(SafetyPowerTools::class, 'created_by');
+    // }
+
+    // public function updatedSafetyPowerTools(): HasMany
+    // {
+    //     return $this->hasMany(SafetyPowerTools::class, 'updated_by');
+    // }
+    
+    // public function approvedSightHearingProtection(): HasMany
+    // {
+    //     return $this->hasMany(HseSightHearingProtection::class, 'approved_by');
+    // }
+
+    
+    // public function createdSightHearingProtection(): HasMany
+    // {
+    //     return $this->hasMany(HseSightHearingProtection::class, 'created_by');
+    // }
+
+    // public function updatedSightHearingProtection(): HasMany
+    // {
+    //     return $this->hasMany(HseSightHearingProtection::class, 'updated_by');
+    // }
+
+    // public function approvedNoiseIntensityMeasurement(): HasMany
+    // {
+    //     return $this->hasMany(HseNoiseIntensityMeasurement::class, 'approved_by');
+    // }
+
+    
+    // public function createdNoiseIntensityMeasurement(): HasMany
+    // {
+    //     return $this->hasMany(HseNoiseIntensityMeasurement::class, 'created_by');
+    // }
+
+    // public function updatedNoiseIntensityMeasurement(): HasMany
+    // {
+    //     return $this->hasMany(HseNoiseIntensityMeasurement::class, 'updated_by');
+    // }
+
+    // public function approveLightIntensityMeasurement(): HasMany
+    // {
+    //     return $this->hasMany(LightIntensityMeasurement::class, 'approved_by');
+    // }
+
+    
+    // public function createLightIntensityMeasurement(): HasMany
+    // {
+    //     return $this->hasMany(LightIntensityMeasurement::class, 'created_by');
+    // }
+
+    // public function updateLightIntensityMeasurement(): HasMany
+    // {
+    //     return $this->hasMany(LightIntensityMeasurement::class, 'updated_by');
+    // }
 }

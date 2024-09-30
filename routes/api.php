@@ -36,9 +36,19 @@ use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
 use App\Http\Controllers\HiraLocationController;
 use App\Http\Controllers\HseControlVisitorsDocController;
+use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
+use App\Http\Controllers\HseNoiseIntensityMeasurementController;
+use App\Http\Controllers\HseSightHearingProtectionController;
 use App\Http\Controllers\HseVehicleSafetyController;
 use App\Http\Controllers\HseVehicleSafetyDocController;
+use App\Http\Controllers\HseWorkatHeightController;
+use App\Http\Controllers\LightIntensityMeasurementController;
+use App\Http\Controllers\SafetyPowerToolsController;
+use App\Http\Controllers\StatusHseSightHearingProtectionController;
 use App\Http\Controllers\StatusHseVehicleSafetyDocsController;
+use App\Http\Controllers\StatusHseWorkatHeightController;
+use App\Http\Controllers\StatusSafetyPowerToolsController;
+use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
 use Illuminate\Http\Request;
@@ -280,6 +290,63 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'update']);
     Route::delete('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'destroy']);
     Route::post('/hse-vehicle-safety-status/{hseVehicleSafetyDoc}', StatusHseVehicleSafetyDocsController::class);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-power-tools', [SafetyPowerToolsController::class,'index']);
+    Route::post('/hse-safety-power-tools', [SafetyPowerToolsController::class,'store']);
+    Route::get('/hse-safety-power-tools/{safetyPowerTools}', [SafetyPowerToolsController::class,'show']);
+    Route::post('/hse-safety-power-tools/{safetyPowerTools}', [SafetyPowerToolsController::class,'update']);
+    Route::delete('/hse-safety-power-tools/{safetyPowerTools}', [SafetyPowerToolsController::class,'destroy']);
+    Route::post('/hse-safety-power-tools-status/{safetyPowerTools}', StatusSafetyPowerToolsController::class);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-sight-hearing-protection', [HseSightHearingProtectionController::class,'index']);
+    Route::post('/hse-sight-hearing-protection', [HseSightHearingProtectionController::class,'store']);
+    Route::get('/hse-sight-hearing-protection/{hseSightHearingProtection}', [HseSightHearingProtectionController::class,'show']);
+    Route::post('/hse-sight-hearing-protection/{hseSightHearingProtection}', [HseSightHearingProtectionController::class,'update']);
+    Route::delete('/hse-sight-hearing-protection/{hseSightHearingProtection}', [HseSightHearingProtectionController::class,'destroy']);
+    Route::post('/hse-sight-hearing-protection-status/{hseSightHearingProtection}', StatusHseSightHearingProtectionController::class);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-noise-intensity-measurement', [HseNoiseIntensityMeasurementController::class,'index']);
+    Route::post('/hse-noise-intensity-measurement', [HseNoiseIntensityMeasurementController::class,'store']);
+    Route::get('/hse-noise-intensity-measurement/{hseNoiseIntensityMeasurement}', [HseNoiseIntensityMeasurementController::class,'show']);
+    Route::post('/hse-noise-intensity-measurement/{hseNoiseIntensityMeasurement}', [HseNoiseIntensityMeasurementController::class,'update']);
+    Route::delete('/hse-noise-intensity-measurement/{hseNoiseIntensityMeasurement}', [HseNoiseIntensityMeasurementController::class,'destroy']);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-light-intensity-measurement', [LightIntensityMeasurementController::class,'index']);
+    Route::post('/hse-light-intensity-measurement', [LightIntensityMeasurementController::class,'store']);
+    Route::get('/hse-light-intensity-measurement/{lightIntensityMeasurement}', [LightIntensityMeasurementController::class,'show']);
+    Route::post('/hse-light-intensity-measurement/{lightIntensityMeasurement}', [LightIntensityMeasurementController::class,'update']);
+    Route::delete('/hse-light-intensity-measurement/{lightIntensityMeasurement}', [LightIntensityMeasurementController::class,'destroy']);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-work-at-height', [HseWorkatHeightController::class,'index']);
+    Route::post('/hse-work-at-height', [HseWorkatHeightController::class,'store']);
+    Route::get('/hse-work-at-height/{hseWorkatHeight}', [HseWorkatHeightController::class,'show']);
+    Route::post('/hse-work-at-height/{hseWorkatHeight}', [HseWorkatHeightController::class,'update']);
+    Route::delete('/hse-work-at-height/{hseWorkatHeight}', [HseWorkatHeightController::class,'destroy']);
+    Route::post('/hse-work-at-height-status/{hseWorkatHeight}', StatusHseWorkatHeightController::class);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'index']);
+    Route::post('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'store']);
+    Route::get('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'show']);
+    Route::post('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'update']);
+    Route::delete('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'destroy']);
 
 });
 

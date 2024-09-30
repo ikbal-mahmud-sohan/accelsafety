@@ -74,7 +74,9 @@ class HseVehicleSafetyResource extends JsonResource
             'signature_of_inspector' => $this->signature_of_inspector,
             'inspector_name' => $this->inspector_name,
             'inspector_designation' => $this->inspector_designation,
-            'signature_of_drivers' => $this->signature_of_drivers
+            'signature_of_drivers' => $this->signature_of_drivers,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
