@@ -11,4 +11,5 @@ class SafetyObservationRespDepartment extends Model
     protected $fillable =[
         'name'
     ];
+   
 }

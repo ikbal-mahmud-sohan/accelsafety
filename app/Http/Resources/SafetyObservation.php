@@ -34,6 +34,8 @@ class SafetyObservation extends JsonResource
         'corrective_image' => $this->corrective_image,
         'importance_level' => $this->importance_level,
         'work_accomplished_by' => $this->work_accomplished_by,
+        'created_at' => $this->created_at,
+        'updated_at' => $this->updated_at,
         ];
     }
 }
