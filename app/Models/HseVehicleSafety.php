@@ -70,4 +70,8 @@ class HseVehicleSafety extends Model
         'inspector_designation',
         'signature_of_drivers',
     ];
+    protected $casts = [
+        'signature_of_inspector' => 'array', 
+        'signature_of_drivers' => 'array', 
+    ];
 }

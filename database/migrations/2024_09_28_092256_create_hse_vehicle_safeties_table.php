@@ -69,10 +69,10 @@ return new class extends Migration
             $table->string('fuel')->nullable();
             $table->string('fuel_satisfactory')->nullable();
             $table->string('fuel_unsatisfactory')->nullable();
-            $table->string('signature_of_inspector')->nullable(); 
+            $table->json('signature_of_inspector')->nullable(); 
             $table->string('inspector_name')->nullable(); 
             $table->string('inspector_designation')->nullable();  
-            $table->string('signature_of_drivers')->nullable(); 
+            $table->json('signature_of_drivers')->nullable(); 
             $table->timestamps();
         });
     }

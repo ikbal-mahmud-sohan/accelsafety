@@ -15,6 +15,7 @@ class HseVehicleSafetyResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this->id,
             'inspection_date' => $this->inspection_date,
             'mileage' => $this->mileage,
             'vehicle_id_no' => $this->vehicle_id_no,
