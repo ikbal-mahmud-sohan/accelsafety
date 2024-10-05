@@ -36,9 +36,16 @@ use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
 use App\Http\Controllers\HiraLocationController;
 use App\Http\Controllers\HseControlVisitorsDocController;
+use App\Http\Controllers\HseHarnessChecklistController;
 use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
+use App\Http\Controllers\HseLiftingLooseGearsController;
+use App\Http\Controllers\HseMasterListLiftingEquipmentsController;
+use App\Http\Controllers\HseMobileCranePlanningRiskAssessmentDocController;
+use App\Http\Controllers\HseMobileCraneSafetyProcedureDocController;
 use App\Http\Controllers\HseNoiseIntensityMeasurementController;
+use App\Http\Controllers\HseSafeCraneOperationController;
 use App\Http\Controllers\HseSightHearingProtectionController;
+use App\Http\Controllers\HseTimberBlockRequiredUnderMobileCraneDocController;
 use App\Http\Controllers\HseVehicleSafetyController;
 use App\Http\Controllers\HseVehicleSafetyDocController;
 use App\Http\Controllers\HseWorkatHeightController;
@@ -340,6 +347,42 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-work-at-height-status/{hseWorkatHeight}', StatusHseWorkatHeightController::class);
 
 });
+// 5-10-2024 
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safe-crane-operation', [HseSafeCraneOperationController::class,'index']);
+    Route::post('/hse-safe-crane-operation', [HseSafeCraneOperationController::class,'store']);
+    Route::get('/hse-safe-crane-operation/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'show']);
+    Route::post('/hse-safe-crane-operation/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'update']);
+    Route::delete('/hse-safe-crane-operation/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'destroy']);
+    Route::post('/hse-safe-crane-operation-status/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-mobile-crane-planning-risk-assessment', [HseMobileCranePlanningRiskAssessmentDocController::class,'index']);
+    Route::post('/hse-mobile-crane-planning-risk-assessment', [HseMobileCranePlanningRiskAssessmentDocController::class,'store']);
+    Route::get('/hse-mobile-crane-planning-risk-assessment/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'show']);
+    Route::post('/hse-mobile-crane-planning-risk-assessment/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'update']);
+    Route::delete('/hse-mobile-crane-planning-risk-assessment/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'destroy']);
+    Route::post('/hse-mobile-crane-planning-risk-assessment-status/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-mobile-crane-safety-procedure', [HseMobileCraneSafetyProcedureDocController::class,'index']);
+    Route::post('/hse-mobile-crane-safety-procedure', [HseMobileCraneSafetyProcedureDocController::class,'store']);
+    Route::get('/hse-mobile-crane-safety-procedure/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'show']);
+    Route::post('/hse-mobile-crane-safety-procedure/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'update']);
+    Route::delete('/hse-mobile-crane-safety-procedure/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'destroy']);
+    Route::post('/hse-mobile-crane-safety-procedure-status/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-timber-block-required-under-mobile-crane', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'index']);
+    Route::post('/hse-timber-block-required-under-mobile-crane', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'store']);
+    Route::get('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'show']);
+    Route::post('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'update']);
+    Route::delete('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'destroy']);
+    Route::post('/hse-timber-block-required-under-mobile-crane-status/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'edit']);
+});
 
 Route::prefix('v1')->group(function(){
     Route::get('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'index']);
@@ -348,6 +391,31 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'update']);
     Route::delete('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'destroy']);
 
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-master-listLifting-equipments', [HseMasterListLiftingEquipmentsController::class,'index']);
+    Route::post('/hse-master-listLifting-equipments', [HseMasterListLiftingEquipmentsController::class,'store']);
+    Route::get('/hse-master-listLifting-equipments/{hseMasterListLiftingEquipments}', [HseMasterListLiftingEquipmentsController::class,'show']);
+    Route::post('/hse-master-listLifting-equipments/{hseMasterListLiftingEquipments}', [HseMasterListLiftingEquipmentsController::class,'update']);
+    Route::delete('/hse-master-listLifting-equipments/{hseMasterListLiftingEquipments}', [HseMasterListLiftingEquipmentsController::class,'destroy']);
+
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-lifting-loose-gears', [HseLiftingLooseGearsController::class,'index']);
+    Route::post('/hse-lifting-loose-gears', [HseLiftingLooseGearsController::class,'store']);
+    Route::get('/hse-lifting-loose-gears/{hseLiftingLooseGears}', [HseLiftingLooseGearsController::class,'show']);
+    Route::post('/hse-lifting-loose-gears/{hseLiftingLooseGears}', [HseLiftingLooseGearsController::class,'update']);
+    Route::delete('/hse-lifting-loose-gears/{hseLiftingLooseGears}', [HseLiftingLooseGearsController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-harness', [HseHarnessChecklistController::class,'index']);
+    Route::post('/hse-harness', [HseHarnessChecklistController::class,'store']);
+    Route::get('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'show']);
+    // Route::post('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'update']);
+    Route::delete('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'destroy']);
 });
 
 
