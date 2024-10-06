@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHseControlVisitorsRequest extends FormRequest
+class ApprovedHseTimberBlockRequiredUnderMobileCraneDocRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class StoreHseControlVisitorsRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'descriptions' => 'required|string',  
-        'created_by' => 'nullable|exists:users,id',
+            'approved_change_history' => 'nullable|string|max:255',
+            'approved_by' => 'nullable|integer|exists:users,id',
         ];
     }
 }
