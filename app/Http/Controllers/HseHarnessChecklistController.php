@@ -26,6 +26,24 @@ class HseHarnessChecklistController extends Controller
 
     public function store(StoreHseHarnessChecklistRequest $request)
     {
+        $bsrmSignaturePaths = [];
+       
+        if ($request->hasFile('bsrm_representative_signature')) {
+            foreach ($request->file('bsrm_representative_signature') as $image) {
+                $path = $image->store('bsrm_representative_signature', 'public');
+                $bsrmSignaturePaths[] = Storage::url($path);
+            }
+        }
+
+        $representativeSignaturePaths = [];
+       
+        if ($request->hasFile('contractors_representative_signature')) {
+            foreach ($request->file('contractors_representative_signature') as $image) {
+                $path = $image->store('contractors_representative_signature', 'public');
+                $representativeSignaturePaths[] = Storage::url($path);
+            }
+        }
+
         $harnessImage1Paths = [];
        
         if ($request->hasFile('harness_image_1')) {
@@ -101,6 +119,8 @@ class HseHarnessChecklistController extends Controller
         
         $validatedData = $request->validated();
 
+        $validatedData['contractors_representative_signature'] = $representativeSignaturePaths;
+        $validatedData['bsrm_representative_signature'] = $bsrmSignaturePaths;
         $validatedData['harness_image_1'] = $harnessImage1Paths;
         $validatedData['harness_image_2'] = $harnessImage2Paths;
         $validatedData['harness_image_3'] = $harnessImage3Paths;

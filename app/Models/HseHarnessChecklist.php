@@ -44,5 +44,19 @@ class HseHarnessChecklist extends Model
         'harness_is_correct_9',
     ];
 
+    protected $casts = [
+        'contractors_representative_signature' => 'array', 
+        'bsrm_representative_signature' => 'array', 
+        'harness_image_1' => 'array', 
+        'harness_image_2' => 'array', 
+        'harness_image_3' => 'array', 
+        'harness_image_4' => 'array', 
+        'harness_image_5' => 'array', 
+        'harness_image_6' => 'array', 
+        'harness_image_7' => 'array', 
+        'harness_image_8' => 'array', 
+        'harness_image_9' => 'array', 
+    ];
+
 
 }
