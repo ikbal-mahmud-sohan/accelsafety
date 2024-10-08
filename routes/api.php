@@ -36,13 +36,18 @@ use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
 use App\Http\Controllers\HiraLocationController;
 use App\Http\Controllers\HseControlVisitorsDocController;
+use App\Http\Controllers\HseEntryConfinedChecklistController;
+use App\Http\Controllers\HseEntryConfinedSpaceController;
 use App\Http\Controllers\HseHarnessChecklistController;
 use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
 use App\Http\Controllers\HseLiftingLooseGearsController;
+use App\Http\Controllers\HseListConfinedSpaceController;
+use App\Http\Controllers\HseListPressureVesselsController;
 use App\Http\Controllers\HseMasterListLiftingEquipmentsController;
 use App\Http\Controllers\HseMobileCranePlanningRiskAssessmentDocController;
 use App\Http\Controllers\HseMobileCraneSafetyProcedureDocController;
 use App\Http\Controllers\HseNoiseIntensityMeasurementController;
+use App\Http\Controllers\HsePressureVesselController;
 use App\Http\Controllers\HseSafeCraneOperationController;
 use App\Http\Controllers\HseSightHearingProtectionController;
 use App\Http\Controllers\HseTimberBlockRequiredUnderMobileCraneDocController;
@@ -58,6 +63,7 @@ use App\Http\Controllers\StatusSafetyPowerToolsController;
 use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
+use App\Models\HseEntryConfinedSpace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -383,6 +389,48 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'destroy']);
     Route::post('/hse-timber-block-required-under-mobile-crane-status/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'edit']);
 });
+// 7/9/24 
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-entry-confined-space', [HseEntryConfinedSpaceController::class,'index']);
+    Route::post('/hse-entry-confined-space', [HseEntryConfinedSpaceController::class,'store']);
+    Route::get('/hse-entry-confined-space/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'show']);
+    Route::post('/hse-entry-confined-space/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'update']);
+    Route::delete('/hse-entry-confined-space/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'destroy']);
+    Route::post('/hse-entry-confined-space-status/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-entry-confined-check', [HseEntryConfinedChecklistController::class,'index']);
+    Route::post('/hse-entry-confined-check', [HseEntryConfinedChecklistController::class,'store']);
+    Route::get('/hse-entry-confined-check/{hseHarnessChecklist}', [HseEntryConfinedChecklistController::class,'show']);
+    Route::delete('/hse-entry-confined-check/{hseHarnessChecklist}', [HseEntryConfinedChecklistController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-confined-space', [HseListConfinedSpaceController::class,'index']);
+    Route::post('/hse-confined-space', [HseListConfinedSpaceController::class,'store']);
+    Route::get('/hse-confined-space/{hseListConfinedSpace}', [HseListConfinedSpaceController::class,'show']);
+    Route::delete('/hse-confined-space/{hseListConfinedSpace}', [HseListConfinedSpaceController::class,'destroy']);
+});
+
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-pressure-vessel', [HsePressureVesselController::class,'index']);
+    Route::post('/hse-pressure-vessel', [HsePressureVesselController::class,'store']);
+    Route::get('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'show']);
+    Route::post('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'update']);
+    Route::delete('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'destroy']);
+    Route::post('/hse-pressure-vessel-status/{hsePressureVessel}', [HsePressureVesselController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-list-pressure-vessels', [HseListPressureVesselsController::class,'index']);
+    Route::post('/hse-list-pressure-vessels', [HseListPressureVesselsController::class,'store']);
+    Route::get('/hse-list-pressure-vessels/{hseListPressureVessels}', [HseListPressureVesselsController::class,'show']);
+    Route::delete('/hse-list-pressure-vessels/{hseListPressureVessels}', [HseListPressureVesselsController::class,'destroy']);
+});
+
+// end 7/9/24 
 
 Route::prefix('v1')->group(function(){
     Route::get('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'index']);
@@ -417,5 +465,6 @@ Route::prefix('v1')->group(function(){
     // Route::post('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'update']);
     Route::delete('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'destroy']);
 });
+
 
 
