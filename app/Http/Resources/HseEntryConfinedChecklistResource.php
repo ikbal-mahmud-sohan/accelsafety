@@ -15,7 +15,8 @@ class HseEntryConfinedChecklistResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'onfined_descriptions' => $this->onfined_descriptions,
+            'id' => $this->id,
+            'confined_descriptions' => $this->confined_descriptions,
             'ptw_no' => $this->ptw_no,
             'hazards_introduced' => $this->hazards_introduced,
             'authorized_name' => $this->authorized_name,

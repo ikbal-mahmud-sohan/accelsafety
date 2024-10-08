@@ -22,7 +22,7 @@ class StoreHseEntryConfinedChecklistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'onfined_descriptions' => 'required|string|max:255',
+            'confined_descriptions' => 'required|string|max:255',
             'ptw_no' => 'required|string|max:255',
             'hazards_introduced' => 'required|string|max:255',
             'authorized_name' => 'required|string|max:255',

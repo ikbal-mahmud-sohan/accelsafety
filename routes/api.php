@@ -35,15 +35,22 @@ use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
 use App\Http\Controllers\HiraLocationController;
+use App\Http\Controllers\HseChemicalHandlingController;
+use App\Http\Controllers\HseChemicalRegisterController;
+use App\Http\Controllers\HseCompressedGasController;
 use App\Http\Controllers\HseControlVisitorsDocController;
 use App\Http\Controllers\HseEntryConfinedChecklistController;
 use App\Http\Controllers\HseEntryConfinedSpaceController;
+use App\Http\Controllers\HseFireSafetySystemController;
 use App\Http\Controllers\HseHarnessChecklistController;
+use App\Http\Controllers\HseHotWorkController;
+use App\Http\Controllers\HseHouseKeepingController;
 use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
 use App\Http\Controllers\HseLiftingLooseGearsController;
 use App\Http\Controllers\HseListConfinedSpaceController;
 use App\Http\Controllers\HseListPressureVesselsController;
 use App\Http\Controllers\HseMasterListLiftingEquipmentsController;
+use App\Http\Controllers\HseMaterialProcedureController;
 use App\Http\Controllers\HseMobileCranePlanningRiskAssessmentDocController;
 use App\Http\Controllers\HseMobileCraneSafetyProcedureDocController;
 use App\Http\Controllers\HseNoiseIntensityMeasurementController;
@@ -402,8 +409,8 @@ Route::prefix('v1')->group(function(){
 Route::prefix('v1')->group(function(){
     Route::get('/hse-entry-confined-check', [HseEntryConfinedChecklistController::class,'index']);
     Route::post('/hse-entry-confined-check', [HseEntryConfinedChecklistController::class,'store']);
-    Route::get('/hse-entry-confined-check/{hseHarnessChecklist}', [HseEntryConfinedChecklistController::class,'show']);
-    Route::delete('/hse-entry-confined-check/{hseHarnessChecklist}', [HseEntryConfinedChecklistController::class,'destroy']);
+    Route::get('/hse-entry-confined-check/{hseEntryConfinedChecklist}', [HseEntryConfinedChecklistController::class,'show']);
+    Route::delete('/hse-entry-confined-check/{hseEntryConfinedChecklist}', [HseEntryConfinedChecklistController::class,'destroy']);
 });
 
 Route::prefix('v1')->group(function(){
@@ -422,6 +429,7 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'destroy']);
     Route::post('/hse-pressure-vessel-status/{hsePressureVessel}', [HsePressureVesselController::class,'edit']);
 });
+
 
 Route::prefix('v1')->group(function(){
     Route::get('/hse-list-pressure-vessels', [HseListPressureVesselsController::class,'index']);
@@ -466,5 +474,68 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'destroy']);
 });
 
+// start 8/9/24 
 
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-compressed-gas', [HseCompressedGasController::class,'index']);
+    Route::post('/hse-compressed-gas', [HseCompressedGasController::class,'store']);
+    Route::get('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'show']);
+    Route::post('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'update']);
+    Route::delete('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'destroy']);
+    Route::post('/hse-compressed-gas-status/{hseCompressedGas}', [HseCompressedGasController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-chemical-handling', [HseChemicalHandlingController::class,'index']);
+    Route::post('/hse-chemical-handling', [HseChemicalHandlingController::class,'store']);
+    Route::get('/hse-chemical-handling/{hseChemicalHandling}', [HseChemicalHandlingController::class,'show']);
+    Route::post('/hse-chemical-handling/{hseChemicalHandling}', [HseChemicalHandlingController::class,'update']);
+    Route::delete('/hse-chemical-handling/{hseChemicalHandling}', [HseChemicalHandlingController::class,'destroy']);
+    Route::post('/hse-chemical-handling-status/{hseChemicalHandling}', [HseChemicalHandlingController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-chemical-register', [HseChemicalRegisterController::class,'index']);
+    Route::post('/hse-chemical-register', [HseChemicalRegisterController::class,'store']);
+    Route::get('/hse-chemical-register/{hseChemicalRegister}', [HseChemicalRegisterController::class,'show']);
+    Route::delete('/hse-chemical-register/{hseChemicalRegister}', [HseChemicalRegisterController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-hot-work', [HseHotWorkController::class,'index']);
+    Route::post('/hse-hot-work', [HseHotWorkController::class,'store']);
+    Route::get('/hse-hot-work/{hseHotWork}', [HseHotWorkController::class,'show']);
+    Route::post('/hse-hot-work/{hseHotWork}', [HseHotWorkController::class,'update']);
+    Route::delete('/hse-hot-work/{hseHotWork}', [HseHotWorkController::class,'destroy']);
+    Route::post('/hse-hot-work-status/{hseHotWork}', [HseHotWorkController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/fire-safety-system', [HseFireSafetySystemController::class,'index']);
+    Route::post('/fire-safety-system', [HseFireSafetySystemController::class,'store']);
+    Route::get('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'show']);
+    Route::post('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'update']);
+    Route::delete('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'destroy']);
+    Route::post('/fire-safety-system-status/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-material-procedure', [HseMaterialProcedureController::class,'index']);
+    Route::post('/hse-material-procedure', [HseMaterialProcedureController::class,'store']);
+    Route::get('/hse-material-procedure/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'show']);
+    Route::post('/hse-material-procedure/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'update']);
+    Route::delete('/hse-material-procedure/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'destroy']);
+    Route::post('/hse-material-procedure-status/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-house-keeping', [HseHouseKeepingController::class,'index']);
+    Route::post('/hse-house-keeping', [HseHouseKeepingController::class,'store']);
+    Route::get('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'show']);
+    Route::post('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'update']);
+    Route::delete('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'destroy']);
+    Route::post('/hse-house-keeping-status/{hseHouseKeeping}', [HseHouseKeepingController::class,'edit']);
+});
+
+ 
 
