@@ -39,10 +39,13 @@ use App\Http\Controllers\HseChemicalHandlingController;
 use App\Http\Controllers\HseChemicalRegisterController;
 use App\Http\Controllers\HseCompressedGasController;
 use App\Http\Controllers\HseControlVisitorsDocController;
+use App\Http\Controllers\HseEarthingPitConditionController;
+use App\Http\Controllers\HseElectricalSafetyController;
 use App\Http\Controllers\HseEntryConfinedChecklistController;
 use App\Http\Controllers\HseEntryConfinedSpaceController;
 use App\Http\Controllers\HseFireSafetySystemController;
 use App\Http\Controllers\HseHarnessChecklistController;
+use App\Http\Controllers\HseHotWorkChecklistController;
 use App\Http\Controllers\HseHotWorkController;
 use App\Http\Controllers\HseHouseKeepingController;
 use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
@@ -54,6 +57,8 @@ use App\Http\Controllers\HseMaterialProcedureController;
 use App\Http\Controllers\HseMobileCranePlanningRiskAssessmentDocController;
 use App\Http\Controllers\HseMobileCraneSafetyProcedureDocController;
 use App\Http\Controllers\HseNoiseIntensityMeasurementController;
+use App\Http\Controllers\HsePermitWorkController;
+use App\Http\Controllers\HsePermitWorkFormController;
 use App\Http\Controllers\HsePressureVesselController;
 use App\Http\Controllers\HseSafeCraneOperationController;
 use App\Http\Controllers\HseSightHearingProtectionController;
@@ -511,6 +516,13 @@ Route::prefix('v1')->group(function(){
 });
 
 Route::prefix('v1')->group(function(){
+    Route::get('/hse-hot-work-checklist', [HseHotWorkChecklistController::class,'index']);
+    Route::post('/hse-hot-work-checklist', [HseHotWorkChecklistController::class,'store']);
+    Route::get('/hse-hot-work-checklist/{hseHotWorkChecklist}', [HseHotWorkChecklistController::class,'show']);
+    Route::delete('/hse-hot-work-checklist/{hseHotWorkChecklist}', [HseHotWorkChecklistController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
     Route::get('/fire-safety-system', [HseFireSafetySystemController::class,'index']);
     Route::post('/fire-safety-system', [HseFireSafetySystemController::class,'store']);
     Route::get('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'show']);
@@ -536,6 +548,38 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'destroy']);
     Route::post('/hse-house-keeping-status/{hseHouseKeeping}', [HseHouseKeepingController::class,'edit']);
 });
+// start 9/9/24 
 
- 
 
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-permit-work', [HsePermitWorkController::class,'index']);
+    Route::post('/hse-permit-work', [HsePermitWorkController::class,'store']);
+    Route::get('/hse-permit-work/{hsePermitWork}', [HsePermitWorkController::class,'show']);
+    Route::post('/hse-permit-work/{hsePermitWork}', [HsePermitWorkController::class,'update']);
+    Route::delete('/hse-permit-work/{hsePermitWork}', [HsePermitWorkController::class,'destroy']);
+    Route::post('/hse-permit-work-status/{hsePermitWork}', [HsePermitWorkController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-permit-work-form', [HsePermitWorkFormController::class,'index']);
+    Route::post('/hse-permit-work-form', [HsePermitWorkFormController::class,'store']);
+    Route::get('/hse-permit-work-form/{hsePermitWorkForm}', [HsePermitWorkFormController::class,'show']);
+    Route::delete('/hse-permit-work-form/{hsePermitWorkForm}', [HsePermitWorkFormController::class,'destroy']);
+});
+
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-electrical-safety', [HseElectricalSafetyController::class,'index']);
+    Route::post('/hse-electrical-safety', [HseElectricalSafetyController::class,'store']);
+    Route::get('/hse-electrical-safety/{hseElectricalSafety}', [HseElectricalSafetyController::class,'show']);
+    Route::post('/hse-electrical-safety/{hseElectricalSafety}', [HseElectricalSafetyController::class,'update']);
+    Route::delete('/hse-electrical-safety/{hseElectricalSafety}', [HseElectricalSafetyController::class,'destroy']);
+    Route::post('/hse-electrical-safety-status/{hseElectricalSafety}', [HseElectricalSafetyController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-earthing-pit-condition', [HseEarthingPitConditionController::class,'index']);
+    Route::post('/hse-earthing-pit-condition', [HseEarthingPitConditionController::class,'store']);
+    Route::get('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'show']);
+    Route::delete('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'destroy']);
+});

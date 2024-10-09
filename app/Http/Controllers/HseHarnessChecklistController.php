@@ -16,7 +16,7 @@ class HseHarnessChecklistController extends Controller
      */
     public function index()
     {
-        $hseHarnessChecklist = HseHarnessChecklistResource::collection(HseHarnessChecklist::all());
+       $hseHarnessChecklist = HseHarnessChecklistResource::collection(HseHarnessChecklist::all());
        $total = $hseHarnessChecklist->count();
         return response()->json([
             'data' => $hseHarnessChecklist,
