@@ -78,6 +78,13 @@ use App\Http\Controllers\HsePressureVesselController;
 use App\Http\Controllers\HseSafeCraneOperationController;
 use App\Http\Controllers\HseSafetyInspectionReportController;
 use App\Http\Controllers\HseSafetySignageManagementController;
+use App\Http\Controllers\HseSafetyBTController;
+use App\Http\Controllers\HseSafetyChecklistHVController;
+use App\Http\Controllers\HseSafetyCTCVTPTController;
+use App\Http\Controllers\HseSafetyHandlingController;
+use App\Http\Controllers\HseSafetyRelayController;
+use App\Http\Controllers\HseSafetySwitchgearController;
+use App\Http\Controllers\HseSafetyTTController;
 use App\Http\Controllers\HseSightHearingProtectionController;
 use App\Http\Controllers\HseTimberBlockRequiredUnderMobileCraneDocController;
 use App\Http\Controllers\HseVehicleSafetyController;
@@ -706,6 +713,46 @@ Route::prefix('v1')->group(function(){
     Route::get('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'show']);
     Route::post('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'update']);
     Route::delete('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'destroy']);
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'index']);
+    Route::post('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'store']);
+    Route::post('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'update']);
+    Route::get('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'show']);
+    Route::delete('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-Safety-tt', [HseSafetyTTController::class,'index']);
+    Route::post('/hse-Safety-tt', [HseSafetyTTController::class,'store']);
+    Route::post('/hse-Safety-tt/{hseSafetyTT}', [HseSafetyTTController::class,'update']);
+    Route::get('/hse-Safety-tt/{hseSafetyTT}', [HseSafetyTTController::class,'show']);
+    Route::delete('/hse-Safety-tt/{hseSafetyTT}', [HseSafetyTTController::class,'destroy']);
+});
+
+
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-Safety-bt', [HseSafetyBTController::class,'index']);
+    Route::post('/hse-Safety-bt', [HseSafetyBTController::class,'store']);
+    Route::post('/hse-Safety-bt/{hseSafetyBT}', [HseSafetyBTController::class,'update']);
+    Route::get('/hse-Safety-bt/{hseSafetyBT}', [HseSafetyBTController::class,'show']);
+    Route::delete('/hse-Safety-bt/{hseSafetyBT}', [HseSafetyBTController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-Safety-ctcv', [HseSafetyCTCVTPTController::class,'index']);
+    Route::post('/hse-Safety-ctcv', [HseSafetyCTCVTPTController::class,'store']);
+    Route::post('/hse-Safety-ctcv/{hseSafetyCTCVTPT}', [HseSafetyCTCVTPTController::class,'update']);
+    Route::get('/hse-Safety-ctcv/{hseSafetyCTCVTPT}', [HseSafetyCTCVTPTController::class,'show']);
+    Route::delete('/hse-Safety-ctcv/{hseSafetyCTCVTPT}', [HseSafetyCTCVTPTController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-handling', [HseSafetyHandlingController::class,'index']);
+    Route::post('/hse-safety-handling', [HseSafetyHandlingController::class,'store']);
+    Route::post('/hse-safety-handling/{hseSafetyHandling}', [HseSafetyHandlingController::class,'update']);
+    Route::get('/hse-safety-handling/{hseSafetyHandling}', [HseSafetyHandlingController::class,'show']);
+    Route::delete('/hse-safety-handling/{hseSafetyHandling}', [HseSafetyHandlingController::class,'destroy']);
 });
 
 
@@ -750,3 +797,18 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'update']);
     Route::delete('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'destroy']);
 });
+    Route::get('/hse-safety-relay', [HseSafetyRelayController::class,'index']);
+    Route::post('/hse-safety-relay', [HseSafetyRelayController::class,'store']);
+    Route::post('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'update']);
+    Route::get('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'show']);
+    Route::delete('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-switchgear', [HseSafetySwitchgearController::class,'index']);
+    Route::post('/hse-safety-switchgear', [HseSafetySwitchgearController::class,'store']);
+    Route::post('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'update']);
+    Route::get('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'show']);
+    Route::delete('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'destroy']);
+});
+
