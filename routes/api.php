@@ -43,6 +43,7 @@ use App\Http\Controllers\HseEarthingPitConditionController;
 use App\Http\Controllers\HseElectricalSafetyController;
 use App\Http\Controllers\HseEntryConfinedChecklistController;
 use App\Http\Controllers\HseEntryConfinedSpaceController;
+use App\Http\Controllers\HseExcavationProcedureController;
 use App\Http\Controllers\HseFireSafetySystemController;
 use App\Http\Controllers\HseHarnessChecklistController;
 use App\Http\Controllers\HseHotWorkChecklistController;
@@ -50,8 +51,11 @@ use App\Http\Controllers\HseHotWorkController;
 use App\Http\Controllers\HseHouseKeepingController;
 use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
 use App\Http\Controllers\HseLiftingLooseGearsController;
+use App\Http\Controllers\HSELightningProtectionController;
 use App\Http\Controllers\HseListConfinedSpaceController;
 use App\Http\Controllers\HseListPressureVesselsController;
+use App\Http\Controllers\HseLOTOController;
+use App\Http\Controllers\HseLottoFormController;
 use App\Http\Controllers\HseMasterListLiftingEquipmentsController;
 use App\Http\Controllers\HseMaterialProcedureController;
 use App\Http\Controllers\HseMobileCranePlanningRiskAssessmentDocController;
@@ -59,6 +63,8 @@ use App\Http\Controllers\HseMobileCraneSafetyProcedureDocController;
 use App\Http\Controllers\HseNoiseIntensityMeasurementController;
 use App\Http\Controllers\HsePermitWorkController;
 use App\Http\Controllers\HsePermitWorkFormController;
+use App\Http\Controllers\HsePersonalProtectiveController;
+use App\Http\Controllers\HsePPEDistributionRegisterController;
 use App\Http\Controllers\HsePressureVesselController;
 use App\Http\Controllers\HseSafeCraneOperationController;
 use App\Http\Controllers\HseSightHearingProtectionController;
@@ -583,3 +589,55 @@ Route::prefix('v1')->group(function(){
     Route::get('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'show']);
     Route::delete('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'destroy']);
 });
+
+// 14/10/24 
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-lightning-protection', [HSELightningProtectionController::class,'index']);
+    Route::post('/hse-lightning-protection', [HSELightningProtectionController::class,'store']);
+    Route::get('/hse-lightning-protection/{hSELightningProtection}', [HSELightningProtectionController::class,'show']);
+    Route::delete('/hse-lightning-protection/{hSELightningProtection}', [HSELightningProtectionController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-lotto', [HseLOTOController::class,'index']);
+    Route::post('/hse-lotto', [HseLOTOController::class,'store']);
+    Route::get('/hse-lotto/{hseLOTO}', [HseLOTOController::class,'show']);
+    Route::post('/hse-lotto/{hseLOTO}', [HseLOTOController::class,'update']);
+    Route::delete('/hse-lotto/{hseLOTO}', [HseLOTOController::class,'destroy']);
+    Route::post('/hse-lotto-status/{hseLOTO}', [HseLOTOController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-lotto-form', [HseLottoFormController::class,'index']);
+    Route::post('/hse-lotto-form', [HseLottoFormController::class,'store']);
+    Route::get('/hse-lotto-form/{hseLottoForm}', [HseLottoFormController::class,'show']);
+    Route::delete('/hse-lotto-form/{hseLottoForm}', [HseLottoFormController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-excavation-procedure', [HseExcavationProcedureController::class,'index']);
+    Route::post('/hse-excavation-procedure', [HseExcavationProcedureController::class,'store']);
+    Route::get('/hse-excavation-procedure/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'show']);
+    Route::post('/hse-excavation-procedure/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'update']);
+    Route::delete('/hse-excavation-procedure/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'destroy']);
+    Route::post('/hse-excavation-procedure-status/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-personal-protective', [HsePersonalProtectiveController::class,'index']);
+    Route::post('/hse-personal-protective', [HsePersonalProtectiveController::class,'store']);
+    Route::get('/hse-personal-protective/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'show']);
+    Route::post('/hse-personal-protective/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'update']);
+    Route::delete('/hse-personal-protective/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'destroy']);
+    Route::post('/hse-personal-protective-status/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-ppe-distribution-register', [HsePPEDistributionRegisterController::class,'index']);
+    Route::post('/hse-ppe-distribution-register', [HsePPEDistributionRegisterController::class,'store']);
+    Route::get('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'show']);
+    Route::post('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'update']);
+    Route::delete('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'destroy']);
+});
+
