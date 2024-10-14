@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHseLiftingLooseGearsRequest extends FormRequest
+class StorePPEDistributionRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,13 @@ class StoreHseLiftingLooseGearsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'asset_nnumber' => 'required|string|max:255',
-            'loose_gears_name' => 'required|string|max:255',
-            'loose_gears_specification' => 'required|string|max:255',
-            'capacity' => 'required|string|max:255',
-            'tested_on' => 'required|string|max:255',
-            'agency' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'contractor_name' => 'required|string|max:255',
+            'process' => 'required|string|max:255',
+            'ppe' => 'required|string|max:255',
+            'quantity' => 'required|string|max:255',
+            'date_of_issue' => 'required|string|max:255',
+            'date_of_return' => 'required|string|max:255',
         ];
     }
 }

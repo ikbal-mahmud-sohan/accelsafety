@@ -28,7 +28,7 @@ class SafetyObservationController extends Controller
 
     public function store(SafetyObservationRequest $request)
     {
-        $imageUrls = [];
+    $imageUrls = [];
     if ($request->hasFile('problematic_progressive_images')) {
         foreach ($request->file('problematic_progressive_images') as $image) {
             $path = $image->store('problematic_progressive_images', 'public');
