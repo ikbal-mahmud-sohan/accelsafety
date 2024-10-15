@@ -45,6 +45,8 @@ use App\Http\Controllers\HseEntryConfinedChecklistController;
 use App\Http\Controllers\HseEntryConfinedSpaceController;
 use App\Http\Controllers\HseExcavationProcedureController;
 use App\Http\Controllers\HseFireSafetySystemController;
+use App\Http\Controllers\HseFirstAidController;
+use App\Http\Controllers\HseFirstAidRegisterController;
 use App\Http\Controllers\HseHarnessChecklistController;
 use App\Http\Controllers\HseHotWorkChecklistController;
 use App\Http\Controllers\HseHotWorkController;
@@ -61,12 +63,15 @@ use App\Http\Controllers\HseMaterialProcedureController;
 use App\Http\Controllers\HseMobileCranePlanningRiskAssessmentDocController;
 use App\Http\Controllers\HseMobileCraneSafetyProcedureDocController;
 use App\Http\Controllers\HseNoiseIntensityMeasurementController;
+use App\Http\Controllers\HseOHSMSFormController;
 use App\Http\Controllers\HsePermitWorkController;
 use App\Http\Controllers\HsePermitWorkFormController;
 use App\Http\Controllers\HsePersonalProtectiveController;
 use App\Http\Controllers\HsePPEDistributionRegisterController;
+use App\Http\Controllers\HsePPEInspectionReportController;
 use App\Http\Controllers\HsePressureVesselController;
 use App\Http\Controllers\HseSafeCraneOperationController;
+use App\Http\Controllers\HseSafetySignageManagementController;
 use App\Http\Controllers\HseSightHearingProtectionController;
 use App\Http\Controllers\HseTimberBlockRequiredUnderMobileCraneDocController;
 use App\Http\Controllers\HseVehicleSafetyController;
@@ -641,3 +646,48 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'destroy']);
 });
 
+// 15/10/24 
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-ppe-inspection', [HsePPEInspectionReportController::class,'index']);
+    Route::post('/hse-ppe-inspection', [HsePPEInspectionReportController::class,'store']);
+    Route::get('/hse-ppe-inspection/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'show']);
+    Route::post('/hse-ppe-inspection/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'update']);
+    Route::delete('/hse-ppe-inspection/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'destroy']);
+    Route::post('/hse-ppe-inspection-status/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-signage', [HseSafetySignageManagementController::class,'index']);
+    Route::post('/hse-safety-signage', [HseSafetySignageManagementController::class,'store']);
+    Route::get('/hse-safety-signage/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'show']);
+    Route::post('/hse-safety-signage/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'update']);
+    Route::delete('/hse-safety-signage/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'destroy']);
+    Route::post('/hse-safety-signage-status/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-signage', [HseOHSMSFormController::class,'index']);
+    Route::post('/hse-safety-signage', [HseOHSMSFormController::class,'store']);
+    Route::get('/hse-safety-signage/{hseOHSMSForm}', [HseOHSMSFormController::class,'show']);
+    Route::post('/hse-safety-signage/{hseOHSMSForm}', [HseOHSMSFormController::class,'update']);
+    Route::delete('/hse-safety-signage/{hseOHSMSForm}', [HseOHSMSFormController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-first-aid', [HseFirstAidController::class,'index']);
+    Route::post('/hse-first-aid', [HseFirstAidController::class,'store']);
+    Route::get('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'show']);
+    Route::post('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'update']);
+    Route::delete('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'destroy']);
+    Route::delete('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'edit']);
+    
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-first-aid-register', [HseFirstAidRegisterController::class,'index']);
+    Route::post('/hse-first-aid-register', [HseFirstAidRegisterController::class,'store']);
+    Route::get('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'show']);
+    Route::post('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'update']);
+    Route::delete('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'destroy']);
+});
