@@ -1,9 +1,11 @@
-[9/10/2024]
+[16/10/2024]
 [BACKEND]
 Implemeted these API
-1: HSELightningProtection [create, update, get, update, aproved, delete]
-2: HseLOTO [create, update, get, update, aproved, delete]
-3: HseLottoForm [create, update, get, update, aproved, delete]
-4: HseExcavationProcedure [create, update, get, update, aproved, delete]
-5: HsePersonalProtective [create, update, get, update, aproved, delete]
-6: HsePPEDistributionRegister [create, update, get, update, aproved, delete]
+1: HseSafetyInspectionReport [create, update, get, update]
+2: HseAccInvProcedure [create, update, get, update]
+3: HseAccidentNotification [create, update, get, update]
+4: HseIncidentNotification [create, update, get, update]
+5: HseIncidentInvestigation [create, update, get, update]
+6: HseAccidentRegister [create, update, get, update]
+
+
