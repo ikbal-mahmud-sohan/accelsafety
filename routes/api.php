@@ -44,6 +44,7 @@ use App\Http\Controllers\HseCompressedGasController;
 use App\Http\Controllers\HseControlVisitorsDocController;
 use App\Http\Controllers\HseEarthingPitConditionController;
 use App\Http\Controllers\HseElectricalSafetyController;
+use App\Http\Controllers\HseEmergencyPreparednessController;
 use App\Http\Controllers\HseEntryConfinedChecklistController;
 use App\Http\Controllers\HseEntryConfinedSpaceController;
 use App\Http\Controllers\HseExcavationProcedureController;
@@ -56,6 +57,9 @@ use App\Http\Controllers\HseHotWorkController;
 use App\Http\Controllers\HseHouseKeepingController;
 use App\Http\Controllers\HseIncidentInvestigationController;
 use App\Http\Controllers\HseIncidentNotificationController;
+use App\Http\Controllers\HseIncidentRegisterController;
+use App\Http\Controllers\HseJobSafetyAnalysisController;
+use App\Http\Controllers\HseJobSafetyAnalysisPPEController;
 use App\Http\Controllers\HseLadderSelfInspectionChecklistController;
 use App\Http\Controllers\HseLiftingLooseGearsController;
 use App\Http\Controllers\HSELightningProtectionController;
@@ -100,6 +104,7 @@ use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
 use App\Models\HseEntryConfinedSpace;
+use Database\Factories\HseJobSafetyAnalysisPPEFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -812,3 +817,38 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'destroy']);
 });
 
+// 17/10/24
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-incident-register', [HseIncidentRegisterController::class,'index']);
+    Route::post('/hse-incident-register', [HseIncidentRegisterController::class,'store']);
+    Route::post('/hse-incident-register/{hseIncidentRegister}', [HseIncidentRegisterController::class,'update']);
+    Route::get('/hse-incident-register/{hseIncidentRegister}', [HseIncidentRegisterController::class,'show']);
+    Route::delete('/hse-incident-register/{hseIncidentRegister}', [HseIncidentRegisterController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-jobsafety-analysis', [HseJobSafetyAnalysisController::class,'index']);
+    Route::post('/hse-jobsafety-analysis', [HseJobSafetyAnalysisController::class,'store']);
+    Route::get('/hse-jobsafety-analysis/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'show']);
+    Route::post('/hse-jobsafety-analysis/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'update']);
+    Route::delete('/hse-jobsafety-analysis/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'destroy']);
+    Route::post('/hse-jobsafety-analysis-status/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-analysis-ppe', [HseJobSafetyAnalysisPPEController::class,'index']);
+    Route::post('/hse-safety-analysis-ppe', [HseJobSafetyAnalysisPPEController::class,'store']);
+    Route::post('/hse-safety-analysis-ppe/{hseJobSafetyAnalysisPPE}', [HseJobSafetyAnalysisPPEController::class,'update']);
+    Route::get('/hse-safety-analysis-ppe/{hseJobSafetyAnalysisPPE}', [HseJobSafetyAnalysisPPEController::class,'show']);
+    Route::delete('/hse-safety-analysis-ppe/{hseJobSafetyAnalysisPPE}', [HseJobSafetyAnalysisPPEController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/hse-emergency-preparedness', [HseEmergencyPreparednessController::class,'index']);
+    Route::post('/hse-emergency-preparedness', [HseEmergencyPreparednessController::class,'store']);
+    Route::get('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'show']);
+    Route::post('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'update']);
+    Route::delete('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'destroy']);
+    Route::post('/hse-emergency-preparedness-status/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'edit']);
+});

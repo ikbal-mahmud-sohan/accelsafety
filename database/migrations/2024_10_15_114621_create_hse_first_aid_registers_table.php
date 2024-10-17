@@ -17,26 +17,26 @@ return new class extends Migration
             $table->string('authorized_dept');
             $table->string('authorized_person');
 
-            for ($i = 1; $i <= 15; $i++) {
-                $table->string("faid_con_sl_no_$i")->nullable();
-                $table->string("faid_con_items_$i")->nullable();
-                $table->json("faid_con_quantity_$i")->nullable();
-                $table->json("faid_con_item_condition_$i")->nullable();
-                $table->json("faid_con_remarks_$i")->nullable();
-            }
+            // for ($i = 1; $i <= 15; $i++) {
+            //     $table->string("faid_con_sl_no_$i")->nullable();
+            //     $table->string("faid_con_items_$i")->nullable();
+            //     $table->json("faid_con_quantity_$i")->nullable();
+            //     $table->json("faid_con_item_condition_$i")->nullable();
+            //     $table->json("faid_con_remarks_$i")->nullable();
+            // }
 
-            for ($i = 1; $i <= 15; $i++) {
-                $table->string("first_aid_box_no_$i")->nullable();
-                $table->string("location_$i")->nullable();
-                $table->json("authorized_dep_$i")->nullable();
-                $table->json("authorized_person_$i")->nullable();
-                $table->json("contact_no_$i")->nullable();
-                $table->json("image_first_aider_$i")->nullable();
-            }
+            // for ($i = 1; $i <= 15; $i++) {
+            //     $table->string("first_aid_box_no_$i")->nullable();
+            //     $table->string("location_$i")->nullable();
+            //     $table->json("authorized_dep_$i")->nullable();
+            //     $table->json("authorized_person_$i")->nullable();
+            //     $table->json("contact_no_$i")->nullable();
+            //     $table->json("image_first_aider_$i")->nullable();
+            // }
 
-            for ($i = 1; $i <= 10; $i++) {
-                $table->string("inspection_checklist_$i")->nullable();
-            }
+            // for ($i = 1; $i <= 10; $i++) {
+            //     $table->string("inspection_checklist_$i")->nullable();
+            // }
             $table->string("name_of_the_inspector")->nullable();
             $table->string("designation")->nullable();
             $table->json("signature_of_the_inspector")->nullable();
