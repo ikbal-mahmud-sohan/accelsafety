@@ -94,6 +94,7 @@ use App\Http\Controllers\HseTimberBlockRequiredUnderMobileCraneDocController;
 use App\Http\Controllers\HseVehicleSafetyController;
 use App\Http\Controllers\HseVehicleSafetyDocController;
 use App\Http\Controllers\HseWorkatHeightController;
+use App\Http\Controllers\IsgecBackhoeLoaderController;
 use App\Http\Controllers\LightIntensityMeasurementController;
 use App\Http\Controllers\SafetyPowerToolsController;
 use App\Http\Controllers\StatusHseSightHearingProtectionController;
@@ -851,4 +852,10 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'update']);
     Route::delete('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'destroy']);
     Route::post('/hse-emergency-preparedness-status/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/isgec-backhoe-loaders', [IsgecBackhoeLoaderController::class,'index']);
+    Route::post('/isgec-backhoe-loaders', [IsgecBackhoeLoaderController::class,'store']);
+    Route::delete('/isgec-backhoe-loaders/{isgecBackhoeLoader}', [IsgecBackhoeLoaderController::class,'destroy']);
 });
