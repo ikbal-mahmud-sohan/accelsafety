@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('confined_space_no');
             $table->string('location');
             $table->string('responsible_department');
-            $table->json('image')->nullable();
+            $table->json('cs_image')->nullable();
             $table->timestamps();
         });
     }

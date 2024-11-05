@@ -26,20 +26,24 @@ class HseListConfinedSpaceController extends Controller
 
     public function store(StoreHseListConfinedSpaceRequest $request)
     {
+     
         $imagePaths = [];
        
-        if ($request->hasFile('image')) {
-            foreach ($request->file('image') as $image) {
-                $path = $image->store('image', 'public');
+        if ($request->hasFile('cs_image')) {
+            foreach ($request->file('cs_image') as $image) {
+                $path = $image->store('cs_image', 'public');
                 $bsrmSignaturePaths[] = Storage::url($path);
             }
         }
         $validatedData = $request->validated();
-        $validatedData['image'] = $imagePaths;
+        $validatedData['cs_image'] = $imagePaths;
         $hseHarnessChecklist = HseListConfinedSpace::create($validatedData);
-        return new HseHseListConfinedSpaceResource($hseHarnessChecklist);
+    return HseHseListConfinedSpaceResource::make($hseHarnessChecklist);
+
 
     }
+
+    
 
     /**
      * Display the specified resource.

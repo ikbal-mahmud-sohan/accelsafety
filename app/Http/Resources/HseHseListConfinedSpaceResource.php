@@ -19,7 +19,7 @@ class HseHseListConfinedSpaceResource extends JsonResource
             'confined_space_no' => $this->confined_space_no,
             'location' => $this->location,
             'responsible_department' => $this->responsible_department,
-            'image' => $this->image,
+            'cs_image' => $this->cs_image,
         ];
     }
 }
