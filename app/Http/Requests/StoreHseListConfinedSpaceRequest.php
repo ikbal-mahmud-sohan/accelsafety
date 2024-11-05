@@ -26,8 +26,8 @@ class StoreHseListConfinedSpaceRequest extends FormRequest
             'confined_space_no' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'responsible_department' => 'required|string|max:255',
-            'image' => 'sometimes|array',
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'cs_image' => 'sometimes|array',
+            'cs_image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

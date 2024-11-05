@@ -12,6 +12,9 @@ class HseListConfinedSpace extends Model
             'confined_space_no',
             'location',
             'responsible_department',
-            'image',
+            'cs_image',
+];
+protected $casts = [
+    'cs_image' => 'array', 
 ];
 }
