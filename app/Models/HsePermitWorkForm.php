@@ -11,11 +11,15 @@ class HsePermitWorkForm extends Model
 {
     use HasFactory;
     protected $fillable =[
+            'permit_no',
+            'issue_date',
+            'ptw_time',
             'ptw_dept_name',
             'ptw_from_dept_name',
             'ptw_to_dept_name',
             'ptw_work_agency',
             'ptw_description',
+            'ptw_of_job',
             'ptw_job',
             'ptw_issuer',
             'ptw_lead_signature',

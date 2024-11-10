@@ -718,6 +718,8 @@ Route::prefix('v1')->group(function(){
     Route::get('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'show']);
     Route::post('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'update']);
     Route::delete('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'destroy']);
+});
+
 Route::prefix('v1')->group(function(){
     Route::get('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'index']);
     Route::post('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'store']);
@@ -802,6 +804,8 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'update']);
     Route::delete('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'destroy']);
 });
+
+Route::prefix('v1')->group(function(){
     Route::get('/hse-safety-relay', [HseSafetyRelayController::class,'index']);
     Route::post('/hse-safety-relay', [HseSafetyRelayController::class,'store']);
     Route::post('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'update']);

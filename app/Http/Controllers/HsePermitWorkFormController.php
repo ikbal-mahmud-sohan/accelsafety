@@ -26,6 +26,7 @@ class HsePermitWorkFormController extends Controller
 
     public function store(StoreHsePermitWorkFormRequest $request)
     {
+        // dd($request);
         // Initialize arrays to store paths of uploaded files
     $ptwLeadSignaturePaths = [];
     $ppeEngineerSignaturePaths = [];
