@@ -13,11 +13,17 @@ return new class extends Migration
     {
         Schema::create('hse_permit_work_forms', function (Blueprint $table) {
             $table->id();
-            $table->string('ptw_dept_name');
+            $table->string('permit_no');
+            $table->string('issue_date');
+            $table->string('ptw_time');
+            
             $table->string('ptw_from_dept_name');
             $table->string('ptw_to_dept_name');
             $table->string('ptw_work_agency');
             $table->string('ptw_description');
+
+            $table->string('ptw_of_job');
+
             $table->string('ptw_job');
             $table->string('ptw_issuer');
             $table->json('ptw_lead_signature');

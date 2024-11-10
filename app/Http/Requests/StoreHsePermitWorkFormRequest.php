@@ -22,15 +22,17 @@ class StoreHsePermitWorkFormRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'permit_no' => 'nullable|string|max:255',
+            'issue_date' => 'nullable|string|max:255',
+            'ptw_time' => 'nullable|string|max:255',
             'ptw_dept_name' => 'nullable|string|max:255',
             'ptw_from_dept_name' => 'nullable|string|max:255',
             'ptw_to_dept_name' => 'nullable|string|max:255',
             'ptw_work_agency' => 'nullable|string|max:255',
             'ptw_description' => 'nullable|string|max:255',
+            'ptw_of_job' => 'nullable|string|max:255',
             'ptw_job' => 'nullable|string|max:255',
             'ptw_issuer' => 'nullable|string|max:255',
-            
-            // Signatures stored as JSON
             'ptw_lead_signature' => 'sometimes|array',
             'ptw_lead_signature.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
