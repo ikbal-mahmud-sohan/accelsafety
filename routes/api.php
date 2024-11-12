@@ -11,10 +11,14 @@ use App\Http\Controllers\AssignMultipleTrainingController;
 use App\Http\Controllers\AssignSpecialTrainingController;
 use App\Http\Controllers\AssignTrainingController;
 use App\Http\Controllers\CompleteSafetyObservationController;
+use App\Http\Controllers\ConcreteMixerController;
+use App\Http\Controllers\DumperChecklistController;
+use App\Http\Controllers\EarthCompactorController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
 use App\Http\Controllers\EmployeeUnitController;
+use App\Http\Controllers\ExcavatorChecklistController;
 use App\Http\Controllers\HiraActivityController;
 use App\Http\Controllers\HiraAdministrativeController;
 use App\Http\Controllers\HiraCauseController;
@@ -94,12 +98,14 @@ use App\Http\Controllers\HseTimberBlockRequiredUnderMobileCraneDocController;
 use App\Http\Controllers\HseVehicleSafetyController;
 use App\Http\Controllers\HseVehicleSafetyDocController;
 use App\Http\Controllers\HseWorkatHeightController;
+use App\Http\Controllers\JCBChecklistController;
 use App\Http\Controllers\LightIntensityMeasurementController;
 use App\Http\Controllers\SafetyPowerToolsController;
 use App\Http\Controllers\StatusHseSightHearingProtectionController;
 use App\Http\Controllers\StatusHseVehicleSafetyDocsController;
 use App\Http\Controllers\StatusHseWorkatHeightController;
 use App\Http\Controllers\StatusSafetyPowerToolsController;
+use App\Http\Controllers\TransitMixerController;
 use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
@@ -855,4 +861,47 @@ Route::prefix('v1')->group(function(){
     Route::post('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'update']);
     Route::delete('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'destroy']);
     Route::post('/hse-emergency-preparedness-status/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'edit']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/jcb-checklists', [JCBChecklistController::class,'index']);
+    Route::post('/jcb-checklists', [JCBChecklistController::class,'store']);
+    Route::get('/jcb-checklists/{jCBChecklist}', [JCBChecklistController::class,'show']);
+    Route::post('/jcb-checklists/{jCBChecklist}', [JCBChecklistController::class,'update']);
+    Route::delete('/jcb-checklists/{jCBChecklist}', [JCBChecklistController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/excavator-checklists', [ExcavatorChecklistController::class,'index']);
+    Route::post('/excavator-checklists', [ExcavatorChecklistController::class,'store']);
+    Route::get('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'show']);
+    Route::post('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'update']);
+    Route::delete('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/dumper-checklists', [DumperChecklistController::class,'index']);
+    Route::post('/dumper-checklists', [DumperChecklistController::class,'store']);
+    Route::get('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'show']);
+    Route::post('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'update']);
+    Route::delete('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/earth-compactors-checklists', [EarthCompactorController::class,'index']);
+    Route::post('/earth-compactors-checklists', [EarthCompactorController::class,'store']);
+    Route::get('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'show']);
+    Route::post('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'update']);
+    Route::delete('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/concrete-mixer-checklists', [ConcreteMixerController::class,'index']);
+    Route::post('/concrete-mixer-checklists', [ConcreteMixerController::class,'store']);
+    Route::get('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'show']);
+    Route::post('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'update']);
+    Route::delete('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'destroy']);
+});
+Route::prefix('v1')->group(function(){
+    Route::get('/transit_mixers-checklists', [TransitMixerController::class,'index']);
+    Route::post('/transit_mixers-checklists', [TransitMixerController::class,'store']);
+    Route::get('/transit_mixers-checklists/{transitMixer}', [TransitMixerController::class,'show']);
+    Route::post('/transit_mixers-checklists/{transitMixer}', [TransitMixerController::class,'update']);
+    Route::delete('/transit_mixers-checklists/{transitMixer}', [TransitMixerController::class,'destroy']);
 });
