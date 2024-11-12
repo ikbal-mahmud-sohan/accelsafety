@@ -27,7 +27,26 @@ class HseSafetyTTController extends Controller
 
     public function store(StoreHseSafetyTTRequest $request)
     {
-        $hseSafetyTT = HseSafetyTT::create($request->validated());
+        $checkedSignatureUrls = [];
+        if ($request->hasFile('checked_by_signature')) {
+            foreach ($request->file('checked_by_signature') as $image) {
+                $path = $image->store('checked_by_signature', 'public');
+                $checkedSignatureUrls[] = Storage::url($path);
+            }
+        }
+        $reviewedSignatureUrls = [];
+        if ($request->hasFile('reviewed_by_signature')) {
+            foreach ($request->file('reviewed_by_signature') as $image) {
+                $path = $image->store('reviewed_by_signature', 'public');
+                $reviewedSignatureUrls[] = Storage::url($path);
+            }
+        }
+
+        $validatedData = $request->validated();
+        $validatedData['checked_by_signature'] = $checkedSignatureUrls; 
+        $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
+
+        $hseSafetyTT = HseSafetyTT::create($validatedData);
         return new HseSafetyTTResource($hseSafetyTT);
     }
 
