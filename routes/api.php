@@ -878,19 +878,20 @@ Route::prefix('v1')->group(function(){
     Route::delete('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'destroy']);
 });
 Route::prefix('v1')->group(function(){
-    Route::get('/dumper-checklists', [DumperChecklistController::class,'index']);
-    Route::post('/dumper-checklists', [DumperChecklistController::class,'store']);
-    Route::get('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'show']);
-    Route::post('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'update']);
-    Route::delete('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
     Route::get('/earth-compactors-checklists', [EarthCompactorController::class,'index']);
     Route::post('/earth-compactors-checklists', [EarthCompactorController::class,'store']);
     Route::get('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'show']);
     Route::post('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'update']);
     Route::delete('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'destroy']);
 });
+Route::prefix('v1')->group(function(){
+    Route::get('/dumper-checklists', [DumperChecklistController::class,'index']);
+    Route::post('/dumper-checklists', [DumperChecklistController::class,'store']);
+    Route::get('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'show']);
+    Route::post('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'update']);
+    Route::delete('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'destroy']);
+});
+
 Route::prefix('v1')->group(function(){
     Route::get('/concrete-mixer-checklists', [ConcreteMixerController::class,'index']);
     Route::post('/concrete-mixer-checklists', [ConcreteMixerController::class,'store']);
