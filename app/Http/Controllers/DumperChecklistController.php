@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDumperChecklistRequest;
 use App\Http\Resources\DumperChecklistResource;
 use App\Models\DumperChecklist;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class DumperChecklistController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreDumperChecklistRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {

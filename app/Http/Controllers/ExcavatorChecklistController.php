@@ -26,11 +26,11 @@ class ExcavatorChecklistController extends Controller
 
     public function store(StoreExcavatorChecklistRequest $request)
     {
-        $$checkedBySignature = [];
+        $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
             foreach ($request->file('checked_by_signature') as $image) {
                 $path = $image->store('checked_by_signature', 'public');
-                $$checkedBySignature[] = Storage::url($path);
+                $checkedBySignature[] = Storage::url($path);
             }
         }
         $reviewedSignatureUrls = [];
@@ -42,7 +42,7 @@ class ExcavatorChecklistController extends Controller
         }
 
         $validatedData = $request->validated();
-        $validatedData['checked_by_signature'] = $$checkedBySignature; 
+        $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
         $excavatorChecklist = ExcavatorChecklist::create($validatedData);
