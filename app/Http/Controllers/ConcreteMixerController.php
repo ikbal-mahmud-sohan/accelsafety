@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreConcreteMixerRequest;
 use App\Http\Resources\ConcreteMixerResource;
 use App\Models\ConcreteMixer;
 use Illuminate\Http\Request;
@@ -23,18 +24,7 @@ class ConcreteMixerController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreConcreteMixerRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {

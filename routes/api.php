@@ -12,6 +12,7 @@ use App\Http\Controllers\AssignSpecialTrainingController;
 use App\Http\Controllers\AssignTrainingController;
 use App\Http\Controllers\CompleteSafetyObservationController;
 use App\Http\Controllers\ConcreteMixerController;
+use App\Http\Controllers\ConcretePumpController;
 use App\Http\Controllers\DumperChecklistController;
 use App\Http\Controllers\EarthCompactorController;
 use App\Http\Controllers\EmployeeDepartmentController;
@@ -899,10 +900,19 @@ Route::prefix('v1')->group(function(){
     Route::post('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'update']);
     Route::delete('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'destroy']);
 });
+
 Route::prefix('v1')->group(function(){
-    Route::get('/transit_mixers-checklists', [TransitMixerController::class,'index']);
-    Route::post('/transit_mixers-checklists', [TransitMixerController::class,'store']);
-    Route::get('/transit_mixers-checklists/{transitMixer}', [TransitMixerController::class,'show']);
-    Route::post('/transit_mixers-checklists/{transitMixer}', [TransitMixerController::class,'update']);
-    Route::delete('/transit_mixers-checklists/{transitMixer}', [TransitMixerController::class,'destroy']);
+    Route::get('/transit-mixers-checklists', [TransitMixerController::class,'index']);
+    Route::post('/transit-mixers-checklists', [TransitMixerController::class,'store']);
+    Route::get('/transit-mixers-checklists/{transitMixer}', [TransitMixerController::class,'show']);
+    Route::post('/transit-mixers-checklists/{transitMixer}', [TransitMixerController::class,'update']);
+    Route::delete('/transit-mixers-checklists/{transitMixer}', [TransitMixerController::class,'destroy']);
+});
+
+Route::prefix('v1')->group(function(){
+    Route::get('/concrete-pump-checklists', [ConcretePumpController::class,'index']);
+    Route::post('/concrete-pump-checklists', [ConcretePumpController::class,'store']);
+    Route::get('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'show']);
+    Route::post('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'update']);
+    Route::delete('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'destroy']);
 });

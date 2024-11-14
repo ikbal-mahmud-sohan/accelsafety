@@ -19,9 +19,7 @@ return new class extends Migration
             $table->string('date')->nullable();
             $table->string('make')->nullable();
             $table->string('model')->nullable();
-            $table->boolean('isgec')->default(0);
-            $table->boolean('hired')->default(0);
-            $table->boolean('contractor')->default(0);
+            $table->string('isgec')->nullable();
             $table->text('concrete_mixer_des_1')->nullable();
             $table->text('concrete_mixer_des_2')->nullable();
             $table->text('concrete_mixer_des_3')->nullable();
@@ -46,9 +44,7 @@ return new class extends Migration
             $table->text('concrete_mixer_remarks_6')->nullable();
             $table->text('concrete_mixer_remarks_7')->nullable();
             $table->text('concrete_mixer_remarks_8')->nullable();
-            $table->boolean('fit')->default(0);
-            $table->boolean('partially_fit')->default(0);
-            $table->boolean('unfit')->default(0);
+            $table->string('fit')->nullable(); 
             $table->string('checked_by')->nullable(); 
             $table->string('reviewed_by')->nullable(); 
             $table->string('checked_by_date')->nullable(); 

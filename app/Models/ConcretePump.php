@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-class ConcreteMixer extends Model
+class ConcretePump extends Model
 {
     use HasFactory;
-
     protected $fillable =[
         'project_name',
         'project_code',
@@ -19,6 +18,8 @@ class ConcreteMixer extends Model
         'make',
         'model',
         'isgec',
+        'hired',
+        'contractor',
         'concrete_mixer_des_1',
         'concrete_mixer_des_2',
         'concrete_mixer_des_3',
@@ -27,6 +28,12 @@ class ConcreteMixer extends Model
         'concrete_mixer_des_6',
         'concrete_mixer_des_7',
         'concrete_mixer_des_8',
+        'concrete_mixer_des_9',
+        'concrete_mixer_des_10',
+        'concrete_mixer_des_11',
+        'concrete_mixer_des_12',
+        'concrete_mixer_des_13',
+        'concrete_mixer_des_14',
         'is_concrete_mixer_1',
         'is_concrete_mixer_2',
         'is_concrete_mixer_3',
@@ -35,6 +42,12 @@ class ConcreteMixer extends Model
         'is_concrete_mixer_6',
         'is_concrete_mixer_7',
         'is_concrete_mixer_8',
+        'is_concrete_mixer_9',
+        'is_concrete_mixer_10',
+        'is_concrete_mixer_11',
+        'is_concrete_mixer_12',
+        'is_concrete_mixer_13',
+        'is_concrete_mixer_14',
         'concrete_mixer_remarks_1',
         'concrete_mixer_remarks_2',
         'concrete_mixer_remarks_3',
@@ -43,7 +56,15 @@ class ConcreteMixer extends Model
         'concrete_mixer_remarks_6',
         'concrete_mixer_remarks_7',
         'concrete_mixer_remarks_8',
+        'concrete_mixer_remarks_9',
+        'concrete_mixer_remarks_10',
+        'concrete_mixer_remarks_11',
+        'concrete_mixer_remarks_12',
+        'concrete_mixer_remarks_13',
+        'concrete_mixer_remarks_14',
         'fit',
+        'partially_fit',
+        'unfit',
         'checked_by',
         'reviewed_by',
         'checked_by_date',
