@@ -38,6 +38,7 @@ use Database\Factories\AccidentInvestigationFactory;
 use Database\Factories\TrainingTopicsFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -46,11 +47,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(3)->create();
-        // Training::factory(5)->create();
-        // SafetyObservation::factory(5)->create();
-        // TrainingAttendence::factory(5)->create();
-        // Seed Accident Months
+        User::factory()->create([
+            'name' => 'sohan',
+            'email' => 'sohan@gmail.com',
+            'password' => Hash::make('sohan123'),
+        ]);
         $months = [
             'January 2024', 'February 2024', 'March 2024', 'April 2024', 'May 2024', 'June 2024',
             'July 2024', 'August 2024', 'September 2024', 'October 2024', 'November 2024', 'December 2024',
@@ -895,9 +896,9 @@ class DatabaseSeeder extends Seeder
             'E', 
         ];
 
-        foreach ($activity   as $ta) {
-            HiraTypeOfActivity::create(['name' => $ta]);
-        }
+        // foreach ($activity   as $ta) {
+        //     HiraTypeOfActivity::create(['name' => $ta]);
+        // }
 
         $occupations   = [
             'mold operators',
