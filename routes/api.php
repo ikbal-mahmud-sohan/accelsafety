@@ -114,10 +114,20 @@ use App\Models\HseEntryConfinedSpace;
 use Database\Factories\HseJobSafetyAnalysisPPEFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\auth\RegistrationController;
+use App\Http\Controllers\auth\ResetPasswordController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::post('/register', RegistrationController::class)->middleware('guest');
+Route::post('/login', LoginController::class)->middleware('guest');
+Route::get('/logout', LogoutController::class)->middleware('auth:sanctum');
+Route::post('/reset/email', [ResetPasswordController::class,'sendemail']);
+Route::post('/reset/verify', [ResetPasswordController::class,'verifyemail'])->middleware('signed')->name('reset.password');
 
 Route::prefix('v1')->group(function(){
     // Route::apiResource('accident', AccidentController::class);
@@ -239,7 +249,7 @@ Route::prefix('v1')->group(function(){
     Route::post('/assign-special-training/{assignSpecialTraining}', [AssignSpecialTrainingController::class,'update']);
     Route::delete('/assign-special-training/{assignSpecialTraining}', [AssignSpecialTrainingController::class,'destroy']);
 
-    Route::get('/training-assesments', TrainingAssesmentController::class);
+    Route::get('/training-assesments', TrainingAssesmentController::class)->middleware('auth:sanctum');
 });
 
 Route::prefix('v1')->group(function(){
@@ -250,7 +260,7 @@ Route::prefix('v1')->group(function(){
     Route::delete('/assign-training/{assignTraining}', [AssignTrainingController::class,'destroy']);
 
     Route::post('/assign-multiple-training', AssignMultipleTrainingController::class);
-    Route::get('/training-assesments', TrainingAssesmentController::class);
+    // Route::get('/training-assesments', TrainingAssesmentController::class);
 });
 
 Route::prefix('v1')->group(function(){
@@ -517,14 +527,14 @@ Route::prefix('v1')->group(function(){
 
 // start 8/9/24 
 
-Route::prefix('v1')->group(function(){
-    Route::get('/hse-compressed-gas', [HseCompressedGasController::class,'index']);
-    Route::post('/hse-compressed-gas', [HseCompressedGasController::class,'store']);
-    Route::get('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'show']);
-    Route::post('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'update']);
-    Route::delete('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'destroy']);
-    Route::post('/hse-compressed-gas-status/{hseCompressedGas}', [HseCompressedGasController::class,'edit']);
-});
+// Route::prefix('v1')->group(function(){
+//     Route::get('/hse-compressed-gas', [HseCompressedGasController::class,'index']);
+//     Route::post('/hse-compressed-gas', [HseCompressedGasController::class,'store']);
+//     Route::get('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'show']);
+//     Route::post('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'update']);
+//     Route::delete('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'destroy']);
+//     Route::post('/hse-compressed-gas-status/{hseCompressedGas}', [HseCompressedGasController::class,'edit']);
+// });
 
 Route::prefix('v1')->group(function(){
     Route::get('/hse-chemical-handling', [HseChemicalHandlingController::class,'index']);
@@ -727,13 +737,13 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'destroy']);
 });
 
-Route::prefix('v1')->group(function(){
-    Route::get('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'index']);
-    Route::post('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'store']);
-    Route::post('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'update']);
-    Route::get('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'show']);
-    Route::delete('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'destroy']);
-});
+// Route::prefix('v1')->group(function(){
+//     Route::get('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'index']);
+//     Route::post('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'store']);
+//     Route::post('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'update']);
+//     Route::get('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'show']);
+//     Route::delete('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'destroy']);
+// });
 
 Route::prefix('v1')->group(function(){
     Route::get('/hse-Safety-tt', [HseSafetyTTController::class,'index']);
