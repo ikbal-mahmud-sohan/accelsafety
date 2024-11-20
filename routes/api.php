@@ -129,120 +129,93 @@ Route::get('/logout', LogoutController::class)->middleware('auth:sanctum');
 Route::post('/reset/email', [ResetPasswordController::class,'sendemail']);
 Route::post('/reset/verify', [ResetPasswordController::class,'verifyemail'])->middleware('signed')->name('reset.password');
 
-Route::prefix('v1')->group(function(){
-    // Route::apiResource('accident', AccidentController::class);
+Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/accident', [AccidentController::class,'index']);
     Route::post('/accident', [AccidentController::class,'store']);
     Route::get('/accident/{accident}', [AccidentController::class,'show']);
     Route::post('/accident/{accident}', [AccidentController::class,'update']);
     Route::delete('/accident/{accident}', [AccidentController::class,'destroy']);
-
     Route::patch('accident/{accident}/approved', ApprovedAccidentController::class);
     Route::get('/accident-drop-down', AccidentDropDownController::class);
-
-});
-Route::prefix('v1')->group(function(){
+    
     Route::get('/accident-month', [AccidentMonthController::class,'index']);
     Route::post('/accident-month', [AccidentMonthController::class,'store']);
     Route::delete('/accident-month/{accidentMonth}', [AccidentMonthController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
+
     Route::get('/accident-injury-type', [AccidentInjuryTypeController::class,'index']);
     Route::post('/accident-injury-type', [AccidentInjuryTypeController::class,'store']);
     Route::delete('/accident-injury-type/{accidentInjuryType}', [AccidentInjuryTypeController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
+
     Route::get('/accident-type', [AccidentTypeController::class,'index']);
     Route::post('/accident-type', [AccidentTypeController::class,'store']);
     Route::delete('/accident-type/{accidentType}', [AccidentTypeController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
     Route::get('/accident-investigation', [AccidentInvestigationController::class,'index']);
     Route::post('/accident-investigation', [AccidentInvestigationController::class,'store']);
     Route::get('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'show']);
     Route::post('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'update']);
     Route::delete('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'destroy']);
 
-});
-
-// End Accident
-
-Route::prefix('v1')->group(function(){
     Route::get('/safety', [SafetyObservationController::class,'index']);
     Route::post('/safety', [SafetyObservationController::class,'store']);
     Route::get('/safety/{safetyObservation}', [SafetyObservationController::class,'show']);
     Route::post('/safety/{safetyObservation}', [SafetyObservationController::class,'update']);
     Route::delete('/safety/{safetyObservation}', [SafetyObservationController::class,'destroy']);
-    
     Route::patch('/safety/{safety}/complete', CompleteSafetyObservationController::class);
     Route::get('/safety-drop-down', safetyDropDownController::class);
 
-});
-
-Route::prefix('v1')->group(function(){
     Route::get('/safety-resp-department', [SafetyObservationRespDepartmentController::class,'index']);
     Route::post('/safety-resp-department', [SafetyObservationRespDepartmentController::class,'store']);
     Route::delete('/safety-resp-department/{safetyObservationRespDepartment}', [SafetyObservationRespDepartmentController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
     Route::get('/safety-owner-department', [SafetyObservationOwnerDepartmentController::class,'index']);
     Route::post('/safety-owner-department', [SafetyObservationOwnerDepartmentController::class,'store']);
     Route::delete('/safety-owner-department/{safetyObservationOwnerDepartment}', [SafetyObservationOwnerDepartmentController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/safety-plant', [SafetyObservationPlantNameController::class,'index']);
     Route::post('/safety-plant', [SafetyObservationPlantNameController::class,'store']);
     Route::delete('/safety-plant/{safetyObservationPlantName}', [SafetyObservationPlantNameController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/trainingAttendence', [TrainingAttendenceController::class,'index']);
     Route::post('/trainingAttendence', [TrainingAttendenceController::class,'store']);
     Route::get('/trainingAttendence/{trainingAttendence}', [TrainingAttendenceController::class,'show']);
     Route::post('/trainingAttendence/{trainingAttendence}', [TrainingAttendenceController::class,'update']);
     Route::delete('/trainingAttendence/{trainingAttendence}', [TrainingAttendenceController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/employee', [EmployeeInfoController::class,'index']);
     Route::post('/employee', [EmployeeInfoController::class,'store']);
     Route::get('/employee/{employeeInfo}', [EmployeeInfoController::class,'show']);
     Route::post('/employee/{employeeInfo}', [EmployeeInfoController::class,'update']);
     Route::delete('/employee/{employeeInfo}', [EmployeeInfoController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/department', [EmployeeDepartmentController::class,'index']);
     Route::post('/department', [EmployeeDepartmentController::class,'store']);
     Route::get('/department/{employee_department}', [EmployeeDepartmentController::class,'show']);
     Route::post('/department/{employee_department}', [EmployeeDepartmentController::class,'update']);
     Route::delete('/department/{employee_department}', [EmployeeDepartmentController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
+
     Route::get('/unit', EmployeeUnitController::class);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/designation', [EmployeeDesignationController::class,'index']);
     Route::post('/designation', [EmployeeDesignationController::class,'store']);
     Route::get('/designation/{employee_designation}', [EmployeeDesignationController::class,'show']);
     Route::post('/designation/{employee_designation}', [EmployeeDesignationController::class,'update']);
     Route::delete('/designation/{employee_designation}', [EmployeeDesignationController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/trainingTopics', [TrainingTopicsController::class,'index']);
     Route::post('/trainingTopics', [TrainingTopicsController::class,'store']);
     Route::get('/trainingTopics/{trainingTopics}', [TrainingTopicsController::class,'show']);
     Route::post('/trainingTopics/{trainingTopics}', [TrainingTopicsController::class,'update']);
     Route::delete('/trainingTopics/{trainingTopics}', [TrainingTopicsController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/assign-special-training', [AssignSpecialTrainingController::class,'index']);
     Route::post('/assign-special-training', [AssignSpecialTrainingController::class,'store']);
     Route::get('/assign-special-training/{assignSpecialTraining}', [AssignSpecialTrainingController::class,'show']);
@@ -250,9 +223,8 @@ Route::prefix('v1')->group(function(){
     Route::delete('/assign-special-training/{assignSpecialTraining}', [AssignSpecialTrainingController::class,'destroy']);
 
     Route::get('/training-assesments', TrainingAssesmentController::class)->middleware('auth:sanctum');
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/assign-training', [AssignTrainingController::class,'index']);
     Route::post('/assign-training', [AssignTrainingController::class,'store']);
     Route::get('/assign-training/{assignTraining}', [AssignTrainingController::class,'show']);
@@ -261,100 +233,85 @@ Route::prefix('v1')->group(function(){
 
     Route::post('/assign-multiple-training', AssignMultipleTrainingController::class);
     // Route::get('/training-assesments', TrainingAssesmentController::class);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira', [HiraController::class,'index']);
     Route::post('/hira', [HiraController::class,'store']);
     Route::get('/hira/{hira}', [HiraController::class,'show']);
     Route::post('/hira/{hira}', [HiraController::class,'update']);
     Route::delete('/hira/{hira}', [HiraController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-process', [HiraProcessController::class,'index']);
     Route::post('/hira-process', [HiraProcessController::class,'store']);
     Route::delete('/hira-process/{hiraProcess}', [HiraProcessController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-activity', [HiraActivityController::class,'index']);
     Route::post('/hira-activity', [HiraActivityController::class,'store']);
     Route::delete('/hira-activity/{hiraActivity}', [HiraActivityController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-type-of-Activity', [HiraTypeOfActivityController::class,'index']);
     Route::post('/hira-type-of-Activity', [HiraTypeOfActivityController::class,'store']);
     Route::delete('/hira-type-of-Activity/{hiraTypeOfActivity}', [HiraTypeOfActivityController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-occupations', [HiraOccupationsController::class,'index']);
     Route::post('/hira-occupations', [HiraOccupationsController::class,'store']);
     Route::delete('/hira-occupations/{hiraOccupations}', [HiraOccupationsController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-event', [HiraEventController::class,'index']);
     Route::post('/hira-event', [HiraEventController::class,'store']);
     Route::delete('/hira-event/{hiraEvent}', [HiraEventController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-cause', [HiraCauseController::class,'index']);
     Route::post('/hira-cause', [HiraCauseController::class,'store']);
     Route::delete('/hira-cause/{hiraCause}', [HiraCauseController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-impact', [HiraImpactController::class,'index']);
     Route::post('/hira-impact', [HiraImpactController::class,'store']);
     Route::delete('/hira-impact/{hiraImpact}', [HiraImpactController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-engineering', [HiraEngineeringController::class,'index']);
     Route::post('/hira-engineering', [HiraEngineeringController::class,'store']);
     Route::delete('/hira-engineering/{hiraEngineering}', [HiraEngineeringController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-administrative', [HiraAdministrativeController::class,'index']);
     Route::post('/hira-administrative', [HiraAdministrativeController::class,'store']);
     Route::delete('/hira-administrative/{hiraAdministrative}', [HiraAdministrativeController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-ppe', [HiraPPEController::class,'index']);
     Route::post('/hira-ppe', [HiraPPEController::class,'store']);
     Route::delete('/hira-ppe/{hiraPPE}', [HiraPPEController::class,'destroy']);
-});
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hira-location', [HiraLocationController::class,'index']);
     Route::post('/hira-location', [HiraLocationController::class,'store']);
     Route::delete('/hira-location/{hiraLocation}', [HiraLocationController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-control-visitors', [HseControlVisitorsDocController::class,'index']);
     Route::post('/hse-control-visitors', [HseControlVisitorsDocController::class,'store']);
     Route::get('/hse-control-visitors/{hseControlVisitorsDoc}', [HseControlVisitorsDocController::class,'show']);
     Route::post('/hse-control-visitors/{hseControlVisitorsDoc}', [HseControlVisitorsDocController::class,'update']);
     Route::delete('/hse-control-visitors/{hseControlVisitorsDoc}', [HseControlVisitorsDocController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-vehicle-safety', [HseVehicleSafetyController::class,'index']);
     Route::post('/hse-vehicle-safety', [HseVehicleSafetyController::class,'store']);
     Route::get('/hse-vehicle-safety/{hseVehicleSafety}', [HseVehicleSafetyController::class,'show']);
     Route::post('/hse-vehicle-safety/{hseVehicleSafety}', [HseVehicleSafetyController::class,'update']);
     Route::delete('/hse-vehicle-safety/{hseVehicleSafety}', [HseVehicleSafetyController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-vehicle-safety-doc', [HseVehicleSafetyDocController::class,'index']);
     Route::post('/hse-vehicle-safety-doc', [HseVehicleSafetyDocController::class,'store']);
     Route::get('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'show']);
@@ -362,9 +319,8 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-vehicle-safety-doc/{hseVehicleSafetyDoc}', [HseVehicleSafetyDocController::class,'destroy']);
     Route::post('/hse-vehicle-safety-status/{hseVehicleSafetyDoc}', StatusHseVehicleSafetyDocsController::class);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-power-tools', [SafetyPowerToolsController::class,'index']);
     Route::post('/hse-safety-power-tools', [SafetyPowerToolsController::class,'store']);
     Route::get('/hse-safety-power-tools/{safetyPowerTools}', [SafetyPowerToolsController::class,'show']);
@@ -372,9 +328,6 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-safety-power-tools/{safetyPowerTools}', [SafetyPowerToolsController::class,'destroy']);
     Route::post('/hse-safety-power-tools-status/{safetyPowerTools}', StatusSafetyPowerToolsController::class);
 
-});
-
-Route::prefix('v1')->group(function(){
     Route::get('/hse-sight-hearing-protection', [HseSightHearingProtectionController::class,'index']);
     Route::post('/hse-sight-hearing-protection', [HseSightHearingProtectionController::class,'store']);
     Route::get('/hse-sight-hearing-protection/{hseSightHearingProtection}', [HseSightHearingProtectionController::class,'show']);
@@ -382,27 +335,24 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-sight-hearing-protection/{hseSightHearingProtection}', [HseSightHearingProtectionController::class,'destroy']);
     Route::post('/hse-sight-hearing-protection-status/{hseSightHearingProtection}', StatusHseSightHearingProtectionController::class);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-noise-intensity-measurement', [HseNoiseIntensityMeasurementController::class,'index']);
     Route::post('/hse-noise-intensity-measurement', [HseNoiseIntensityMeasurementController::class,'store']);
     Route::get('/hse-noise-intensity-measurement/{hseNoiseIntensityMeasurement}', [HseNoiseIntensityMeasurementController::class,'show']);
     Route::post('/hse-noise-intensity-measurement/{hseNoiseIntensityMeasurement}', [HseNoiseIntensityMeasurementController::class,'update']);
     Route::delete('/hse-noise-intensity-measurement/{hseNoiseIntensityMeasurement}', [HseNoiseIntensityMeasurementController::class,'destroy']);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-light-intensity-measurement', [LightIntensityMeasurementController::class,'index']);
     Route::post('/hse-light-intensity-measurement', [LightIntensityMeasurementController::class,'store']);
     Route::get('/hse-light-intensity-measurement/{lightIntensityMeasurement}', [LightIntensityMeasurementController::class,'show']);
     Route::post('/hse-light-intensity-measurement/{lightIntensityMeasurement}', [LightIntensityMeasurementController::class,'update']);
     Route::delete('/hse-light-intensity-measurement/{lightIntensityMeasurement}', [LightIntensityMeasurementController::class,'destroy']);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-work-at-height', [HseWorkatHeightController::class,'index']);
     Route::post('/hse-work-at-height', [HseWorkatHeightController::class,'store']);
     Route::get('/hse-work-at-height/{hseWorkatHeight}', [HseWorkatHeightController::class,'show']);
@@ -410,306 +360,272 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-work-at-height/{hseWorkatHeight}', [HseWorkatHeightController::class,'destroy']);
     Route::post('/hse-work-at-height-status/{hseWorkatHeight}', StatusHseWorkatHeightController::class);
 
-});
 // 5-10-2024 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safe-crane-operation', [HseSafeCraneOperationController::class,'index']);
     Route::post('/hse-safe-crane-operation', [HseSafeCraneOperationController::class,'store']);
     Route::get('/hse-safe-crane-operation/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'show']);
     Route::post('/hse-safe-crane-operation/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'update']);
     Route::delete('/hse-safe-crane-operation/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'destroy']);
     Route::post('/hse-safe-crane-operation-status/{hseSafeCraneOperation}', [HseSafeCraneOperationController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-mobile-crane-planning-risk-assessment', [HseMobileCranePlanningRiskAssessmentDocController::class,'index']);
     Route::post('/hse-mobile-crane-planning-risk-assessment', [HseMobileCranePlanningRiskAssessmentDocController::class,'store']);
     Route::get('/hse-mobile-crane-planning-risk-assessment/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'show']);
     Route::post('/hse-mobile-crane-planning-risk-assessment/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'update']);
     Route::delete('/hse-mobile-crane-planning-risk-assessment/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'destroy']);
     Route::post('/hse-mobile-crane-planning-risk-assessment-status/{hseRiskAssessment}', [HseMobileCranePlanningRiskAssessmentDocController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-mobile-crane-safety-procedure', [HseMobileCraneSafetyProcedureDocController::class,'index']);
     Route::post('/hse-mobile-crane-safety-procedure', [HseMobileCraneSafetyProcedureDocController::class,'store']);
     Route::get('/hse-mobile-crane-safety-procedure/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'show']);
     Route::post('/hse-mobile-crane-safety-procedure/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'update']);
     Route::delete('/hse-mobile-crane-safety-procedure/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'destroy']);
     Route::post('/hse-mobile-crane-safety-procedure-status/{hseSafetyProcedure}', [HseMobileCraneSafetyProcedureDocController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-timber-block-required-under-mobile-crane', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'index']);
     Route::post('/hse-timber-block-required-under-mobile-crane', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'store']);
     Route::get('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'show']);
     Route::post('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'update']);
     Route::delete('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'destroy']);
     Route::post('/hse-timber-block-required-under-mobile-crane-status/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'edit']);
-});
 // 7/9/24 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-entry-confined-space', [HseEntryConfinedSpaceController::class,'index']);
     Route::post('/hse-entry-confined-space', [HseEntryConfinedSpaceController::class,'store']);
     Route::get('/hse-entry-confined-space/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'show']);
     Route::post('/hse-entry-confined-space/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'update']);
     Route::delete('/hse-entry-confined-space/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'destroy']);
     Route::post('/hse-entry-confined-space-status/{hseEntryConfinedSpace}', [HseEntryConfinedSpaceController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-entry-confined-check', [HseEntryConfinedChecklistController::class,'index']);
     Route::post('/hse-entry-confined-check', [HseEntryConfinedChecklistController::class,'store']);
     Route::get('/hse-entry-confined-check/{hseEntryConfinedChecklist}', [HseEntryConfinedChecklistController::class,'show']);
     Route::delete('/hse-entry-confined-check/{hseEntryConfinedChecklist}', [HseEntryConfinedChecklistController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-confined-space', [HseListConfinedSpaceController::class,'index']);
     Route::post('/hse-confined-space', [HseListConfinedSpaceController::class,'store']);
     Route::get('/hse-confined-space/{hseListConfinedSpace}', [HseListConfinedSpaceController::class,'show']);
     Route::delete('/hse-confined-space/{hseListConfinedSpace}', [HseListConfinedSpaceController::class,'destroy']);
-});
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-pressure-vessel', [HsePressureVesselController::class,'index']);
     Route::post('/hse-pressure-vessel', [HsePressureVesselController::class,'store']);
     Route::get('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'show']);
     Route::post('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'update']);
     Route::delete('/hse-pressure-vessel/{hsePressureVessel}', [HsePressureVesselController::class,'destroy']);
     Route::post('/hse-pressure-vessel-status/{hsePressureVessel}', [HsePressureVesselController::class,'edit']);
-});
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-list-pressure-vessels', [HseListPressureVesselsController::class,'index']);
     Route::post('/hse-list-pressure-vessels', [HseListPressureVesselsController::class,'store']);
     Route::get('/hse-list-pressure-vessels/{hseListPressureVessels}', [HseListPressureVesselsController::class,'show']);
     Route::delete('/hse-list-pressure-vessels/{hseListPressureVessels}', [HseListPressureVesselsController::class,'destroy']);
-});
 
 // end 7/9/24 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'index']);
     Route::post('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'store']);
     Route::get('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'show']);
     Route::post('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'update']);
     Route::delete('/hse-ladder-self-inspection-checklist/{hseLadderSelfInspectionChecklist}', [HseLadderSelfInspectionChecklistController::class,'destroy']);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-master-listLifting-equipments', [HseMasterListLiftingEquipmentsController::class,'index']);
     Route::post('/hse-master-listLifting-equipments', [HseMasterListLiftingEquipmentsController::class,'store']);
     Route::get('/hse-master-listLifting-equipments/{hseMasterListLiftingEquipments}', [HseMasterListLiftingEquipmentsController::class,'show']);
     Route::post('/hse-master-listLifting-equipments/{hseMasterListLiftingEquipments}', [HseMasterListLiftingEquipmentsController::class,'update']);
     Route::delete('/hse-master-listLifting-equipments/{hseMasterListLiftingEquipments}', [HseMasterListLiftingEquipmentsController::class,'destroy']);
 
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-lifting-loose-gears', [HseLiftingLooseGearsController::class,'index']);
     Route::post('/hse-lifting-loose-gears', [HseLiftingLooseGearsController::class,'store']);
     Route::get('/hse-lifting-loose-gears/{hseLiftingLooseGears}', [HseLiftingLooseGearsController::class,'show']);
     Route::post('/hse-lifting-loose-gears/{hseLiftingLooseGears}', [HseLiftingLooseGearsController::class,'update']);
     Route::delete('/hse-lifting-loose-gears/{hseLiftingLooseGears}', [HseLiftingLooseGearsController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-harness', [HseHarnessChecklistController::class,'index']);
     Route::post('/hse-harness', [HseHarnessChecklistController::class,'store']);
     Route::get('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'show']);
     // Route::post('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'update']);
     Route::delete('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'destroy']);
-});
 
 // start 8/9/24 
 
-// Route::prefix('v1')->group(function(){
+// 
 //     Route::get('/hse-compressed-gas', [HseCompressedGasController::class,'index']);
 //     Route::post('/hse-compressed-gas', [HseCompressedGasController::class,'store']);
 //     Route::get('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'show']);
 //     Route::post('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'update']);
 //     Route::delete('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'destroy']);
 //     Route::post('/hse-compressed-gas-status/{hseCompressedGas}', [HseCompressedGasController::class,'edit']);
-// });
+//
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-chemical-handling', [HseChemicalHandlingController::class,'index']);
     Route::post('/hse-chemical-handling', [HseChemicalHandlingController::class,'store']);
     Route::get('/hse-chemical-handling/{hseChemicalHandling}', [HseChemicalHandlingController::class,'show']);
     Route::post('/hse-chemical-handling/{hseChemicalHandling}', [HseChemicalHandlingController::class,'update']);
     Route::delete('/hse-chemical-handling/{hseChemicalHandling}', [HseChemicalHandlingController::class,'destroy']);
     Route::post('/hse-chemical-handling-status/{hseChemicalHandling}', [HseChemicalHandlingController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-chemical-register', [HseChemicalRegisterController::class,'index']);
     Route::post('/hse-chemical-register', [HseChemicalRegisterController::class,'store']);
     Route::get('/hse-chemical-register/{hseChemicalRegister}', [HseChemicalRegisterController::class,'show']);
     Route::delete('/hse-chemical-register/{hseChemicalRegister}', [HseChemicalRegisterController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-hot-work', [HseHotWorkController::class,'index']);
     Route::post('/hse-hot-work', [HseHotWorkController::class,'store']);
     Route::get('/hse-hot-work/{hseHotWork}', [HseHotWorkController::class,'show']);
     Route::post('/hse-hot-work/{hseHotWork}', [HseHotWorkController::class,'update']);
     Route::delete('/hse-hot-work/{hseHotWork}', [HseHotWorkController::class,'destroy']);
     Route::post('/hse-hot-work-status/{hseHotWork}', [HseHotWorkController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-hot-work-checklist', [HseHotWorkChecklistController::class,'index']);
     Route::post('/hse-hot-work-checklist', [HseHotWorkChecklistController::class,'store']);
     Route::get('/hse-hot-work-checklist/{hseHotWorkChecklist}', [HseHotWorkChecklistController::class,'show']);
     Route::delete('/hse-hot-work-checklist/{hseHotWorkChecklist}', [HseHotWorkChecklistController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/fire-safety-system', [HseFireSafetySystemController::class,'index']);
     Route::post('/fire-safety-system', [HseFireSafetySystemController::class,'store']);
     Route::get('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'show']);
     Route::post('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'update']);
     Route::delete('/fire-safety-system/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'destroy']);
     Route::post('/fire-safety-system-status/{hseFireSafetySystem}', [HseFireSafetySystemController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-material-procedure', [HseMaterialProcedureController::class,'index']);
     Route::post('/hse-material-procedure', [HseMaterialProcedureController::class,'store']);
     Route::get('/hse-material-procedure/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'show']);
     Route::post('/hse-material-procedure/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'update']);
     Route::delete('/hse-material-procedure/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'destroy']);
     Route::post('/hse-material-procedure-status/{hseMaterialProcedure}', [HseMaterialProcedureController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-house-keeping', [HseHouseKeepingController::class,'index']);
     Route::post('/hse-house-keeping', [HseHouseKeepingController::class,'store']);
     Route::get('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'show']);
     Route::post('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'update']);
     Route::delete('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'destroy']);
     Route::post('/hse-house-keeping-status/{hseHouseKeeping}', [HseHouseKeepingController::class,'edit']);
-});
 // start 9/9/24 
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-permit-work', [HsePermitWorkController::class,'index']);
     Route::post('/hse-permit-work', [HsePermitWorkController::class,'store']);
     Route::get('/hse-permit-work/{hsePermitWork}', [HsePermitWorkController::class,'show']);
     Route::post('/hse-permit-work/{hsePermitWork}', [HsePermitWorkController::class,'update']);
     Route::delete('/hse-permit-work/{hsePermitWork}', [HsePermitWorkController::class,'destroy']);
     Route::post('/hse-permit-work-status/{hsePermitWork}', [HsePermitWorkController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-permit-work-form', [HsePermitWorkFormController::class,'index']);
     Route::post('/hse-permit-work-form', [HsePermitWorkFormController::class,'store']);
     Route::get('/hse-permit-work-form/{hsePermitWorkForm}', [HsePermitWorkFormController::class,'show']);
     Route::delete('/hse-permit-work-form/{hsePermitWorkForm}', [HsePermitWorkFormController::class,'destroy']);
-});
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-electrical-safety', [HseElectricalSafetyController::class,'index']);
     Route::post('/hse-electrical-safety', [HseElectricalSafetyController::class,'store']);
     Route::get('/hse-electrical-safety/{hseElectricalSafety}', [HseElectricalSafetyController::class,'show']);
     Route::post('/hse-electrical-safety/{hseElectricalSafety}', [HseElectricalSafetyController::class,'update']);
     Route::delete('/hse-electrical-safety/{hseElectricalSafety}', [HseElectricalSafetyController::class,'destroy']);
     Route::post('/hse-electrical-safety-status/{hseElectricalSafety}', [HseElectricalSafetyController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-earthing-pit-condition', [HseEarthingPitConditionController::class,'index']);
     Route::post('/hse-earthing-pit-condition', [HseEarthingPitConditionController::class,'store']);
     Route::get('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'show']);
     Route::delete('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'destroy']);
-});
 
 // 14/10/24 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-lightning-protection', [HSELightningProtectionController::class,'index']);
     Route::post('/hse-lightning-protection', [HSELightningProtectionController::class,'store']);
     Route::get('/hse-lightning-protection/{hSELightningProtection}', [HSELightningProtectionController::class,'show']);
     Route::delete('/hse-lightning-protection/{hSELightningProtection}', [HSELightningProtectionController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-lotto', [HseLOTOController::class,'index']);
     Route::post('/hse-lotto', [HseLOTOController::class,'store']);
     Route::get('/hse-lotto/{hseLOTO}', [HseLOTOController::class,'show']);
     Route::post('/hse-lotto/{hseLOTO}', [HseLOTOController::class,'update']);
     Route::delete('/hse-lotto/{hseLOTO}', [HseLOTOController::class,'destroy']);
     Route::post('/hse-lotto-status/{hseLOTO}', [HseLOTOController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-lotto-form', [HseLottoFormController::class,'index']);
     Route::post('/hse-lotto-form', [HseLottoFormController::class,'store']);
     Route::get('/hse-lotto-form/{hseLottoForm}', [HseLottoFormController::class,'show']);
     Route::delete('/hse-lotto-form/{hseLottoForm}', [HseLottoFormController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-excavation-procedure', [HseExcavationProcedureController::class,'index']);
     Route::post('/hse-excavation-procedure', [HseExcavationProcedureController::class,'store']);
     Route::get('/hse-excavation-procedure/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'show']);
     Route::post('/hse-excavation-procedure/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'update']);
     Route::delete('/hse-excavation-procedure/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'destroy']);
     Route::post('/hse-excavation-procedure-status/{hseExcavationProcedure}', [HseExcavationProcedureController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-personal-protective', [HsePersonalProtectiveController::class,'index']);
     Route::post('/hse-personal-protective', [HsePersonalProtectiveController::class,'store']);
     Route::get('/hse-personal-protective/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'show']);
     Route::post('/hse-personal-protective/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'update']);
     Route::delete('/hse-personal-protective/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'destroy']);
     Route::post('/hse-personal-protective-status/{hsePersonalProtective}', [HsePersonalProtectiveController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-ppe-distribution-register', [HsePPEDistributionRegisterController::class,'index']);
     Route::post('/hse-ppe-distribution-register', [HsePPEDistributionRegisterController::class,'store']);
     Route::get('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'show']);
     Route::post('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'update']);
     Route::delete('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'destroy']);
-});
 
 // 15/10/24 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-ppe-inspection', [HsePPEInspectionReportController::class,'index']);
     Route::post('/hse-ppe-inspection', [HsePPEInspectionReportController::class,'store']);
     Route::get('/hse-ppe-inspection/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'show']);
     Route::post('/hse-ppe-inspection/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'update']);
     Route::delete('/hse-ppe-inspection/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'destroy']);
     Route::post('/hse-ppe-inspection-status/{hsePPEInspectionReport}', [HsePPEInspectionReportController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-signage', [HseSafetySignageManagementController::class,'index']);
     Route::post('/hse-safety-signage', [HseSafetySignageManagementController::class,'store']);
     Route::get('/hse-safety-signage/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'show']);
     Route::post('/hse-safety-signage/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'update']);
     Route::delete('/hse-safety-signage/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'destroy']);
     Route::post('/hse-safety-signage-status/{hseSafetySignageManagement}', [HseSafetySignageManagementController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-signage', [HseOHSMSFormController::class,'index']);
     Route::post('/hse-safety-signage', [HseOHSMSFormController::class,'store']);
     Route::get('/hse-safety-signage/{hseOHSMSForm}', [HseOHSMSFormController::class,'show']);
     Route::post('/hse-safety-signage/{hseOHSMSForm}', [HseOHSMSFormController::class,'update']);
     Route::delete('/hse-safety-signage/{hseOHSMSForm}', [HseOHSMSFormController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-first-aid', [HseFirstAidController::class,'index']);
     Route::post('/hse-first-aid', [HseFirstAidController::class,'store']);
     Route::get('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'show']);
@@ -717,212 +633,194 @@ Route::prefix('v1')->group(function(){
     Route::delete('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'destroy']);
     Route::delete('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'edit']);
     
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-first-aid-register', [HseFirstAidRegisterController::class,'index']);
     Route::post('/hse-first-aid-register', [HseFirstAidRegisterController::class,'store']);
     Route::get('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'show']);
     Route::post('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'update']);
     Route::delete('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'destroy']);
-});
 
 // 16/10/24 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-inspection', [HseSafetyInspectionReportController::class,'index']);
     Route::post('/hse-safety-inspection', [HseSafetyInspectionReportController::class,'store']);
     Route::get('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'show']);
     Route::post('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'update']);
     Route::delete('/hse-safety-inspection/{hseSafetyInspectionReport}', [HseSafetyInspectionReportController::class,'destroy']);
-});
 
-// Route::prefix('v1')->group(function(){
-//     Route::get('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'index']);
-//     Route::post('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'store']);
-//     Route::post('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'update']);
-//     Route::get('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'show']);
-//     Route::delete('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'destroy']);
-// });
 
-Route::prefix('v1')->group(function(){
+    Route::get('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'index']);
+    Route::post('/hse-safety-checklist-hv', [HseSafetyChecklistHVController::class,'store']);
+    Route::post('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'update']);
+    Route::get('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'show']);
+    Route::delete('/hse-safety-checklist-hv/{hseSafetyChecklistHV}', [HseSafetyChecklistHVController::class,'destroy']);
+
+
     Route::get('/hse-Safety-tt', [HseSafetyTTController::class,'index']);
     Route::post('/hse-Safety-tt', [HseSafetyTTController::class,'store']);
     Route::post('/hse-Safety-tt/{hseSafetyTT}', [HseSafetyTTController::class,'update']);
     Route::get('/hse-Safety-tt/{hseSafetyTT}', [HseSafetyTTController::class,'show']);
     Route::delete('/hse-Safety-tt/{hseSafetyTT}', [HseSafetyTTController::class,'destroy']);
-});
 
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-Safety-bt', [HseSafetyBTController::class,'index']);
     Route::post('/hse-Safety-bt', [HseSafetyBTController::class,'store']);
     Route::post('/hse-Safety-bt/{hseSafetyBT}', [HseSafetyBTController::class,'update']);
     Route::get('/hse-Safety-bt/{hseSafetyBT}', [HseSafetyBTController::class,'show']);
     Route::delete('/hse-Safety-bt/{hseSafetyBT}', [HseSafetyBTController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-Safety-ctcv', [HseSafetyCTCVTPTController::class,'index']);
     Route::post('/hse-Safety-ctcv', [HseSafetyCTCVTPTController::class,'store']);
     Route::post('/hse-Safety-ctcv/{hseSafetyCTCVTPT}', [HseSafetyCTCVTPTController::class,'update']);
     Route::get('/hse-Safety-ctcv/{hseSafetyCTCVTPT}', [HseSafetyCTCVTPTController::class,'show']);
     Route::delete('/hse-Safety-ctcv/{hseSafetyCTCVTPT}', [HseSafetyCTCVTPTController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-handling', [HseSafetyHandlingController::class,'index']);
     Route::post('/hse-safety-handling', [HseSafetyHandlingController::class,'store']);
     Route::post('/hse-safety-handling/{hseSafetyHandling}', [HseSafetyHandlingController::class,'update']);
     Route::get('/hse-safety-handling/{hseSafetyHandling}', [HseSafetyHandlingController::class,'show']);
     Route::delete('/hse-safety-handling/{hseSafetyHandling}', [HseSafetyHandlingController::class,'destroy']);
-});
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-acc-inv-procedure', [HseAccInvProcedureController::class,'index']);
     Route::post('/hse-acc-inv-procedure', [HseAccInvProcedureController::class,'store']);
     Route::get('/hse-acc-inv-procedure/{hseAccInvProcedure}', [HseAccInvProcedureController::class,'show']);
     Route::post('/hse-acc-inv-procedure/{hseAccInvProcedure}', [HseAccInvProcedureController::class,'update']);
     Route::delete('/hse-acc-inv-procedure/{hseAccInvProcedure}', [HseAccInvProcedureController::class,'destroy']);
     Route::post('/hse-acc-inv-procedure-status/{hseAccInvProcedure}', [HseAccInvProcedureController::class,'edit']);
-});
 
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-accident-notification', [HseAccidentNotificationController::class,'index']);
     Route::post('/hse-accident-notification', [HseAccidentNotificationController::class,'store']);
     Route::get('/hse-accident-notification/{hseAccidentNotification}', [HseAccidentNotificationController::class,'show']);
     Route::post('/hse-accident-notification/{hseAccidentNotification}', [HseAccidentNotificationController::class,'update']);
     Route::delete('/hse-accident-notification/{hseAccidentNotification}', [HseAccidentNotificationController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-incident-notification', [HseIncidentNotificationController::class,'index']);
     Route::post('/hse-incident-notification', [HseIncidentNotificationController::class,'store']);
     Route::get('/hse-incident-notification/{hseIncidentNotification}', [HseIncidentNotificationController::class,'show']);
     Route::post('/hse-incident-notification/{hseIncidentNotification}', [HseIncidentNotificationController::class,'update']);
     Route::delete('/hse-incident-notification/{hseIncidentNotification}', [HseIncidentNotificationController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-incident-investigation', [HseIncidentInvestigationController::class,'index']);
     Route::post('/hse-incident-investigation', [HseIncidentInvestigationController::class,'store']);
     Route::get('/hse-incident-investigation/{HseIncidentInvestigation}', [HseIncidentInvestigationController::class,'show']);
     Route::post('/hse-incident-investigation/{HseIncidentInvestigation}', [HseIncidentInvestigationController::class,'update']);
     Route::delete('/hse-incident-investigation/{HseIncidentInvestigation}', [HseIncidentInvestigationController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-accident-register', [HseAccidentRegisterController::class,'index']);
     Route::post('/hse-accident-register', [HseAccidentRegisterController::class,'store']);
     Route::get('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'show']);
     Route::post('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'update']);
     Route::delete('/hse-accident-register/{hseAccidentRegister}', [HseAccidentRegisterController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-relay', [HseSafetyRelayController::class,'index']);
     Route::post('/hse-safety-relay', [HseSafetyRelayController::class,'store']);
     Route::post('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'update']);
     Route::get('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'show']);
     Route::delete('/hse-safety-relay/{hseSafetyRelay}', [HseSafetyRelayController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-switchgear', [HseSafetySwitchgearController::class,'index']);
     Route::post('/hse-safety-switchgear', [HseSafetySwitchgearController::class,'store']);
     Route::post('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'update']);
     Route::get('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'show']);
     Route::delete('/hse-safety-switchgear/{hseSafetySwitchgear}', [HseSafetySwitchgearController::class,'destroy']);
-});
 
 // 17/10/24
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-incident-register', [HseIncidentRegisterController::class,'index']);
     Route::post('/hse-incident-register', [HseIncidentRegisterController::class,'store']);
     Route::post('/hse-incident-register/{hseIncidentRegister}', [HseIncidentRegisterController::class,'update']);
     Route::get('/hse-incident-register/{hseIncidentRegister}', [HseIncidentRegisterController::class,'show']);
     Route::delete('/hse-incident-register/{hseIncidentRegister}', [HseIncidentRegisterController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-jobsafety-analysis', [HseJobSafetyAnalysisController::class,'index']);
     Route::post('/hse-jobsafety-analysis', [HseJobSafetyAnalysisController::class,'store']);
     Route::get('/hse-jobsafety-analysis/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'show']);
     Route::post('/hse-jobsafety-analysis/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'update']);
     Route::delete('/hse-jobsafety-analysis/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'destroy']);
     Route::post('/hse-jobsafety-analysis-status/{hseJobSafetyAnalysis}', [HseJobSafetyAnalysisController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-safety-analysis-ppe', [HseJobSafetyAnalysisPPEController::class,'index']);
     Route::post('/hse-safety-analysis-ppe', [HseJobSafetyAnalysisPPEController::class,'store']);
     Route::post('/hse-safety-analysis-ppe/{hseJobSafetyAnalysisPPE}', [HseJobSafetyAnalysisPPEController::class,'update']);
     Route::get('/hse-safety-analysis-ppe/{hseJobSafetyAnalysisPPE}', [HseJobSafetyAnalysisPPEController::class,'show']);
     Route::delete('/hse-safety-analysis-ppe/{hseJobSafetyAnalysisPPE}', [HseJobSafetyAnalysisPPEController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/hse-emergency-preparedness', [HseEmergencyPreparednessController::class,'index']);
     Route::post('/hse-emergency-preparedness', [HseEmergencyPreparednessController::class,'store']);
     Route::get('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'show']);
     Route::post('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'update']);
     Route::delete('/hse-emergency-preparedness/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'destroy']);
     Route::post('/hse-emergency-preparedness-status/{hseEmergencyPreparedness}', [HseEmergencyPreparednessController::class,'edit']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/jcb-checklists', [JCBChecklistController::class,'index']);
     Route::post('/jcb-checklists', [JCBChecklistController::class,'store']);
     Route::get('/jcb-checklists/{jCBChecklist}', [JCBChecklistController::class,'show']);
     Route::post('/jcb-checklists/{jCBChecklist}', [JCBChecklistController::class,'update']);
     Route::delete('/jcb-checklists/{jCBChecklist}', [JCBChecklistController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
+
     Route::get('/excavator-checklists', [ExcavatorChecklistController::class,'index']);
     Route::post('/excavator-checklists', [ExcavatorChecklistController::class,'store']);
     Route::get('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'show']);
     Route::post('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'update']);
     Route::delete('/excavator-checklists/{excavatorChecklist}', [ExcavatorChecklistController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
+
     Route::get('/earth-compactors-checklists', [EarthCompactorController::class,'index']);
     Route::post('/earth-compactors-checklists', [EarthCompactorController::class,'store']);
     Route::get('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'show']);
     Route::post('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'update']);
     Route::delete('/earth-compactors-checklists/{hseEmergencyPreparedness}', [EarthCompactorController::class,'destroy']);
-});
-Route::prefix('v1')->group(function(){
+
     Route::get('/dumper-checklists', [DumperChecklistController::class,'index']);
     Route::post('/dumper-checklists', [DumperChecklistController::class,'store']);
     Route::get('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'show']);
     Route::post('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'update']);
     Route::delete('/dumper-checklists/{dumperChecklist}', [DumperChecklistController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/concrete-mixer-checklists', [ConcreteMixerController::class,'index']);
     Route::post('/concrete-mixer-checklists', [ConcreteMixerController::class,'store']);
     Route::get('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'show']);
     Route::post('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'update']);
     Route::delete('/concrete-mixer-checklists/{concreteMixer}', [ConcreteMixerController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/transit-mixers-checklists', [TransitMixerController::class,'index']);
     Route::post('/transit-mixers-checklists', [TransitMixerController::class,'store']);
     Route::get('/transit-mixers-checklists/{transitMixer}', [TransitMixerController::class,'show']);
     Route::post('/transit-mixers-checklists/{transitMixer}', [TransitMixerController::class,'update']);
     Route::delete('/transit-mixers-checklists/{transitMixer}', [TransitMixerController::class,'destroy']);
-});
 
-Route::prefix('v1')->group(function(){
+
     Route::get('/concrete-pump-checklists', [ConcretePumpController::class,'index']);
     Route::post('/concrete-pump-checklists', [ConcretePumpController::class,'store']);
     Route::get('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'show']);
     Route::post('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'update']);
     Route::delete('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'destroy']);
+
 });
+
+    
+
+
+
+    
