@@ -19,11 +19,11 @@ class RegistrationController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'token' => $token,
-            'token_type' => 'Bearer',
+            // 'token' => $token,
+            // 'token_type' => 'Bearer',
             'user' => $user->name
 
         ]);
