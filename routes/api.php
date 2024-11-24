@@ -118,6 +118,14 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\auth\RegistrationController;
 use App\Http\Controllers\auth\ResetPasswordController;
+use App\Http\Controllers\BarBendingMachineController;
+use App\Http\Controllers\BarCuttingMachineController;
+use App\Http\Controllers\BoomPlacerController;
+use App\Http\Controllers\BreakerController;
+use App\Http\Controllers\DrillMachineController;
+use App\Http\Controllers\ElectricalVibratorController;
+use App\Http\Controllers\HydraController;
+use App\Http\Controllers\MobileCraneController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -816,6 +824,55 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'show']);
     Route::post('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'update']);
     Route::delete('/concrete-pump-checklists/{concretePump}', [ConcretePumpController::class,'destroy']);
+
+
+    Route::get('/boom-placer-checklists', [BoomPlacerController::class,'index']);
+    Route::post('/boom-placer-checklists', [BoomPlacerController::class,'store']);
+    Route::get('/boom-placer-checklists/{boomPlacer}', [BoomPlacerController::class,'show']);
+    Route::post('/boom-placer-checklists/{boomPlacer}', [BoomPlacerController::class,'update']);
+    Route::delete('/boom-placer-checklists/{boomPlacer}', [BoomPlacerController::class,'destroy']);
+
+    Route::get('/electrical-vibrator-checklists', [ElectricalVibratorController::class,'index']);
+    Route::post('/electrical-vibrator-checklists', [ElectricalVibratorController::class,'store']);
+    Route::get('/electrical-vibrator-checklists/{electricalVibrator}', [ElectricalVibratorController::class,'show']);
+    Route::post('/electrical-vibrator-checklists/{electricalVibrator}', [ElectricalVibratorController::class,'update']);
+    Route::delete('/electrical-vibrator-checklists/{electricalVibrator}', [ElectricalVibratorController::class,'destroy']);
+
+    Route::get('/bar-cutting-machine-checklists', [BarCuttingMachineController::class,'index']);
+    Route::post('/bar-cutting-machine-checklists', [BarCuttingMachineController::class,'store']);
+    Route::get('/bar-cutting-machine-checklists/{barCuttingMachine}', [BarCuttingMachineController::class,'show']);
+    Route::post('/bar-cutting-machine-checklists/{barCuttingMachine}', [BarCuttingMachineController::class,'update']);
+    Route::delete('/bar-cutting-machine-checklists/{barCuttingMachine}', [BarCuttingMachineController::class,'destroy']);
+
+    Route::get('/bar-bending-machine-checklists', [BarBendingMachineController::class,'index']);
+    Route::post('/bar-bending-machine-checklists', [BarBendingMachineController::class,'store']);
+    Route::get('/bar-bending-machine-checklists/{barBendingMachine}', [BarBendingMachineController::class,'show']);
+    Route::post('/bar-bending-machine-checklists/{barBendingMachine}', [BarBendingMachineController::class,'update']);
+    Route::delete('/bar-bending-machine-checklists/{barBendingMachine}', [BarBendingMachineController::class,'destroy']);
+
+    Route::get('/breaker-checklists', [BreakerController::class,'index']);
+    Route::post('/breaker-checklists', [BreakerController::class,'store']);
+    Route::get('/breaker-checklists/{breaker}', [BreakerController::class,'show']);
+    Route::post('/breaker-checklists/{breaker}', [BreakerController::class,'update']);
+    Route::delete('/breaker-checklists/{breaker}', [BreakerController::class,'destroy']);
+
+    Route::get('/drill-machine-checklists', [DrillMachineController::class,'index']);
+    Route::post('/drill-machine-checklists', [DrillMachineController::class,'store']);
+    Route::get('/drill-machine-checklists/{drillMachine}', [DrillMachineController::class,'show']);
+    Route::post('/drill-machine-checklists/{drillMachine}', [DrillMachineController::class,'update']);
+    Route::delete('/drill-machine-checklists/{drillMachine}', [DrillMachineController::class,'destroy']);
+
+    Route::get('/hydra-checklists', [HydraController::class,'index']);
+    Route::post('/hydra-checklists', [HydraController::class,'store']);
+    Route::get('/hydra-checklists/{hydra}', [HydraController::class,'show']);
+    Route::post('/hydra-checklists/{hydra}', [HydraController::class,'update']);
+    Route::delete('/hydra-checklists/{hydra}', [HydraController::class,'destroy']);
+
+    Route::get('/mobile-crane-checklists', [MobileCraneController::class,'index']);
+    Route::post('/mobile-crane-checklists', [MobileCraneController::class,'store']);
+    Route::get('/mobile-crane-checklists/{mobileCrane}', [MobileCraneController::class,'show']);
+    Route::post('/mobile-crane-checklists/{mobileCrane}', [MobileCraneController::class,'update']);
+    Route::delete('/mobile-crane-checklists/{mobileCrane}', [MobileCraneController::class,'destroy']);
 
 });
 
