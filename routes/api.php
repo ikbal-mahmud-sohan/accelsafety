@@ -122,10 +122,14 @@ use App\Http\Controllers\BarBendingMachineController;
 use App\Http\Controllers\BarCuttingMachineController;
 use App\Http\Controllers\BoomPlacerController;
 use App\Http\Controllers\BreakerController;
+use App\Http\Controllers\DieselGeneratorController;
 use App\Http\Controllers\DrillMachineController;
 use App\Http\Controllers\ElectricalVibratorController;
+use App\Http\Controllers\GasCuttingSetController;
 use App\Http\Controllers\HydraController;
 use App\Http\Controllers\MobileCraneController;
+use App\Http\Controllers\PowerDistributionPanelController;
+use App\Http\Controllers\TowerCraneController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -873,6 +877,30 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/mobile-crane-checklists/{mobileCrane}', [MobileCraneController::class,'show']);
     Route::post('/mobile-crane-checklists/{mobileCrane}', [MobileCraneController::class,'update']);
     Route::delete('/mobile-crane-checklists/{mobileCrane}', [MobileCraneController::class,'destroy']);
+
+    Route::get('/tower-crane-checklists', [TowerCraneController::class,'index']);
+    Route::post('/tower-crane-checklists', [TowerCraneController::class,'store']);
+    Route::get('/tower-crane-checklists/{towerCrane}', [TowerCraneController::class,'show']);
+    Route::post('/tower-crane-checklists/{towerCrane}', [TowerCraneController::class,'update']);
+    Route::delete('/tower-crane-checklists/{towerCrane}', [TowerCraneController::class,'destroy']);
+
+    Route::get('/diesel-generator-checklists', [DieselGeneratorController::class,'index']);
+    Route::post('/diesel-generator-checklists', [DieselGeneratorController::class,'store']);
+    Route::get('/diesel-generator-checklists/{dieselGenerator}', [DieselGeneratorController::class,'show']);
+    Route::post('/diesel-generator-checklists/{dieselGenerator}', [DieselGeneratorController::class,'update']);
+    Route::delete('/diesel-generator-checklists/{dieselGenerator}', [DieselGeneratorController::class,'destroy']);
+
+    Route::get('/power-distribution-panel-checklists', [PowerDistributionPanelController::class,'index']);
+    Route::post('/power-distribution-panel-checklists', [PowerDistributionPanelController::class,'store']);
+    Route::get('/power-distribution-panel-checklists/{powerDistributionPanel}', [PowerDistributionPanelController::class,'show']);
+    Route::post('/power-distribution-panel-checklists/{powerDistributionPanel}', [PowerDistributionPanelController::class,'update']);
+    Route::delete('/power-distribution-panel-checklists/{powerDistributionPanel}', [PowerDistributionPanelController::class,'destroy']);
+
+    Route::get('/gas-cutting-set-checklists', [GasCuttingSetController::class,'index']);
+    Route::post('/gas-cutting-set-checklists', [GasCuttingSetController::class,'store']);
+    Route::get('/gas-cutting-set-checklists/{gasCuttingSet}', [GasCuttingSetController::class,'show']);
+    Route::post('/gas-cutting-set-checklists/{gasCuttingSet}', [GasCuttingSetController::class,'update']);
+    Route::delete('/gas-cutting-set-checklists/{gasCuttingSet}', [GasCuttingSetController::class,'destroy']);
 
 });
 
