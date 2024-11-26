@@ -124,12 +124,16 @@ use App\Http\Controllers\BoomPlacerController;
 use App\Http\Controllers\BreakerController;
 use App\Http\Controllers\DieselGeneratorController;
 use App\Http\Controllers\DrillMachineController;
+use App\Http\Controllers\ElectricalPumpController;
 use App\Http\Controllers\ElectricalVibratorController;
 use App\Http\Controllers\GasCuttingSetController;
 use App\Http\Controllers\HydraController;
 use App\Http\Controllers\MobileCraneController;
+use App\Http\Controllers\PortableGrinderController;
 use App\Http\Controllers\PowerDistributionPanelController;
 use App\Http\Controllers\TowerCraneController;
+use App\Http\Controllers\WeldingMachineController;
+use App\Http\Controllers\WinchMachineController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -901,6 +905,30 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/gas-cutting-set-checklists/{gasCuttingSet}', [GasCuttingSetController::class,'show']);
     Route::post('/gas-cutting-set-checklists/{gasCuttingSet}', [GasCuttingSetController::class,'update']);
     Route::delete('/gas-cutting-set-checklists/{gasCuttingSet}', [GasCuttingSetController::class,'destroy']);
+
+    Route::get('/portable-grinder-checklists', [PortableGrinderController::class,'index']);
+    Route::post('/portable-grinder-checklists', [PortableGrinderController::class,'store']);
+    Route::get('/portable-grinder-checklists/{portableGrinder}', [PortableGrinderController::class,'show']);
+    Route::post('/portable-grinder-checklists/{portableGrinder}', [PortableGrinderController::class,'update']);
+    Route::delete('/portable-grinder-checklists/{portableGrinder}', [PortableGrinderController::class,'destroy']);
+
+    Route::get('/welding-machine-checklists', [WeldingMachineController::class,'index']);
+    Route::post('/welding-machine-checklists', [WeldingMachineController::class,'store']);
+    Route::get('/welding-machine-checklists/{weldingMachine}', [WeldingMachineController::class,'show']);
+    Route::post('/welding-machine-checklists/{weldingMachine}', [WeldingMachineController::class,'update']);
+    Route::delete('/welding-machine-checklists/{weldingMachine}', [WeldingMachineController::class,'destroy']);
+
+    Route::get('/electrical-pump-checklists', [ElectricalPumpController::class,'index']);
+    Route::post('/electrical-pump-checklists', [ElectricalPumpController::class,'store']);
+    Route::get('/electrical-pump-checklists/{electricalPump}', [ElectricalPumpController::class,'show']);
+    Route::post('/electrical-pump-checklists/{electricalPump}', [ElectricalPumpController::class,'update']);
+    Route::delete('/electrical-pump-checklists/{electricalPump}', [ElectricalPumpController::class,'destroy']);
+
+    Route::get('/winch-machine-checklists', [WinchMachineController::class,'index']);
+    Route::post('/winch-machine-checklists', [WinchMachineController::class,'store']);
+    Route::get('/winch-machine-checklists/{winchMachine}', [WinchMachineController::class,'show']);
+    Route::post('/winch-machine-checklists/{winchMachine}', [WinchMachineController::class,'update']);
+    Route::delete('/winch-machine-checklists/{winchMachine}', [WinchMachineController::class,'destroy']);
 
 });
 
