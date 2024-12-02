@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreEotCraneRequest;
+use App\Http\Resources\EotCraneResource;
+use App\Models\EotCrane;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class EotCraneController extends Controller
 {
+
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $eotCrane = EotCraneResource::collection(EotCrane::all());
+        $total = $eotCrane->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $eotCrane,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreEotCraneRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +43,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $eotCrane = EotCrane::create($validatedData);
+        return new EotCraneResource($eotCrane);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(EotCrane $eotCrane)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return EotCraneResource::make($eotCrane);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(EotCrane $eotCrane)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $eotCrane->delete();
+        $eotCrane = EotCraneResource::collection(EotCrane::all());
+        $total = $eotCrane->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $eotCrane,
             'total' => $total
         ]);
     }
