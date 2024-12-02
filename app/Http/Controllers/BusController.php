@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreBusRequest;
+use App\Http\Resources\BusResource;
+use App\Models\Bus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class BusController extends Controller
 {
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $bus = BusResource::collection(Bus::all());
+        $total = $bus->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $bus,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreBusRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +42,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $bus = Bus::create($validatedData);
+        return new BusResource($bus);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(Bus $bus)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return BusResource::make($bus);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(Bus $bus)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $bus->delete();
+        $bus = BusResource::collection(Bus::all());
+        $total = $bus->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $bus,
             'total' => $total
         ]);
     }

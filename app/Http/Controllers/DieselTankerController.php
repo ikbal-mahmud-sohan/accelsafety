@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreDieselTankerRequest;
+use App\Http\Resources\DieselTankerResource;
+use App\Models\DieselTanker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class DieselTankerController extends Controller
 {
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $dieselTanker = DieselTankerResource::collection(DieselTanker::all());
+        $total = $dieselTanker->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $dieselTanker,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreDieselTankerRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +42,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $dieselTanker = DieselTanker::create($validatedData);
+        return new DieselTankerResource($dieselTanker);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(DieselTanker $dieselTanker)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return DieselTankerResource::make($dieselTanker);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(DieselTanker $dieselTanker)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $dieselTanker->delete();
+        $dieselTanker = DieselTankerResource::collection(DieselTanker::all());
+        $total = $dieselTanker->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $dieselTanker,
             'total' => $total
         ]);
     }

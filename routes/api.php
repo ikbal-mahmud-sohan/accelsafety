@@ -124,15 +124,21 @@ use App\Http\Controllers\BarBendingMachineController;
 use App\Http\Controllers\BarCuttingMachineController;
 use App\Http\Controllers\BatchingPlantController;
 use App\Http\Controllers\BenchCuttingMachineController;
+use App\Http\Controllers\BikeController;
 use App\Http\Controllers\BoomPlacerController;
 use App\Http\Controllers\BreakerController;
+use App\Http\Controllers\BusController;
 use App\Http\Controllers\ChainPulleyBlockController;
 use App\Http\Controllers\CircularSawController;
 use App\Http\Controllers\DieselGeneratorController;
+use App\Http\Controllers\DieselTankerController;
 use App\Http\Controllers\DrillMachineController;
 use App\Http\Controllers\ElectricalPumpController;
 use App\Http\Controllers\ElectricalVibratorController;
+use App\Http\Controllers\EotCraneController;
 use App\Http\Controllers\FireExtinguisherController;
+use App\Http\Controllers\FourWheelerController;
+use App\Http\Controllers\GantryCraneController;
 use App\Http\Controllers\GasCuttingSetController;
 use App\Http\Controllers\GraderController;
 use App\Http\Controllers\HydraController;
@@ -144,6 +150,8 @@ use App\Http\Controllers\PowerDistributionPanelController;
 use App\Http\Controllers\SandBlastingSetController;
 use App\Http\Controllers\SkidSteerLoaderController;
 use App\Http\Controllers\TowerCraneController;
+use App\Http\Controllers\TrailerController;
+use App\Http\Controllers\WaterTankerController;
 use App\Http\Controllers\WeldingMachineController;
 use App\Http\Controllers\WinchMachineController;
 
@@ -1013,6 +1021,54 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/grader-checklists/{grader}', [GraderController::class,'show']);
     Route::post('/grader-checklists/{grader}', [GraderController::class,'update']);
     Route::delete('/grader-checklists/{grader}', [GraderController::class,'destroy']);
+
+    Route::get('/gantry-crane-checklists', [GantryCraneController::class,'index']);
+    Route::post('/gantry-crane-checklists', [GantryCraneController::class,'store']);
+    Route::get('/gantry-crane-checklists/{gantryCrane}', [GantryCraneController::class,'show']);
+    Route::post('/gantry-crane-checklists/{gantryCrane}', [GantryCraneController::class,'update']);
+    Route::delete('/gantry-crane-checklists/{gantryCrane}', [GantryCraneController::class,'destroy']);
+
+    Route::get('/eot-crane-checklists', [EotCraneController::class,'index']);
+    Route::post('/eot-crane-checklists', [EotCraneController::class,'store']);
+    Route::get('/eot-crane-checklists/{eotCrane}', [EotCraneController::class,'show']);
+    Route::post('/eot-crane-checklists/{eotCrane}', [EotCraneController::class,'update']);
+    Route::delete('/eot-crane-checklists/{eotCrane}', [EotCraneController::class,'destroy']);
+
+    Route::get('/trailer-checklists', [TrailerController::class,'index']);
+    Route::post('/trailer-checklists', [TrailerController::class,'store']);
+    Route::get('/trailer-checklists/{trailer}', [TrailerController::class,'show']);
+    Route::post('/trailer-checklists/{trailer}', [TrailerController::class,'update']);
+    Route::delete('/trailer-checklists/{trailer}', [TrailerController::class,'destroy']);
+
+    Route::get('/four-wheeler-checklists', [FourWheelerController::class,'index']);
+    Route::post('/four-wheeler-checklists', [FourWheelerController::class,'store']);
+    Route::get('/four-wheeler-checklists/{fourWheeler}', [FourWheelerController::class,'show']);
+    Route::post('/four-wheeler-checklists/{fourWheeler}', [FourWheelerController::class,'update']);
+    Route::delete('/four-wheeler-checklists/{fourWheeler}', [FourWheelerController::class,'destroy']);
+
+    Route::get('/bus-checklists', [BusController::class,'index']);
+    Route::post('/bus-checklists', [BusController::class,'store']);
+    Route::get('/bus-checklists/{bus}', [BusController::class,'show']);
+    Route::post('/bus-checklists/{bus}', [BusController::class,'update']);
+    Route::delete('/bus-checklists/{bus}', [BusController::class,'destroy']);
+
+    Route::get('/diesel-tanker-checklists', [DieselTankerController::class,'index']);
+    Route::post('/diesel-tanker-checklists', [DieselTankerController::class,'store']);
+    Route::get('/diesel-tanker-checklists/{dieselTanker}', [DieselTankerController::class,'show']);
+    Route::post('/diesel-tanker-checklists/{dieselTanker}', [DieselTankerController::class,'update']);
+    Route::delete('/diesel-tanker-checklists/{dieselTanker}', [DieselTankerController::class,'destroy']);
+
+    Route::get('/water-tanker-checklists', [WaterTankerController::class,'index']);
+    Route::post('/water-tanker-checklists', [WaterTankerController::class,'store']);
+    Route::get('/water-tanker-checklists/{waterTanker}', [WaterTankerController::class,'show']);
+    Route::post('/water-tanker-checklists/{waterTanker}', [WaterTankerController::class,'update']);
+    Route::delete('/water-tanker-checklists/{waterTanker}', [WaterTankerController::class,'destroy']);
+
+    Route::get('/bike-checklists', [BikeController::class,'index']);
+    Route::post('/bike-checklists', [BikeController::class,'store']);
+    Route::get('/bike-checklists/{bike}', [BikeController::class,'show']);
+    Route::post('/bike-checklists/{bike}', [BikeController::class,'update']);
+    Route::delete('/bike-checklists/{bike}', [BikeController::class,'destroy']);
 
 });
 

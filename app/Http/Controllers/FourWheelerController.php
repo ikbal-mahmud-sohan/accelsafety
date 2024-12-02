@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreFourWheelerRequest;
+use App\Http\Resources\FourWheelerResource;
+use App\Models\FourWheeler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class FourWheelerController extends Controller
 {
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $fourWheeler = FourWheelerResource::collection(FourWheeler::all());
+        $total = $fourWheeler->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $fourWheeler,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreFourWheelerRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +42,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $fourWheeler = FourWheeler::create($validatedData);
+        return new FourWheelerResource($fourWheeler);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(FourWheeler $fourWheeler)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return FourWheelerResource::make($fourWheeler);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(FourWheeler $fourWheeler)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $fourWheeler->delete();
+        $fourWheeler = FourWheelerResource::collection(FourWheeler::all());
+        $total = $fourWheeler->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $fourWheeler,
             'total' => $total
         ]);
     }

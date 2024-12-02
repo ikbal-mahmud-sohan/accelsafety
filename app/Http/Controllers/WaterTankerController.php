@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreWaterTankerRequest;
+use App\Http\Resources\WaterTankerResource;
+use App\Models\WaterTanker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class WaterTankerController extends Controller
 {
+
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $waterTanker = WaterTankerResource::collection(WaterTanker::all());
+        $total = $waterTanker->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $waterTanker,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreWaterTankerRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +43,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $waterTanker = WaterTanker::create($validatedData);
+        return new WaterTankerResource($waterTanker);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(WaterTanker $waterTanker)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return WaterTankerResource::make($waterTanker);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(WaterTanker $waterTanker)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $waterTanker->delete();
+        $waterTanker = WaterTankerResource::collection(WaterTanker::all());
+        $total = $waterTanker->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $waterTanker,
             'total' => $total
         ]);
     }

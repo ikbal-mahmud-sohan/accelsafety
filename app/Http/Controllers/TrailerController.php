@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreTrailerRequest;
+use App\Http\Resources\TrailerResource;
+use App\Models\Trailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class TrailerController extends Controller
 {
+
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $trailer = TrailerResource::collection(Trailer::all());
+        $total = $trailer->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $trailer,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreTrailerRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +43,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $trailer = Trailer::create($validatedData);
+        return new TrailerResource($trailer);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(Trailer $trailer)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return TrailerResource::make($trailer);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(Trailer $trailer)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $trailer->delete();
+        $trailer = TrailerResource::collection(Trailer::all());
+        $total = $trailer->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $trailer,
             'total' => $total
         ]);
     }

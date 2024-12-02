@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreGantryCraneRequest;
+use App\Http\Resources\GantryCraneResource;
+use App\Models\GantryCrane;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-
-class BenchCuttingMachineController extends Controller
+class GantryCraneController extends Controller
 {
+
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $gantryCrane = GantryCraneResource::collection(GantryCrane::all());
+        $total = $gantryCrane->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $gantryCrane,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreGantryCraneRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +42,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $gantryCrane = GantryCrane::create($validatedData);
+        return new GantryCraneResource($gantryCrane);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(GantryCrane $gantryCrane)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return GantryCraneResource::make($gantryCrane);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(GantryCrane $gantryCrane)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $gantryCrane->delete();
+        $gantryCrane = GantryCraneResource::collection(GantryCrane::all());
+        $total = $gantryCrane->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $gantryCrane,
             'total' => $total
         ]);
     }

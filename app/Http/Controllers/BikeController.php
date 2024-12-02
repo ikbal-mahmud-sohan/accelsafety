@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreBenchCuttingMachineRequest;
-use App\Http\Resources\BenchCuttingMachineResource;
-use App\Models\BenchCuttingMachine;
+use App\Http\Requests\StoreBikeRequest;
+use App\Http\Resources\BikeResource;
+use App\Models\Bike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
-class BenchCuttingMachineController extends Controller
+class BikeController extends Controller
 {
     public function index()
     {
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $bike = BikeResource::collection(Bike::all());
+        $total = $bike->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $bike,
             'total' => $total
         ]);
     }
 
-    public function store(StoreBenchCuttingMachineRequest $request)
+    public function store(StoreBikeRequest $request)
     {
         $checkedBySignature = [];
         if ($request->hasFile('checked_by_signature')) {
@@ -42,23 +42,23 @@ class BenchCuttingMachineController extends Controller
         $validatedData['checked_by_signature'] = $checkedBySignature; 
         $validatedData['reviewed_by_signature'] = $reviewedSignatureUrls;
 
-        $benchCuttingMachine = BenchCuttingMachine::create($validatedData);
-        return new BenchCuttingMachineResource($benchCuttingMachine);
+        $bike = Bike::create($validatedData);
+        return new BikeResource($bike);
     }
 
-    public function show(BenchCuttingMachine $benchCuttingMachine)
+    public function show(Bike $bike)
     {
-        return BenchCuttingMachineResource::make($benchCuttingMachine);
+        return BikeResource::make($bike);
         
     }
 
-    public function destroy(BenchCuttingMachine $benchCuttingMachine)
+    public function destroy(Bike $bike)
     {
-        $benchCuttingMachine->delete();
-        $benchCuttingMachine = BenchCuttingMachineResource::collection(BenchCuttingMachine::all());
-        $total = $benchCuttingMachine->count();
+        $bike->delete();
+        $bike = BikeResource::collection(Bike::all());
+        $total = $bike->count();
         return response()->json([
-            'data' => $benchCuttingMachine,
+            'data' => $bike,
             'total' => $total
         ]);
     }
