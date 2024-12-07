@@ -147,6 +147,7 @@ use App\Http\Controllers\MobileCraneController;
 use App\Http\Controllers\PedestalGrinderController;
 use App\Http\Controllers\PortableGrinderController;
 use App\Http\Controllers\PowerDistributionPanelController;
+use App\Http\Controllers\SafetyObsDashboardController;
 use App\Http\Controllers\SandBlastingSetController;
 use App\Http\Controllers\SkidSteerLoaderController;
 use App\Http\Controllers\TowerCraneController;
@@ -154,6 +155,7 @@ use App\Http\Controllers\TrailerController;
 use App\Http\Controllers\WaterTankerController;
 use App\Http\Controllers\WeldingMachineController;
 use App\Http\Controllers\WinchMachineController;
+use App\Http\Controllers\SafetyObservationDashboardController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -1069,6 +1071,12 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/bike-checklists/{bike}', [BikeController::class,'show']);
     Route::post('/bike-checklists/{bike}', [BikeController::class,'update']);
     Route::delete('/bike-checklists/{bike}', [BikeController::class,'destroy']);
+
+
+    Route::get('/safety-observation-dashboard', SafetyObservationDashboardController::class);
+    Route::get('/safety-observation-rd-dashboard', [SafetyObsDashboardController::class,'responsible_department']);
+    Route::get('/safety-observation-od-dashboard', [SafetyObsDashboardController::class,'owner_department']);
+    Route::get('/safety-observation-due-tracker-dashboard', [SafetyObsDashboardController::class,'due_tracker']);
 
 });
 
