@@ -9,6 +9,7 @@ use App\Models\SafetyObservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Stmt\Return_;
+use Illuminate\Support\Facades\Log;
 
 class SafetyObservationController extends Controller
 {
@@ -67,12 +68,11 @@ class SafetyObservationController extends Controller
         }
     
         if ($safetyObservation->update($validatedData)) {
-            $safetyObservation->status = 1;
+            $safetyObservation->status = 'pending';
             $safetyObservation->save();
         }
     
         return ResourcesSafetyObservation::make($safetyObservation);
-
 
     }
     
@@ -88,6 +88,19 @@ class SafetyObservationController extends Controller
         ]);
 
     }
+
+        public function adminstore(Request $request, SafetyObservation $safetyObservation)
+            {
+                Log::info('Incoming request data:', $request->all());
+
+                if ($safetyObservation->update($request->all())) {
+                    $safetyObservation->status = 'closed';
+                    $safetyObservation->save();
+                }
+            
+                // Return the updated safety observation as a resource
+                return new ResourcesSafetyObservation($safetyObservation);
+            }
 }
 
 
