@@ -202,6 +202,10 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::patch('/safety/{safety}/complete', CompleteSafetyObservationController::class);
     Route::get('/safety-drop-down', safetyDropDownController::class);
 
+    Route::post('/admin-safety/{safetyObservation}', [SafetyObservationController::class,'adminstore']);
+
+
+
     Route::get('/safety-resp-department', [SafetyObservationRespDepartmentController::class,'index']);
     Route::post('/safety-resp-department', [SafetyObservationRespDepartmentController::class,'store']);
     Route::delete('/safety-resp-department/{safetyObservationRespDepartment}', [SafetyObservationRespDepartmentController::class,'destroy']);

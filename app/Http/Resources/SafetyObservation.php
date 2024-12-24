@@ -28,7 +28,7 @@ class SafetyObservation extends JsonResource
         'owner_department' => $this->owner_department,
         'improvement_actions' => $this->improvement_actions,
         'due_date' => $this->due_date,
-        'status' => (bool)$this->status,
+        'status' => $this->status,
         'priority_type' => $this->priority_type,
         'remarks' => $this->remarks,
         'corrective_image' => $this->corrective_image,

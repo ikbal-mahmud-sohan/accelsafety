@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('owner_department'); 
             $table->text('improvement_actions'); 
             $table->string('due_date'); 
-            $table->boolean('status')->default(0); 
+            $table->enum('status', ['open', 'pending', 'closed'])->default('open'); 
             $table->string('priority_type'); 
             $table->text('remarks')->nullable();
             $table->json('corrective_image')->nullable(); 
