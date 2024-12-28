@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccidentInvestigation extends Model
 {
+    const STATUS_ASSIGNED = 'Assigned';
+    const STATUS_REVIEWED = 'Reviewed';
+    const STATUS_APPROVED = 'Approved';
+    const STATUS_CHANGE_REQUEST = 'change_request';
+    
     use HasFactory;
     protected $fillable =[
+        'accident_id',
         'investigation_name_1',
         'investigation_designation_1',
         'investigation_sign_1',
@@ -92,6 +98,7 @@ class AccidentInvestigation extends Model
         'root_cause_des1',
         'root_cause_des2',
         'root_cause_des3',
+        'status',
     ];
     protected $casts = [
         'type_of_employee' => 'array', 
@@ -108,8 +115,13 @@ class AccidentInvestigation extends Model
         'reviewed_by_unit_signature' => 'array',
         'approved_by_signature' => 'array',
     ];
+    public function accident()
+    {
+        return $this->belongsTo(Accident::class, 'accident_id');
+    }
     public function employee()
     {
         return $this->belongsTo(EmployeeInfo::class, 'employee_id');
     }
+    
 }

@@ -30,6 +30,7 @@ class AccidentController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['property_damaged'] = filter_var($validatedData['property_damaged'], FILTER_VALIDATE_BOOLEAN);
+        $validatedData['is_required'] = filter_var($validatedData['is_required'], FILTER_VALIDATE_BOOLEAN);
         $imageUrls = [];
         if ($request->hasFile('attachment')) {
             foreach ($request->file('attachment') as $image) {
@@ -39,7 +40,10 @@ class AccidentController extends Controller
     
             // Assign the uploaded image URLs to validatedData
             $validatedData['attachment'] = $imageUrls;
-        }        
+        } 
+        
+        $validatedData['status'] = $validatedData['is_required'] ? Accident::STATUS_OPEN : Accident::STATUS_CLOSED;
+
         $accident = Accident::create($validatedData);
         return ResourcesAccident::make($accident);
     }
@@ -65,7 +69,7 @@ class AccidentController extends Controller
     }
 
     if ($accident->update($validatedData)) {
-        $accident->status = 1;
+        $accident->status = Accident::STATUS_CLOSED;
         $accident->save();
     }
 

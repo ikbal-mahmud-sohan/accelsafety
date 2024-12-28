@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Accident extends Model
 {
+    const STATUS_CREATED = 'Created';
+    const STATUS_OPEN = 'Open';
+    const STATUS_CLOSED = 'Closed';
+
     use HasFactory;
     protected $fillable = [
     'month',
@@ -27,10 +31,6 @@ class Accident extends Model
     'deadline',
     'status',
     'verified_image',
-    // 'name',
-    // 'designation',
-    // 'supervisor',
-    // 'department', 
     'site_name',
     'time_date',
     'incident_category',
@@ -38,12 +38,18 @@ class Accident extends Model
     'incident_location',
     'incident_descriptions',
     'investigation_lead',
-    'attachment'
+    'attachment',
+    'is_required'
     ];
     protected $casts = [
         'verified_image' => 'array', 
         'attachment' => 'array',
         'property_damaged' => 'boolean',
-        'status' => 'boolean', 
+        'is_required' => 'boolean', 
     ];
+    
+    public function investigations()
+    {
+        return $this->hasMany(AccidentInvestigation::class, 'accident_id');
+    }
 }

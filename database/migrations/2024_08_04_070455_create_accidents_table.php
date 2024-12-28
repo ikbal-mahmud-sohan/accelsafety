@@ -29,12 +29,9 @@ return new class extends Migration
             $table->string('type_of_victim_employee');
             $table->string('responsible_name');
             $table->string('deadline');
-            $table->boolean('status')->default(0);
+            $table->boolean('is_required');
+            $table->enum('status', ['Created', 'Open', 'Closed'])->default('Created');
             $table->json('verified_image')->nullable(); 
-            // $table->string('name');
-            // $table->string('designation');
-            // $table->string('supervisor');
-            // $table->string('department');
             $table->string('site_name');
             $table->string('time_date');
             $table->string('incident_category');
