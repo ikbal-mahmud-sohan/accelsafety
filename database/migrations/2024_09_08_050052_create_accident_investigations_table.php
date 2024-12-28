@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('accident_investigations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('accident_id')->constrained('accidents')->onDelete('cascade');
             for ($i = 1; $i <= 4; $i++) {
                 $table->string("investigation_name_$i")->nullable();
                 $table->string("investigation_designation_$i")->nullable();
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->json('type_of_accident')->nullable();
             $table->json('nature_of_injury')->nullable();
             // $table->string('employee_name')->nullable();
-            $table->foreignId('employee_id')->constrained('employee_infos')->onDelete('cascade');
+            $table->foreignId('employee_id')->nullable()->constrained('employee_infos')->onDelete('cascade');
             $table->string('employee_department')->nullable();
             $table->string('emp_id')->nullable();
             $table->string('employee_job_title')->nullable();
@@ -70,6 +71,7 @@ return new class extends Migration
                 $table->text("unsafe_conditions_why_therefore_$i")->nullable();
                 $table->text("management_deficiency_why_therefore_$i")->nullable();
             }
+            $table->enum('status', ['Assigned', 'Reviewed', 'Approved', 'change_request'])->default('Assigned');
            
             $table->timestamps();
         });

@@ -36,7 +36,7 @@ class Accident extends JsonResource
             'type_of_victim_employee' => $this->type_of_victim_employee,
             'responsible_name' => $this->responsible_name,
             'deadline' => $this->deadline,
-            'status' => (bool)$this->status,
+            'status' => $this->status,
             'verified_image' => $this->verified_image,
             'site_name' => $this->site_name,
             'time_date' => $this->time_date,
@@ -46,6 +46,7 @@ class Accident extends JsonResource
             'incident_descriptions' => $this->incident_descriptions,
             'investigation_lead' => $this->investigation_lead,
             'attachment' => $this->attachment,
+            'is_required' => $this->is_required,
         ];
     }
 }

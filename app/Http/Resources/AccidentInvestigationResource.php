@@ -16,6 +16,7 @@ class AccidentInvestigationResource extends JsonResource
     {
         return [
         'id' => $this->id,
+        'accident_id' => $this->accident_id,
         'investigation_name_1' => $this->investigation_name_1,
         'investigation_designation_1' => $this->investigation_designation_1,
         'investigation_sign_1' => $this->investigation_sign_1,
@@ -101,6 +102,7 @@ class AccidentInvestigationResource extends JsonResource
         'root_cause_des1' => $this->root_cause_des1,
         'root_cause_des2' => $this->root_cause_des2,
         'root_cause_des3' => $this->root_cause_des3,
+        'status' => $this->status,
 
         ];;
     }

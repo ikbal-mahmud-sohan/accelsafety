@@ -192,6 +192,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/accident-investigation', [AccidentInvestigationController::class,'store']);
     Route::get('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'show']);
     Route::post('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'update']);
+    Route::post('/accident-investigation-approved/{accidentInvestigation}', [AccidentInvestigationController::class,'approved']);
     Route::delete('/accident-investigation/{accidentInvestigation}', [AccidentInvestigationController::class,'destroy']);
 
     Route::get('/safety', [SafetyObservationController::class,'index']);

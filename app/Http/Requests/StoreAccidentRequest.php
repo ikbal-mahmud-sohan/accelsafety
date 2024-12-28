@@ -24,6 +24,7 @@ class StoreAccidentRequest extends FormRequest
         return [
             'month' => 'required|string|max:255',
             'date' => 'required',
+            'is_required' => 'required|in:true,false,1,0',
             'type_of_accident' => 'required|string|max:255',
             'description' => 'required|string',
             'zone_location' => 'required|string|max:255',
@@ -37,10 +38,6 @@ class StoreAccidentRequest extends FormRequest
             'type_of_victim_employee' => 'required|string|max:255',
             'responsible_name' => 'required|string|max:255',
             'deadline' => 'required',
-            // 'name' => 'required|string|max:255',
-            // 'designation' => 'required|string|max:255',
-            // 'supervisor' => 'required|string|max:255',
-            // 'department' => 'required|string|max:255',
             'site_name' => 'required|string|max:255',
             'time_date' => 'required',
             'incident_category' => 'required|string|max:255',
