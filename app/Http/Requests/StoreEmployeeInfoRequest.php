@@ -23,6 +23,7 @@ class StoreEmployeeInfoRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'emp_email' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
             'department' => 'required|string|max:255',
             'employee_type' => 'required|string|max:255',

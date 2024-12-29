@@ -20,6 +20,7 @@ class EmployeeInfoFactory extends Factory
     {
         return [
             'emp_id' => fake()->unique()->numerify('EMP###'), // Generates a unique employee ID like EMP001
+            'emp_email' => fake()->email(),
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'unit_name' => fake()->word(),

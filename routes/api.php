@@ -156,6 +156,7 @@ use App\Http\Controllers\WaterTankerController;
 use App\Http\Controllers\WeldingMachineController;
 use App\Http\Controllers\WinchMachineController;
 use App\Http\Controllers\SafetyObservationDashboardController;
+use Illuminate\Support\Facades\Mail;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -1084,6 +1085,16 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/safety-observation-due-tracker-dashboard', [SafetyObsDashboardController::class,'due_tracker']);
 
 });
+
+Route::get('/test-email', function () {
+    Mail::raw('This is a test email.', function ($message) {
+        $message->to('your_email@example.com')
+                ->subject('Test Email');
+    });
+
+    return 'Test email sent!';
+});
+
 
     
 
