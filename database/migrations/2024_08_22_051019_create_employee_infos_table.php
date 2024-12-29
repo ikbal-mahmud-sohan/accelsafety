@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('emp_id');
+            $table->string('emp_email');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('unit_name');

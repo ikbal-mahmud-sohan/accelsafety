@@ -6,10 +6,12 @@ use App\Http\Requests\ApprovedAccidentInvestigationRequest;
 use App\Http\Requests\StoreAccidentInvestigationRequest;
 use App\Http\Requests\UpdateAccidentInvestigationRequest;
 use App\Http\Resources\AccidentInvestigationResource;
+use App\Mail\AccidentInvestigationNotification;
 use App\Models\Accident;
 use App\Models\AccidentInvestigation;
 use App\Models\EmployeeInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class AccidentInvestigationController extends Controller
@@ -50,7 +52,8 @@ class AccidentInvestigationController extends Controller
     public function store(StoreAccidentInvestigationRequest $request)
     {
         $investigationSignPaths = [];
-    
+
+        // Handle file uploads
         for ($i = 1; $i <= 4; $i++) {
             $fieldName = "investigation_sign_$i";
             if ($request->hasFile($fieldName)) {
@@ -64,11 +67,30 @@ class AccidentInvestigationController extends Controller
     
         $validatedData = $request->validated();
     
+        // Add file paths to validated data
         for ($i = 1; $i <= 4; $i++) {
             $fieldName = "investigation_sign_$i";
             $validatedData[$fieldName] = $investigationSignPaths[$fieldName] ?? null;
         }
     
+        // Fetch employee emails in bulk
+        $names = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $nameField = "investigation_name_$i";
+            if (!empty($validatedData[$nameField])) {
+                $names[] = $validatedData[$nameField];
+            }
+        }
+    
+        $employees = EmployeeInfo::whereIn('id', $names)->get()->keyBy('id');
+        $emails = [];
+        foreach ($names as $name) {
+            if (isset($employees[$name]) && $employees[$name]->emp_email) {
+                $emails[] = $employees[$name]->emp_email;
+            }
+        }
+    
+        // Create Accident Investigation record
         $accidentInvestigation = AccidentInvestigation::create([
             'accident_id' => $validatedData['accident_id'],
             'investigation_name_1' => $validatedData['investigation_name_1'] ?? null,
@@ -85,6 +107,18 @@ class AccidentInvestigationController extends Controller
             'investigation_sign_4' => $validatedData['investigation_sign_4'] ?? null,
             'status' => AccidentInvestigation::STATUS_ASSIGNED,
         ]);
+    
+        // Add the investigation ID to the validated data for the email
+        $validatedData['investigation_id'] = $accidentInvestigation->id;
+
+        $frontendUrl = env('FRONTEND_URL'); 
+        $url = "{$frontendUrl}/accident-investigation/{$accidentInvestigation->id}/update";
+    
+        // Send emails with the investigation ID
+        
+        foreach ($emails as $email) {
+            Mail::to($email)->send(new AccidentInvestigationNotification(['url' => $url]));
+        }
     
         return new AccidentInvestigationResource($accidentInvestigation);
     }
