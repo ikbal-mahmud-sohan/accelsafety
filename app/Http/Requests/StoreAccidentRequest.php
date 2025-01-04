@@ -22,12 +22,9 @@ class StoreAccidentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'month' => 'required|string|max:255',
             'date' => 'required',
             'is_required' => 'required|in:true,false,1,0',
             'type_of_accident' => 'required|string|max:255',
-            'description' => 'required|string',
-            'zone_location' => 'required|string|max:255',
             'precise_location' => 'required|string|max:255',
             'injury_type' => 'required|string|max:255',
             'affected_body_parts' => 'required|string|max:255',
@@ -37,13 +34,9 @@ class StoreAccidentRequest extends FormRequest
             'days_lost' => 'required|integer',
             'type_of_victim_employee' => 'required|string|max:255',
             'responsible_name' => 'required|string|max:255',
-            'deadline' => 'required',
             'site_name' => 'required|string|max:255',
-            'time_date' => 'required',
-            'incident_category' => 'required|string|max:255',
-            'immidiate_cause' => 'required|string|max:255',
+            'immidiate_cause' => 'required|string',
             'incident_location' => 'required|string|max:255',
-            'incident_descriptions' => 'required|string|max:255',
             'investigation_lead' => 'required|string|max:255',
             'attachment' => 'sometimes|array',
             'attachment.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

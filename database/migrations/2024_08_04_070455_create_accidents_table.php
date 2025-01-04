@@ -13,11 +13,8 @@ return new class extends Migration
     {
         Schema::create('accidents', function (Blueprint $table) {
             $table->id();
-            $table->string('month');
             $table->string('date');
             $table->string('type_of_accident');
-            $table->text('description');
-            $table->string('zone_location');
             $table->string('precise_location');
             $table->string('injury_type');
             $table->string('affected_body_parts');
@@ -28,16 +25,12 @@ return new class extends Migration
             $table->text('remarks')->nullable();
             $table->string('type_of_victim_employee');
             $table->string('responsible_name');
-            $table->string('deadline');
             $table->boolean('is_required');
             $table->enum('status', ['Created', 'Open', 'Closed'])->default('Created');
             $table->json('verified_image')->nullable(); 
             $table->string('site_name');
-            $table->string('time_date');
-            $table->string('incident_category');
             $table->text('immidiate_cause');
             $table->text('incident_location');
-            $table->text('incident_descriptions');
             $table->text('investigation_lead');
             $table->json('attachment')->nullable(); 
             $table->timestamps();
