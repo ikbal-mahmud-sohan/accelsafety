@@ -147,6 +147,7 @@ use App\Http\Controllers\MobileCraneController;
 use App\Http\Controllers\PedestalGrinderController;
 use App\Http\Controllers\PortableGrinderController;
 use App\Http\Controllers\PowerDistributionPanelController;
+use App\Http\Controllers\QuestionAnswerController;
 use App\Http\Controllers\SafetyObsDashboardController;
 use App\Http\Controllers\SandBlastingSetController;
 use App\Http\Controllers\SkidSteerLoaderController;
@@ -156,6 +157,8 @@ use App\Http\Controllers\WaterTankerController;
 use App\Http\Controllers\WeldingMachineController;
 use App\Http\Controllers\WinchMachineController;
 use App\Http\Controllers\SafetyObservationDashboardController;
+use App\Http\Controllers\UserSubmitAnswerController;
+use App\Models\UserSubmitAnswer;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/user', function (Request $request) {
@@ -1083,6 +1086,21 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/safety-observation-rd-dashboard', [SafetyObsDashboardController::class,'responsible_department']);
     Route::get('/safety-observation-od-dashboard', [SafetyObsDashboardController::class,'owner_department']);
     Route::get('/safety-observation-due-tracker-dashboard', [SafetyObsDashboardController::class,'due_tracker']);
+
+    Route::get('/question-answer', [QuestionAnswerController::class,'index']);
+    Route::post('/question-answer', [QuestionAnswerController::class,'store']);
+    Route::post('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'update']);
+    Route::get('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'show']);
+    Route::delete('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'destroy']);
+    
+    Route::get('/question-answer-list/{trainingTopicId}', [QuestionAnswerController::class, 'ListByTraining']);
+
+
+    Route::get('/user-submit-answer', [UserSubmitAnswerController::class,'index']);
+    Route::post('/user-submit-answer', [UserSubmitAnswerController::class,'store']);
+    Route::post('/user-submit-answer/{userSubmitAnswer}', [UserSubmitAnswerController::class,'update']);
+    Route::get('/user-submit-answer/{userSubmitAnswer}', [UserSubmitAnswerController::class,'show']);
+    Route::delete('/user-submit-answer/{userSubmitAnswer}', [UserSubmitAnswerController::class,'destroy']);
 
 });
 
