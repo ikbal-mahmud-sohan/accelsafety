@@ -18,5 +18,9 @@ class TrainingTopics extends Model
     {
         return $this->hasMany(AssignTraining::class, 'training_topic_id');
     }
+    public function answers()
+    {
+        return $this->hasMany(QuestionAnswer::class);
+    }
     
 }

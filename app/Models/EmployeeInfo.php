@@ -33,5 +33,9 @@ class EmployeeInfo extends Model
         {
             return $this->hasMany(AccidentInvestigation::class, 'employee_id');
         }
+        public function userSubmitAnswers()
+    {
+        return $this->hasMany(UserSubmitAnswer::class, 'emp_id', 'emp_id');
+    }
 }
 
