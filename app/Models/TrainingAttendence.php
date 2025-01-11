@@ -22,4 +22,5 @@ class TrainingAttendence extends Model
         'business',
         'signature'
     ];
+   
 }
