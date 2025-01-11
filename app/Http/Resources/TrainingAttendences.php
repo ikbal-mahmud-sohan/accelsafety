@@ -17,7 +17,7 @@ class TrainingAttendences extends JsonResource
         return [
             'id' => $this->id,
             'serial_number' => $this->serial_number,
-            'training_topic' => $this->training_topic,
+            'training_topic_id' => $this->training_topic_id,
             'iso_standard' => $this->iso_standard,
             'venue' => $this->venue,
             'facilitator' => $this->facilitator,

@@ -45,7 +45,7 @@ class TrainingTopicsController extends Controller
      */
     public function show(TrainingTopics $trainingTopics)
     {
-        //
+        return TrainingTopicsResource::make($trainingTopics);
     }
 
     /**
