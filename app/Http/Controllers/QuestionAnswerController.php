@@ -13,6 +13,11 @@ class QuestionAnswerController extends Controller
         $questionAnswers = QuestionAnswer::all();
         return response()->json($questionAnswers);
     }
+    public function ListByTrainingTopicID($trainingTopicId)
+    {
+        $questionAnswers = QuestionAnswer::where('training_topic_id', $trainingTopicId)->get();
+        return response()->json($questionAnswers);
+    }
 
     public function store(Request $request)
     {
@@ -94,4 +99,5 @@ class QuestionAnswerController extends Controller
         $questionAnswers = QuestionAnswer::all();
         return response()->json($questionAnswers);
     }
+   
 }

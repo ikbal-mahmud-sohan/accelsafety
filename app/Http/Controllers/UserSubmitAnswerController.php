@@ -34,7 +34,7 @@ class UserSubmitAnswerController extends Controller
 
                 if ($correctAnswer && strtolower($correctAnswer->answer) == strtolower($submittedAnswer)) {
                    
-                    $score += 10.0;
+                    $score += 5.0;
                 }
             }
 

@@ -1093,6 +1093,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'show']);
     Route::delete('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'destroy']);
     
+    Route::get('/question-answer-list-trn-id/{trainingTopicId}', [QuestionAnswerController::class, 'ListByTrainingTopicID']);
     Route::get('/question-answer-list/{trainingTopicId}', [QuestionAnswerController::class, 'ListByTraining']);
 
 
