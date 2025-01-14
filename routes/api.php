@@ -227,6 +227,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
 
     Route::get('/trainingAttendence', [TrainingAttendenceController::class,'index']);
     Route::post('/trainingAttendence', [TrainingAttendenceController::class,'store']);
+    Route::post('/training-attendence-multiple', [TrainingAttendenceController::class,'storeForMultipleEmployees']);
     Route::get('/trainingAttendence/{trainingAttendence}', [TrainingAttendenceController::class,'show']);
     Route::post('/trainingAttendence/{trainingAttendence}', [TrainingAttendenceController::class,'update']);
     Route::delete('/trainingAttendence/{trainingAttendence}', [TrainingAttendenceController::class,'destroy']);
