@@ -238,6 +238,9 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/employee/{employeeInfo}', [EmployeeInfoController::class,'show']);
     Route::post('/employee/{employeeInfo}', [EmployeeInfoController::class,'update']);
     Route::delete('/employee/{employeeInfo}', [EmployeeInfoController::class,'destroy']);
+    Route::get('/employee-info/export-excel', [EmployeeInfoController::class, 'exportExcel'])->name('employee.exportExcel');
+    Route::post('/employee-info/import-excel', [EmployeeInfoController::class, 'importExcel']);
+
 
 
     Route::get('/department', [EmployeeDepartmentController::class,'index']);

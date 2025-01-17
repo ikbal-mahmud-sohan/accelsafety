@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EmployeeInfoExport;
 use App\Http\Requests\StoreEmployeeInfoRequest;
 use App\Http\Requests\UpdateEmployeeInfoRequest;
 use App\Http\Resources\EmployeeInfo as ResourcesEmployeeInfo;
+use App\Imports\EmployeeInfoImport;
 use App\Models\EmployeeInfo;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeInfoController extends Controller
 {
@@ -71,5 +74,23 @@ class EmployeeInfoController extends Controller
             'data' => $emp,
             'total_count' => $totalCount,
         ]);
+    }
+    public function exportExcel()
+    {
+        // Export the employee data to Excel
+        return Excel::download(new EmployeeInfoExport, 'employee_infos.xlsx');
+    }
+    public function importExcel(Request $request)
+    {
+        // Validate the incoming file
+        $request->validate([
+            'file' => 'required|mimes:xlsx,csv'
+        ]);
+
+        // Import the Excel data into the database
+        Excel::import(new EmployeeInfoImport, $request->file('file'));
+
+        // Return a success response
+        return response()->json(['message' => 'Excel data imported successfully']);
     }
 }
