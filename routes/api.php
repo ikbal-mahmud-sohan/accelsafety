@@ -135,15 +135,18 @@ use App\Http\Controllers\DieselTankerController;
 use App\Http\Controllers\DrillMachineController;
 use App\Http\Controllers\ElectricalPumpController;
 use App\Http\Controllers\ElectricalVibratorController;
+use App\Http\Controllers\EnergyRecordsController;
 use App\Http\Controllers\EotCraneController;
 use App\Http\Controllers\FireExtinguisherController;
 use App\Http\Controllers\FourWheelerController;
 use App\Http\Controllers\GantryCraneController;
 use App\Http\Controllers\GasCuttingSetController;
 use App\Http\Controllers\GraderController;
+use App\Http\Controllers\HazardousWasteInventoriesController;
 use App\Http\Controllers\HydraController;
 use App\Http\Controllers\LiftingToolsTacklesController;
 use App\Http\Controllers\MobileCraneController;
+use App\Http\Controllers\NonHazardousWasteInventoryController;
 use App\Http\Controllers\PedestalGrinderController;
 use App\Http\Controllers\PortableGrinderController;
 use App\Http\Controllers\PowerDistributionPanelController;
@@ -158,6 +161,7 @@ use App\Http\Controllers\WeldingMachineController;
 use App\Http\Controllers\WinchMachineController;
 use App\Http\Controllers\SafetyObservationDashboardController;
 use App\Http\Controllers\UserSubmitAnswerController;
+use App\Http\Controllers\WaterConsumptionController;
 use App\Models\UserSubmitAnswer;
 use Illuminate\Support\Facades\Mail;
 
@@ -1106,6 +1110,31 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/user-submit-answer/{userSubmitAnswer}', [UserSubmitAnswerController::class,'update']);
     Route::get('/user-submit-answer/{userSubmitAnswer}', [UserSubmitAnswerController::class,'show']);
     Route::delete('/user-submit-answer/{userSubmitAnswer}', [UserSubmitAnswerController::class,'destroy']);
+
+    Route::get('/energy-records', [EnergyRecordsController::class, 'index']);
+    Route::post('/energy-records', [EnergyRecordsController::class, 'store']);
+    Route::post('/energy-records/{energyRecord}', [EnergyRecordsController::class, 'update']);
+    Route::get('/energy-records/{energyRecord}', [EnergyRecordsController::class, 'show']);
+    Route::delete('/energy-records/{energyRecord}', [EnergyRecordsController::class, 'destroy']);
+
+    Route::get('/water-consumption', [WaterConsumptionController::class, 'index']);
+    Route::post('/water-consumption', [WaterConsumptionController::class, 'store']);
+    Route::post('/water-consumption/{waterConsumption}', [WaterConsumptionController::class, 'update']);
+    Route::get('/water-consumption/{waterConsumption}', [WaterConsumptionController::class, 'show']);
+    Route::delete('/water-consumption/{waterConsumption}', [WaterConsumptionController::class, 'destroy']);
+
+    Route::get('/non-hazardous-waste-inventory', [NonHazardousWasteInventoryController::class, 'index']); // List all non-hazardous waste records
+    Route::post('/non-hazardous-waste-inventory', [NonHazardousWasteInventoryController::class, 'store']); // Create a new non-hazardous waste record
+    Route::put('/non-hazardous-waste-inventory/{nonHazardousWasteInventory}', [NonHazardousWasteInventoryController::class, 'update']); // Update an existing non-hazardous waste record
+    Route::get('/non-hazardous-waste-inventory/{nonHazardousWasteInventory}', [NonHazardousWasteInventoryController::class, 'show']); // Show a specific non-hazardous waste record
+    Route::delete('/non-hazardous-waste-inventory/{nonHazardousWasteInventory}', [NonHazardousWasteInventoryController::class, 'destroy']); // Delete a specific non-hazardous waste record
+
+    Route::get('/hazardous-waste-inventories', [HazardousWasteInventoriesController::class, 'index']);
+    Route::post('/hazardous-waste-inventories', [HazardousWasteInventoriesController::class, 'store']);
+    Route::get('/hazardous-waste-inventories/{hazardousWasteInventory}', [HazardousWasteInventoriesController::class, 'show']);
+    Route::post('/hazardous-waste-inventories/{hazardousWasteInventory}', [HazardousWasteInventoriesController::class, 'update']);
+    Route::delete('/hazardous-waste-inventories/{hazardousWasteInventory}', [HazardousWasteInventoriesController::class, 'destroy']);
+
 
 });
 
