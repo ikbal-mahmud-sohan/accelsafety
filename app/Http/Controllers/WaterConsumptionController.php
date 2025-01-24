@@ -17,7 +17,11 @@ class WaterConsumptionController extends Controller
         // Fetch water consumption data grouped by month
         $waterRecords = DB::table('water_consumptions')
             ->selectRaw(
-                "month, 
+                "unit_name,
+                month,
+                date,
+                employee_name,
+                designation ,
                  SUM(process_water) as total_process_water,
                  SUM(domestic_water) as total_domestic_water,
                  SUM(etp_inlet_water) as total_etp_inlet_water,
@@ -27,7 +31,7 @@ class WaterConsumptionController extends Controller
                  SUM(rain_water) as total_rain_water,
                  SUM(process_water + domestic_water) as total_process_and_domestic"
             )
-            ->groupBy('month')  // Group by the 'month' column
+            ->groupBy('unit_name', 'month', 'date', 'employee_name', 'designation')  // Group by the 'month' column
             ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")  // Order by months
             ->get();
     
@@ -36,7 +40,14 @@ class WaterConsumptionController extends Controller
     
         // Populate data by month
         foreach ($waterRecords as $record) {
+            $unit_name = $record->unit_name;
             $month = $record->month;
+            $date = $record->date;
+            $employee_name = $record->employee_name;
+            $designation = $record->designation;
+            $date = $record->date;
+            $employee_name = $record->employee_name;
+            $designation = $record->designation;
             $total_process_water = $record->total_process_water;
             $total_domestic_water = $record->total_domestic_water;
             $total_etp_inlet_water = $record->total_etp_inlet_water;
@@ -50,6 +61,10 @@ class WaterConsumptionController extends Controller
             if (!isset($result[$month])) {
                 $result[$month] = [
                     'Month' => $month,
+                    'unit_name' => $unit_name,
+                    'date' => $date,
+                    'employee_name' => $employee_name,
+                    'designation' => $designation,
                     'Process_Water' => 0,
                     'Domestic_Water' => 0,
                     'ETP_Inlet_Water'=> 0,
@@ -95,7 +110,11 @@ class WaterConsumptionController extends Controller
     {
         // Validate the request data
         $validated = $request->validate([
+            'unit_name' => 'required|string',
             'month' => 'required|string',
+            'date' => 'required|string',
+            'employee_name' => 'required|string',
+            'designation' => 'required|string',
             'process_water' => 'nullable|numeric',
             'domestic_water' => 'nullable|numeric',
             'etp_inlet_water' => 'nullable|numeric',

@@ -18,24 +18,17 @@ class NonHazardousWasteInventory extends Model
      * @var array
      */
     protected $fillable = [
+        'unit_name',
         'month',
-        'cutting_jhute',
-        'sewing_jhut',
-        'dying_jhut',
-        'cut_piece',
-        'short_piece',
-        'left_over_fabrics',
-        'cartoon',
-        'cone',
-        'ply',
-        'plastic',
-        'left_over_garments',
-        'metalic_scrap',
-        'loose_sewing_thread',
-        'wood_material',
-        'broken_niddle',
-        'food_waste',
-        'paper',
+        'date',
+        'employee_name',
+        'designation',
+        'waste_name',
+        'waste_type',
+        'item_name',
+        'unit',
+        'amount_of_waste',
+        'attachement',
     ];
 
     /**
@@ -44,23 +37,7 @@ class NonHazardousWasteInventory extends Model
      * @var array
      */
     protected $casts = [
-        'cutting_jhute' => 'float',
-        'sewing_jhut' => 'float',
-        'dying_jhut' => 'float',
-        'cut_piece' => 'float',
-        'short_piece' => 'float',
-        'left_over_fabrics' => 'float',
-        'cartoon' => 'float',
-        'cone' => 'float',
-        'ply' => 'float',
-        'plastic' => 'float',
-        'left_over_garments' => 'float',
-        'metalic_scrap' => 'float',
-        'loose_sewing_thread' => 'float',
-        'wood_material' => 'float',
-        'broken_niddle' => 'float',
-        'food_waste' => 'float',
-        'paper' => 'float',
+        'amount_of_waste' => 'float',
+        'attachement' => 'array', // JSON field casting to array
     ];
-
 }
