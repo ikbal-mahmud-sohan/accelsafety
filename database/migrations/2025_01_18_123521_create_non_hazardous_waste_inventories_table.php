@@ -12,25 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('non_hazardous_waste_inventories', function (Blueprint $table) {
-            $table->id(); // Primary key
-            $table->string('month'); // Month of the report
-            $table->decimal('cutting_jhute', 15, 2)->nullable(); // Cutting Jhute
-            $table->decimal('sewing_jhut', 15, 2)->nullable(); // Sewing Jhut
-            $table->decimal('dying_jhut', 15, 2)->nullable(); // Dying Jhut
-            $table->decimal('cut_piece', 15, 2)->nullable(); // Cut Piece
-            $table->decimal('short_piece', 15, 2)->nullable(); // Short Piece
-            $table->decimal('left_over_fabrics', 15, 2)->nullable(); // Left Over Fabrics
-            $table->decimal('cartoon', 15, 2)->nullable(); // Cartoon
-            $table->decimal('cone', 15, 2)->nullable(); // Cone
-            $table->decimal('ply', 15, 2)->nullable(); // Ply
-            $table->decimal('plastic', 15, 2)->nullable(); // Plastic
-            $table->decimal('left_over_garments', 15, 2)->nullable(); // Left Over Garments
-            $table->decimal('metalic_scrap', 15, 2)->nullable(); // Metallic Scrap
-            $table->decimal('loose_sewing_thread', 15, 2)->nullable(); // Loose Sewing Thread
-            $table->decimal('wood_material', 15, 2)->nullable(); // Wood Material
-            $table->decimal('broken_niddle', 15, 2)->nullable(); // Broken Needle
-            $table->decimal('food_waste', 15, 2)->nullable(); // Food Waste
-            $table->decimal('paper', 15, 2)->nullable(); // Paper Waste
+            $table->id(); 
+            $table->string('unit_name');
+            $table->string('month');
+            $table->string('date');
+            $table->string('employee_name');
+            $table->string('designation');
+            $table->string('waste_name');
+            $table->string('waste_type');
+            $table->string('item_name');
+            $table->string('unit');
+            $table->decimal('amount_of_waste', 15, 2)->nullable();
+            $table->json('attachement')->nullable(); 
             $table->timestamps(); // Created_at and updated_at timestamps
         });
     }

@@ -18,7 +18,11 @@ class WaterConsumption extends Model
      * @var array
      */
     protected $fillable = [
+        'unit_name',
         'month',
+        'date',
+        'employee_name',
+        'designation',
         'process_water',
         'domestic_water',
         'etp_inlet_water',

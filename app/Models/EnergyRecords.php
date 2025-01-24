@@ -17,12 +17,17 @@ class EnergyRecords extends Model
      * @var array
      */
     protected $fillable = [
+        'unit_name',
         'month',
-        'company_name',
-        'unit',
+        'date',
+        'employee_name',
+        'designation',
+        'item_name',
+        'item_code',
         'type',
         'energy_used',
         'input_numeric',
+        'attachement',
     ];
 
     /**
@@ -32,5 +37,7 @@ class EnergyRecords extends Model
      */
     protected $casts = [
         'input_numeric' => 'decimal:2',
+        'attachement' => 'array', 
+
     ];
 }

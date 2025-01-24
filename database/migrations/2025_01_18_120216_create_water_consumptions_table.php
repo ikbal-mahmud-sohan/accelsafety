@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('water_consumptions', function (Blueprint $table) {
             $table->id(); // Primary key
+            $table->string('unit_name');
             $table->string('month');
+            $table->string('date');
+            $table->string('employee_name');
+            $table->string('designation');
             $table->decimal('process_water', 15, 2)->nullable(); // Amount of process water
             $table->decimal('domestic_water', 15, 2)->nullable(); // Amount of domestic water
             $table->decimal('etp_inlet_water', 15, 2)->nullable(); // ETP inlet water

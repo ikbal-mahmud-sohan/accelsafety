@@ -143,6 +143,7 @@ use App\Http\Controllers\GantryCraneController;
 use App\Http\Controllers\GasCuttingSetController;
 use App\Http\Controllers\GraderController;
 use App\Http\Controllers\HazardousWasteInventoriesController;
+use App\Http\Controllers\HiraLiteController;
 use App\Http\Controllers\HydraController;
 use App\Http\Controllers\LiftingToolsTacklesController;
 use App\Http\Controllers\MobileCraneController;
@@ -1134,6 +1135,12 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/hazardous-waste-inventories/{hazardousWasteInventory}', [HazardousWasteInventoriesController::class, 'show']);
     Route::post('/hazardous-waste-inventories/{hazardousWasteInventory}', [HazardousWasteInventoriesController::class, 'update']);
     Route::delete('/hazardous-waste-inventories/{hazardousWasteInventory}', [HazardousWasteInventoriesController::class, 'destroy']);
+
+    Route::get('/hira-lites', [HiraLiteController::class, 'index']);
+    Route::post('/hira-lites', [HiraLiteController::class, 'store']);
+    Route::get('/hira-lites/{hiraLite}', [HiraLiteController::class, 'show']);
+    Route::post('/hira-lites/{hiraLite}', [HiraLiteController::class, 'update']);
+    Route::delete('/hira-lites/{hiraLite}', [HiraLiteController::class, 'destroy']);
 
 
 });
