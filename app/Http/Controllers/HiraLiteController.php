@@ -31,11 +31,11 @@ class HiraLiteController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'site_location' => 'required|string|max:255',
-            'activity_or_task' => 'required|string|max:255',
-            'risk_assessment_conducted_by' => 'required|string|max:255',
-            'date_conducted' => 'required|string',
-            'process_owner_or_department' => 'required|string|max:255',
+            'site_location' => 'nullable|string|max:255',
+            'activity_or_task' => 'nullable|string|max:255',
+            'risk_assessment_conducted_by' => 'nullable|string|max:255',
+            'date_conducted' => 'nullable|string',
+            'process_owner_or_department' => 'nullable|string|max:255',
             'next_review_date' => 'nullable|string',
             'activity' => 'required|string|max:255',
             'hazard' => 'required|string|max:255',
