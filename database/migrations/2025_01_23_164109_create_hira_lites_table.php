@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('hira_lites', function (Blueprint $table) {
             $table->id();
-            $table->string('site_location');
-            $table->string('activity_or_task');
-            $table->string('risk_assessment_conducted_by');
-            $table->string('date_conducted');
-            $table->string('process_owner_or_department');
-            $table->string('next_review_date')->nullable();
+            $table->string('site_location')->nullable();
+            $table->string('activity_or_task')->nullable();
+            $table->string('risk_assessment_conducted_by')->nullable();
+            $table->string('date_conducted')->nullable();
+            $table->string('process_owner_or_department')->nullable();
+            $table->string('next_review_date')->nullable()->nullable();
             $table->string('activity');
             $table->string('hazard');
             $table->string('existing_control_measures');
@@ -31,8 +31,6 @@ return new class extends Migration
             $table->string('revised_risk_rating_overall');
             $table->string('person_responsible');
             $table->string('completion_date');
-            // $table->string('approved_by');
-            // $table->json('approved_by_signature')->nullable(); 
             $table->timestamps();
         });
     }
