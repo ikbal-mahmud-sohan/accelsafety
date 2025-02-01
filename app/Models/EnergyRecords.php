@@ -25,9 +25,11 @@ class EnergyRecords extends Model
         'item_name',
         'item_code',
         'type',
+        'fuel',
         'energy_used',
         'input_numeric',
         'attachement',
+        'all_ghgs',
     ];
 
     /**

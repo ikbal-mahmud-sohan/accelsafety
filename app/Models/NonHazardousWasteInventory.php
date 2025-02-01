@@ -29,6 +29,9 @@ class NonHazardousWasteInventory extends Model
         'unit',
         'amount_of_waste',
         'attachement',
+        'waste',
+        'total_biodegradable_waste',
+        'total_no_biodegradable_waste',
     ];
 
     /**

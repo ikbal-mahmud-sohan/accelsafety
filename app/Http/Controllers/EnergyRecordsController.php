@@ -22,10 +22,10 @@ class EnergyRecordsController extends Controller
             ->pluck('type')
             ->toArray();
     
-        // Fetch all required fields dynamically
+        // Fetch all required fields along with total input_numeric per month grouped by fuel
         $energyRecords = DB::table('energy_records')
-            ->selectRaw('month, type, unit_name, employee_name, designation, item_name, item_code, energy_used, SUM(input_numeric) as total_input_numeric')
-            ->groupBy('month', 'type', 'unit_name', 'employee_name', 'designation', 'item_name', 'item_code', 'energy_used') // Group by all necessary fields
+            ->selectRaw('month, fuel, unit_name, employee_name, designation, item_name, item_code, type, energy_used, SUM(input_numeric) as total_input_numeric')
+            ->groupBy('month', 'fuel', 'unit_name', 'employee_name', 'designation', 'item_name', 'item_code', 'type', 'energy_used')
             ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
             ->get();
     
@@ -35,39 +35,32 @@ class EnergyRecordsController extends Controller
         // Populate data dynamically for each record
         foreach ($energyRecords as $record) {
             $month = $record->month;
-            $type = $record->type;
-            $total = $record->total_input_numeric;
-            $energyUsed = $record->energy_used; // Fetch the energy_used value
+            $key = $month . '_' . $record->fuel; // Unique key to prevent overwriting fuel data
     
-            // Build a key based on month to group records
-            $key = $month;
-    
-            // Ensure the month exists in the result
+            // Ensure the month entry exists in the result
             if (!isset($result[$key])) {
                 $result[$key] = [
                     'Month' => $month,
+                    'Fuel' => $record->fuel,  // Separate field for fuel type
+                    'TotalFuelAmount' => 0,   // Initialize total fuel amount
                     'UnitName' => $record->unit_name,
                     'EmployeeName' => $record->employee_name,
                     'Designation' => $record->designation,
                     'ItemName' => $record->item_name,
                     'ItemCode' => $record->item_code,
-                    'EnergyUsed' => $energyUsed, // Include energy_used here
+                    'Type' => $record->type,
+                    'EnergyUsed' => $record->energy_used,
                 ];
-    
-                // Dynamically initialize all emission types with 0
-                foreach ($types as $dynamicType) {
-                    $result[$key][$dynamicType] = 0;
-                }
             }
     
-            // Assign the total to the correct type
-            $result[$key][$type] = $total;
+            // Add the total input_numeric for that fuel
+            $result[$key]['TotalFuelAmount'] += $record->total_input_numeric;
         }
     
         // Optionally return the result as JSON or to a view
         return response()->json(array_values($result)); // Use array_values to return a numerically indexed array
     }
-        
+     
     
 
     /**
@@ -94,9 +87,11 @@ class EnergyRecordsController extends Controller
             'item_name' => 'required|string',
             'item_code' => 'required|string',
             'type' => 'required|string',
+            'fuel' => 'required|string',
             'energy_used' => 'required|string',
             'input_numeric' => 'required|numeric',
             'attachement' => 'sometimes|array',
+            'all_ghgs' => 'nullable|string',
 
         ]);
         
@@ -146,6 +141,7 @@ class EnergyRecordsController extends Controller
             'company_name' => 'required|string',
             'unit' => 'required|string',
             'type' => 'required|string',
+            'fuel' => 'required|string',
             'energy_used' => 'required|numeric',
             'input_numeric' => 'required|numeric',
         ]);

@@ -18,13 +18,30 @@ return new class extends Migration
             $table->string('date');
             $table->string('employee_name');
             $table->string('designation');
-            $table->decimal('process_water', 15, 2)->nullable(); // Amount of process water
-            $table->decimal('domestic_water', 15, 2)->nullable(); // Amount of domestic water
-            $table->decimal('etp_inlet_water', 15, 2)->nullable(); // ETP inlet water
-            $table->decimal('etp_outlet_water', 15, 2)->nullable(); // ETP outlet water
-            $table->decimal('deviation_of_etp_discharge', 15, 2)->nullable(); // Deviation of ETP discharge
-            $table->decimal('dying_re_use_water', 15, 2)->nullable(); // Reused water in dying process
-            $table->decimal('rain_water', 15, 2)->nullable(); // Amount of rainwater
+            $table->decimal('ground_water', 15, 2)->nullable();
+            $table->string('ground_water_unit')->nullable();
+            $table->string('gw_last_flow_meter')->nullable();
+            $table->string('gw_current_flow_meter')->nullable();
+            $table->decimal('rain_water', 15, 2)->nullable();
+            $table->string('rain_water_unit')->nullable();
+            $table->string('rw_last_flow_meter')->nullable();
+            $table->string('rw_current_flow_meter')->nullable();
+            $table->decimal('domestic_water', 15, 2)->nullable();
+            $table->string('domestic_water_unit')->nullable();
+            $table->string('dw_last_flow_meter')->nullable();
+            $table->string('dw_current_flow_meter')->nullable();
+            $table->decimal('process_water', 15, 2)->nullable();
+            $table->string('process_water_unit')->nullable();
+            $table->string('pw_last_flow_meter')->nullable();
+            $table->string('pw_current_flow_meter')->nullable();
+            $table->decimal('etp_inlet_water', 15, 2)->nullable();
+            $table->string('etp_inlet_water_unit')->nullable();
+            $table->string('eiw_last_flow_meter')->nullable();
+            $table->string('eiw_current_flow_meter')->nullable();
+            $table->decimal('etp_outlet_water', 15, 2)->nullable();
+            $table->string('etp_outlet_water_unit')->nullable();
+            $table->string('eow_last_flow_meter')->nullable();
+            $table->string('eow_current_flow_meter')->nullable();
             $table->timestamps(); // Created_at and updated_at timestamps
         });
     }
