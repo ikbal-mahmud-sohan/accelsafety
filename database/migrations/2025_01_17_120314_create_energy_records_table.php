@@ -21,9 +21,11 @@ return new class extends Migration
             $table->string('item_name');
             $table->string('item_code');
             $table->string('type');
+            $table->string('fuel');
             $table->string('energy_used');  // Adjust precision if needed
             $table->decimal('input_numeric', 15, 2); // Adjust precision if needed
             $table->json('attachement')->nullable(); 
+            $table->string('all_ghgs')->nullable(); 
             $table->timestamps();
         });
     }

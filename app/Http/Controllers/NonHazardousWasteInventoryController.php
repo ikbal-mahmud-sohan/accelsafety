@@ -11,51 +11,69 @@ class NonHazardousWasteInventoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // Fetch the records from the NonHazardousWasteInventory table
-        $inventoryRecords = DB::table('non_hazardous_waste_inventories')
-            ->selectRaw('month, item_name, waste_name, waste_type, employee_name, unit,  SUM(amount_of_waste) as total_amount_of_waste')
-            ->groupBy('month', 'item_name', 'waste_name', 'waste_type', 'employee_name', 'unit') // Group by all necessary fields
-            ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
-            ->orderBy('item_name') // Order by item_name for consistency
-            ->get();
     
-        // Prepare the result grouped by month
-        $result = [];
-        foreach ($inventoryRecords as $record) {
-            $month = $record->month;
-            $itemName = $record->item_name;
-            $waste_name = $record->waste_name;
-            $waste_type = $record->waste_type;
-            $employee_name = $record->employee_name;
-            $unit = $record->unit;
-    
-            // Ensure the month exists in the result
-            if (!isset($result[$month])) {
-                $result[$month] = [
-                    'Month' => $month,
-                    'Items' => [],
-                ];
-            }
-    
-            // Add item data to the month
-            $result[$month]['Items'] = [
-                'employee_name' => $employee_name,
-                'Waste_Name' => $waste_name,
-                'Waste_Type' => $waste_type,
-                'Item_Name' => $itemName,
-                'unit' => $unit,
-                'Total_Amount_of_Waste' => $record->total_amount_of_waste,
+     public function index()
+{
+    // Fetch records from non_hazardous_waste_inventories table
+    $inventoryRecords = DB::table('non_hazardous_waste_inventories')
+        ->selectRaw('
+            month, item_name, waste_name, waste_type, employee_name, unit,  
+            SUM(amount_of_waste) as total_amount_of_waste,
+            MAX(waste) as waste
+        ')
+        ->groupBy('month', 'item_name', 'waste_name', 'waste_type', 'employee_name', 'unit')
+        ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
+        ->orderBy('item_name')
+        ->get();
+
+    // Prepare the result grouped by month
+    $result = [];
+    foreach ($inventoryRecords as $record) {
+        $month = $record->month;
+        $itemName = $record->item_name;
+
+        // Ensure the month exists in the result
+        if (!isset($result[$month])) {
+            $result[$month] = [
+                'Month' => $month,
+                'Items' => [],
+                'total_biodegradable_waste' => 0,
+                'total_no_biodegradable_waste' => 0,
+                'total_waste' => 0,
+                'waste' => $record->waste,  // Add waste from the database if needed
             ];
         }
-    
-        // Re-index the result array for cleaner JSON output
-        $finalResult = array_values($result);
-    
-        // Return the final result as a JSON response
-        return response()->json($finalResult);
+
+        // Append item data
+        $result[$month]['Items'][] = [
+            'employee_name' => $record->employee_name,
+            'Waste_Name' => $record->waste_name,
+            'Waste_Type' => $record->waste_type,
+            'Item_Name' => $itemName,
+            'unit' => $record->unit,
+            'Total_Amount_of_Waste' => $record->total_amount_of_waste,
+        ];
+
+        // Aggregate waste totals for biodegradable and non-biodegradable waste
+        if ($record->waste_type == 'biodegradable') {
+            $result[$month]['total_biodegradable_waste'] += $record->total_amount_of_waste;
+        } elseif ($record->waste_type == 'non-biodegradable') {
+            $result[$month]['total_no_biodegradable_waste'] += $record->total_amount_of_waste;
+        }
+
+        // Aggregate total waste
+        $result[$month]['total_waste'] += $record->total_amount_of_waste;
     }
+
+    // Re-index the result array for cleaner JSON output
+    $finalResult = array_values($result);
+
+    // Wrap everything in an object with a key "data"
+    return response()->json(['data' => $finalResult]);
+}
+     
+
+     
 
     /**
      * Show the form for creating a new resource.
@@ -81,6 +99,9 @@ class NonHazardousWasteInventoryController extends Controller
             'waste_type' => 'required|string',
             'item_name' => 'required|string',
             'unit' => 'required|string',
+            'waste' => 'required|string',
+            'total_biodegradable_waste' => 'nullable|string',
+            'total_no_biodegradable_waste' => 'nullable|string',
             'amount_of_waste' => 'nullable|numeric',
             'attachement' => 'nullable|json',
         ]);
@@ -127,6 +148,9 @@ class NonHazardousWasteInventoryController extends Controller
             'unit' => 'required|string',
             'amount_of_waste' => 'nullable|numeric',
             'attachement' => 'nullable|json',
+            'waste' => 'required|string',
+            'total_biodegradable_waste' => 'nullable|string',
+            'total_no_biodegradable_waste' => 'nullable|string',
         ]);
 
         // Update the record

@@ -23,7 +23,10 @@ return new class extends Migration
             $table->string('item_name');
             $table->string('unit');
             $table->decimal('amount_of_waste', 15, 2)->nullable();
-            $table->json('attachement')->nullable(); 
+            $table->json('attachement')->nullable();
+            $table->string('waste');
+            $table->string('total_biodegradable_waste')->nullable();
+            $table->string('total_no_biodegradable_waste')->nullable();
             $table->timestamps(); // Created_at and updated_at timestamps
         });
     }
