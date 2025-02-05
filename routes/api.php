@@ -136,6 +136,7 @@ use App\Http\Controllers\DrillMachineController;
 use App\Http\Controllers\ElectricalPumpController;
 use App\Http\Controllers\ElectricalVibratorController;
 use App\Http\Controllers\EnergyRecordsController;
+use App\Http\Controllers\EnvironmentDashboardController;
 use App\Http\Controllers\EotCraneController;
 use App\Http\Controllers\FireExtinguisherController;
 use App\Http\Controllers\FourWheelerController;
@@ -1092,6 +1093,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
 
 
     Route::get('/safety-observation-dashboard', SafetyObservationDashboardController::class);
+    Route::get('/environment-dashboard', EnvironmentDashboardController::class);
     Route::get('/safety-observation-rd-dashboard', [SafetyObsDashboardController::class,'responsible_department']);
     Route::get('/safety-observation-od-dashboard', [SafetyObsDashboardController::class,'owner_department']);
     Route::get('/safety-observation-due-tracker-dashboard', [SafetyObsDashboardController::class,'due_tracker']);
@@ -1141,6 +1143,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/hira-lites/{hiraLite}', [HiraLiteController::class, 'show']);
     Route::post('/hira-lites/{hiraLite}', [HiraLiteController::class, 'update']);
     Route::delete('/hira-lites/{hiraLite}', [HiraLiteController::class, 'destroy']);
+    Route::get('/hira-lites-drop-down', [HiraLiteController::class, 'getHiraLiteData']);
 
 
 });

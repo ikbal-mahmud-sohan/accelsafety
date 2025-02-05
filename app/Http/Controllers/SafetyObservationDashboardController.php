@@ -51,12 +51,22 @@ class SafetyObservationDashboardController extends Controller
             'Closed' => $totalInvestigations ? round(($investigationCounts['Approved'] ?? 0) / $totalInvestigations * 100, 2) : 0,
         ];
     
+        // ✅ Get count of safety observations grouped by month
+        $monthlySafetyObservations = SafetyObservation::select(
+            DB::raw('DATE_FORMAT(created_at, "%b") as month'),
+            DB::raw('COUNT(*) as total')
+        )
+        ->groupBy('month')
+        ->orderByRaw("STR_TO_DATE(month, '%b')") // Ensures correct month order
+        ->pluck('total', 'month');
+    
         return response()->json([
             'totalSafetyObservations' => $totalSafetyObservations,
             'firstAidCases' => $firstAidCases,
             'totalDaysLost' => $totalDaysLost,
-            'accidentStatusPercentages' => $accidentStatusCounts, // ✅ Now showing percentages
-            'investigationStatusPercentages' => $investigationStatusCounts, // ✅ Now showing percentages
+            'accidentStatusPercentages' => $accidentStatusCounts,
+            'investigationStatusPercentages' => $investigationStatusCounts,
+            'monthlySafetyObservations' => $monthlySafetyObservations, // ✅ Added this
         ]);
     }
     
