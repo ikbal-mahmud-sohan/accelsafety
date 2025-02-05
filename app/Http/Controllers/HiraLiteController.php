@@ -117,4 +117,14 @@ class HiraLiteController extends Controller
 
         return response()->json(['message' => 'Resource deleted successfully'], 200);
     }
+    public function getHiraLiteData()
+    {
+        return response()->json([
+            'activities' => HiraLite::pluck('activity')->unique()->toArray(),
+            'hazards' => HiraLite::pluck('hazard')->unique()->toArray(),
+            'existing_control_measures' => HiraLite::pluck('existing_control_measures')->unique()->toArray(),
+            'persons_responsible' => HiraLite::pluck('person_responsible')->unique()->toArray(),
+            'additionals_control_measures' => HiraLite::pluck('additional_control_measures')->unique()->toArray(),
+        ]);
+    }
 }
