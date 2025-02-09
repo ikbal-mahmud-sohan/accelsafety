@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccelSafetyWordController;
 use App\Http\Controllers\AccidentController;
 use App\Http\Controllers\AccidentDropDownController;
 use App\Http\Controllers\AccidentInjuryTypeController;
@@ -162,6 +163,7 @@ use App\Http\Controllers\WaterTankerController;
 use App\Http\Controllers\WeldingMachineController;
 use App\Http\Controllers\WinchMachineController;
 use App\Http\Controllers\SafetyObservationDashboardController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserSubmitAnswerController;
 use App\Http\Controllers\WaterConsumptionController;
 use App\Models\UserSubmitAnswer;
@@ -1144,6 +1146,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hira-lites/{hiraLite}', [HiraLiteController::class, 'update']);
     Route::delete('/hira-lites/{hiraLite}', [HiraLiteController::class, 'destroy']);
     Route::get('/hira-lites-drop-down', [HiraLiteController::class, 'getHiraLiteData']);
+
+    Route::get('/accel-safety-words', [AccelSafetyWordController::class, 'index']);
+    Route::post('/accel-safety-words', [AccelSafetyWordController::class, 'store']);
+    Route::get('/accel-safety-words/{accelSafetyWord}', [AccelSafetyWordController::class, 'show']);
+    Route::post('/accel-safety-words/{accelSafetyWord}', [AccelSafetyWordController::class, 'update']);
+    Route::delete('/accel-safety-words/{accelSafetyWord}', [AccelSafetyWordController::class, 'destroy']);
+
+    Route::post('/upload', [UploadController::class, 'uploadImage']);
 
 
 });
