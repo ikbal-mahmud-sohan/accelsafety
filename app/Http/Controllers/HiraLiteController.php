@@ -114,8 +114,8 @@ class HiraLiteController extends Controller
     public function destroy(HiraLite $hiraLite)
     {
         $hiraLite->delete();
-
-        return response()->json(['message' => 'Resource deleted successfully'], 200);
+        $hiraLites = HiraLite::all();
+        return response()->json($hiraLites, 200);
     }
     public function getHiraLiteData()
     {
