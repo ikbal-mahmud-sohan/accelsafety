@@ -13,19 +13,56 @@ use Illuminate\Support\Facades\Log;
 
 class SafetyObservationController extends Controller
 {
-    
-    public function index()
-    {
-        
 
-        $safetyObservation = ResourcesSafetyObservation::collection(SafetyObservation::all());
-        $totalCount = $safetyObservation->count();
+    public function index(Request $request)
+    {
+        $perPage = $request->get('per_page', 10); // Default 10 items per page
+        $currentPage = $request->get('current_page', 1); // Default page 1
+        $search = $request->get('search', ''); // Search query
+
+        // Base query with optional search filters
+        $query = SafetyObservation::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($query) use ($search) {
+                    $query->where('auditor', 'like', "%{$search}%")
+                        ->orWhere('plant_name', 'like', "%{$search}%")
+                        ->orWhere('location', 'like', "%{$search}%")
+                        ->orWhere('audit_date', 'like', "%{$search}%")
+                        ->orWhere('category', 'like', "%{$search}%")
+                        ->orWhere('problem_description', 'like', "%{$search}%")
+                        ->orWhere('root_cause', 'like', "%{$search}%")
+                        ->orWhere('resp_department', 'like', "%{$search}%")
+                        ->orWhere('owner_department', 'like', "%{$search}%")
+                        ->orWhere('improvement_actions', 'like', "%{$search}%")
+                        ->orWhere('due_date', 'like', "%{$search}%")
+                        ->orWhere('status', 'like', "%{$search}%")
+                        ->orWhere('priority_type', 'like', "%{$search}%")
+                        ->orWhere('remarks', 'like', "%{$search}%")
+                        ->orWhere('importance_level', 'like', "%{$search}%")
+                        ->orWhere('work_accomplished_by', 'like', "%{$search}%");
+                });
+            });
+
+        // Get total records after search
+        $totalCount = $query->count();
+
+        // Paginate results
+        $observations = $query->skip(($currentPage - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        // Transform data with resource collection
+        $safetyObservation = ResourcesSafetyObservation::collection($observations);
 
         return response()->json([
             'data' => $safetyObservation,
             'total_count' => $totalCount,
+            'current_page' => $currentPage,
+            'per_page' => $perPage,
+            'last_page' => ceil($totalCount / $perPage),
         ]);
     }
+
 
     public function store(SafetyObservationRequest $request)
     {
@@ -38,7 +75,7 @@ class SafetyObservationController extends Controller
     }
 
     $validatedData = $request->validated();
-    $validatedData['problematic_progressive_images'] = $imageUrls; 
+    $validatedData['problematic_progressive_images'] = $imageUrls;
 
     // Create a new SafetyObservation record with the validated data
     $safetyObservation = SafetyObservation::create($validatedData);
@@ -54,9 +91,9 @@ class SafetyObservationController extends Controller
     }
 
     public function update( UpdateSafetyObservationRequest $request, SafetyObservation $safetyObservation)
-    {  
+    {
         $validatedData = $request->validated();
-    
+
         $imageUrls = [];
         if ($request->hasFile('corrective_image')) {
             foreach ($request->file('corrective_image') as $image) {
@@ -66,16 +103,16 @@ class SafetyObservationController extends Controller
             // Assign the uploaded image URLs to validatedData
             $validatedData['corrective_image'] = $imageUrls;
         }
-    
+
         if ($safetyObservation->update($validatedData)) {
             $safetyObservation->status = 'pending';
             $safetyObservation->save();
         }
-    
+
         return ResourcesSafetyObservation::make($safetyObservation);
 
     }
-    
+
     public function destroy(SafetyObservation $safetyObservation)
     {
         $safetyObservation->delete();
@@ -97,7 +134,7 @@ class SafetyObservationController extends Controller
                     $safetyObservation->status = 'closed';
                     $safetyObservation->save();
                 }
-            
+
                 // Return the updated safety observation as a resource
                 return new ResourcesSafetyObservation($safetyObservation);
             }
