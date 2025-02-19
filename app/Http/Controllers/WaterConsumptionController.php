@@ -12,11 +12,13 @@ class WaterConsumptionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-{
-    // Fetch total water consumption data grouped by month
-    $waterRecords = DB::table('water_consumptions')
-        ->selectRaw("
+    public function index(Request $request)
+    {
+        $perPage = $request->get('per_page', 10);      // Items per page
+        $currentPage = $request->get('current_page', 1); // Current page
+
+        $baseQuery = DB::table('water_consumptions')
+            ->selectRaw("
             month,
 
             MAX(ground_water_unit) AS ground_water_unit,
@@ -49,46 +51,26 @@ class WaterConsumptionController extends Controller
             SUM(eow_last_flow_meter) AS total_eow_last_flow_meter,
             SUM(eow_current_flow_meter) AS total_eow_current_flow_meter
         ")
-        ->groupBy('month')  
-        ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
-        ->get();
+            ->groupBy('month')
+            ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')");
 
-    // Format the result
-    $result = [];
+        $results = $baseQuery->get();
 
-    foreach ($waterRecords as $record) {
-        $result[] = [
-            'month' => $record->month,
-            'ground_water_unit' => $record->ground_water_unit,
-            'ground_water' => $record->total_ground_water,
-            'gw_last_flow_meter' => $record->total_gw_last_flow_meter,
-            'gw_current_flow_meter' => $record->total_gw_current_flow_meter,
-            'rain_water_unit' => $record->rain_water_unit,
-            'rain_water' => $record->total_rain_water,
-            'rw_last_flow_meter' => $record->total_rw_last_flow_meter,
-            'rw_current_flow_meter' => $record->total_rw_current_flow_meter,
-            'domestic_water_unit' => $record->domestic_water_unit,
-            'domestic_water' => $record->total_domestic_water,
-            'dw_last_flow_meter' => $record->total_dw_last_flow_meter,
-            'dw_current_flow_meter' => $record->total_dw_current_flow_meter,
-            'process_water_unit' => $record->process_water_unit,
-            'process_water' => $record->total_process_water,
-            'pw_last_flow_meter' => $record->total_pw_last_flow_meter,
-            'pw_current_flow_meter' => $record->total_pw_current_flow_meter,
-            'etp_inlet_water_unit' => $record->etp_inlet_water_unit,
-            'etp_inlet_water' => $record->total_etp_inlet_water,
-            'eiw_last_flow_meter' => $record->total_eiw_last_flow_meter,
-            'eiw_current_flow_meter' => $record->total_eiw_current_flow_meter,
-            'etp_outlet_water_unit' => $record->etp_outlet_water_unit,
-            'etp_outlet_water' => $record->total_etp_outlet_water,
-            'eow_last_flow_meter' => $record->total_eow_last_flow_meter,
-            'eow_current_flow_meter' => $record->total_eow_current_flow_meter,
-        ];
+        $total = $results->count(); // total count after grouping
+
+        // Manual pagination using slice
+        $paginatedData = $results->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        return response()->json([
+            'current_page' => $currentPage,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => ceil($total / $perPage),
+            'data' => $paginatedData
+        ]);
     }
 
-    return response()->json($result);
-}
-    
+
 
     public function store(Request $request)
     {
