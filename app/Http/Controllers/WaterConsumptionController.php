@@ -14,10 +14,23 @@ class WaterConsumptionController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->get('per_page', 10);      // Items per page
+        $perPage = $request->get('per_page', 10); // Items per page
         $currentPage = $request->get('current_page', 1); // Current page
+        $search = $request->get('search', ''); // Search query
 
+        // Build base query with search filter (if provided)
         $baseQuery = DB::table('water_consumptions')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('month', 'like', "%{$search}%")
+                        ->orWhere('ground_water_unit', 'like', "%{$search}%")
+                        ->orWhere('rain_water_unit', 'like', "%{$search}%")
+                        ->orWhere('domestic_water_unit', 'like', "%{$search}%")
+                        ->orWhere('process_water_unit', 'like', "%{$search}%")
+                        ->orWhere('etp_inlet_water_unit', 'like', "%{$search}%")
+                        ->orWhere('etp_outlet_water_unit', 'like', "%{$search}%");
+                });
+            })
             ->selectRaw("
             month,
 
@@ -54,22 +67,21 @@ class WaterConsumptionController extends Controller
             ->groupBy('month')
             ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')");
 
+        // Execute query to get results (for counting and pagination)
         $results = $baseQuery->get();
 
-        $total = $results->count(); // total count after grouping
-
-        // Manual pagination using slice
-        $paginatedData = $results->slice(($currentPage - 1) * $perPage, $perPage)->values();
+        $total = $results->count(); // Total records after search and grouping
+        $paginatedData = $results->slice(($currentPage - 1) * $perPage, $perPage)->values(); // Manual pagination
 
         return response()->json([
             'current_page' => $currentPage,
             'per_page' => $perPage,
             'total' => $total,
             'last_page' => ceil($total / $perPage),
-            'data' => $paginatedData
+            'search' => $search,
+            'data' => $paginatedData,
         ]);
     }
-
 
 
     public function store(Request $request)
