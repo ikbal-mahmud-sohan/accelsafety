@@ -187,7 +187,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::delete('/accident/{accident}', [AccidentController::class,'destroy']);
     Route::patch('accident/{accident}/approved', ApprovedAccidentController::class);
     Route::get('/accident-drop-down', AccidentDropDownController::class);
-    
+
     Route::get('/accident-month', [AccidentMonthController::class,'index']);
     Route::post('/accident-month', [AccidentMonthController::class,'store']);
     Route::delete('/accident-month/{accidentMonth}', [AccidentMonthController::class,'destroy']);
@@ -419,7 +419,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::delete('/hse-work-at-height/{hseWorkatHeight}', [HseWorkatHeightController::class,'destroy']);
     Route::post('/hse-work-at-height-status/{hseWorkatHeight}', StatusHseWorkatHeightController::class);
 
-// 5-10-2024 
+// 5-10-2024
 
     Route::get('/hse-safe-crane-operation', [HseSafeCraneOperationController::class,'index']);
     Route::post('/hse-safe-crane-operation', [HseSafeCraneOperationController::class,'store']);
@@ -451,7 +451,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'update']);
     Route::delete('/hse-timber-block-required-under-mobile-crane/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'destroy']);
     Route::post('/hse-timber-block-required-under-mobile-crane-status/{hseTimberMobileCrane}', [HseTimberBlockRequiredUnderMobileCraneDocController::class,'edit']);
-// 7/9/24 
+// 7/9/24
 
     Route::get('/hse-entry-confined-space', [HseEntryConfinedSpaceController::class,'index']);
     Route::post('/hse-entry-confined-space', [HseEntryConfinedSpaceController::class,'store']);
@@ -488,7 +488,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/hse-list-pressure-vessels/{hseListPressureVessels}', [HseListPressureVesselsController::class,'show']);
     Route::delete('/hse-list-pressure-vessels/{hseListPressureVessels}', [HseListPressureVesselsController::class,'destroy']);
 
-// end 7/9/24 
+// end 7/9/24
 
 
     Route::get('/hse-ladder-self-inspection-checklist', [HseLadderSelfInspectionChecklistController::class,'index']);
@@ -520,9 +520,9 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     // Route::post('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'update']);
     Route::delete('/hse-harness/{hseHarnessChecklist}', [HseHarnessChecklistController::class,'destroy']);
 
-// start 8/9/24 
+// start 8/9/24
 
-// 
+//
 //     Route::get('/hse-compressed-gas', [HseCompressedGasController::class,'index']);
 //     Route::post('/hse-compressed-gas', [HseCompressedGasController::class,'store']);
 //     Route::get('/hse-compressed-gas/{hseCompressedGas}', [HseCompressedGasController::class,'show']);
@@ -582,7 +582,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'update']);
     Route::delete('/hse-house-keeping/{hseHouseKeeping}', [HseHouseKeepingController::class,'destroy']);
     Route::post('/hse-house-keeping-status/{hseHouseKeeping}', [HseHouseKeepingController::class,'edit']);
-// start 9/9/24 
+// start 9/9/24
 
 
 
@@ -614,7 +614,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'show']);
     Route::delete('/hse-earthing-pit-condition/{hseEarthingPitCondition}', [HseEarthingPitConditionController::class,'destroy']);
 
-// 14/10/24 
+// 14/10/24
 
 
     Route::get('/hse-lightning-protection', [HSELightningProtectionController::class,'index']);
@@ -659,7 +659,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'update']);
     Route::delete('/hse-ppe-distribution-register/{hsePPEDistributionRegister}', [HsePPEDistributionRegisterController::class,'destroy']);
 
-// 15/10/24 
+// 15/10/24
 
 
     Route::get('/hse-ppe-inspection', [HsePPEInspectionReportController::class,'index']);
@@ -691,7 +691,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'update']);
     Route::delete('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'destroy']);
     Route::delete('/hse-first-aid/{hseFirstAid}', [HseFirstAidController::class,'edit']);
-    
+
 
 
     Route::get('/hse-first-aid-register', [HseFirstAidRegisterController::class,'index']);
@@ -700,7 +700,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'update']);
     Route::delete('/hse-first-aid-register/{hseFirstAidRegister}', [HseFirstAidRegisterController::class,'destroy']);
 
-// 16/10/24 
+// 16/10/24
 
 
     Route::get('/hse-safety-inspection', [HseSafetyInspectionReportController::class,'index']);
@@ -1105,7 +1105,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'update']);
     Route::get('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'show']);
     Route::delete('/question-answer/{questionAnswer}', [QuestionAnswerController::class,'destroy']);
-    
+
     Route::get('/question-answer-list-trn-id/{trainingTopicId}', [QuestionAnswerController::class, 'ListByTrainingTopicID']);
     Route::get('/question-answer-list/{trainingTopicId}', [QuestionAnswerController::class, 'ListByTraining']);
 
@@ -1168,8 +1168,8 @@ Route::get('/test-email', function () {
 });
 
 
-    
 
 
 
-    
+
+

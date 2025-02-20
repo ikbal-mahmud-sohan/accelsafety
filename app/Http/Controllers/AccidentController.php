@@ -20,6 +20,8 @@ class AccidentController extends Controller
         $perPage = $request->get('per_page', 10);
         $currentPage = $request->get('current_page', 1);
         $search = $request->get('search', '');
+        $sortBy = $request->get('sort_by', 'date'); // Default sort by 'date'
+        $sortOrder = $request->get('sort_order', 'asc'); // Default sort order 'asc'
 
         $query = Accident::query()
             ->when($search, function ($q) use ($search) {
@@ -44,9 +46,10 @@ class AccidentController extends Controller
                         ->orWhere('incident_location', 'like', "%{$search}%")
                         ->orWhere('investigation_lead', 'like', "%{$search}%");
                 });
-            });
+            })
+            ->orderBy($sortBy, $sortOrder); // Sorting by column and order
 
-        $totalCount = $query->count(); // Count after applying search
+        $totalCount = $query->count();
         $accidents = $query->skip(($currentPage - 1) * $perPage)
             ->take($perPage)
             ->get();
@@ -57,10 +60,12 @@ class AccidentController extends Controller
             'data' => $accidentCollection,
             'total_count' => $totalCount,
             'current_page' => $currentPage,
-            'per_page' => $perPage,
             'last_page' => ceil($totalCount / $perPage),
+            'per_page' => $perPage,
+            'sort_by' => $sortBy,
         ]);
     }
+
 
 
     public function store(StoreAccidentRequest $request)

@@ -13,36 +13,79 @@ class EnergyRecordsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch unique emission types dynamically
-        $types = DB::table('energy_records')
-            ->select('type')
-            ->distinct()
-            ->pluck('type')
-            ->toArray();
-    
-        // Fetch all required fields along with total input_numeric per month grouped by fuel
-        $energyRecords = DB::table('energy_records')
-            ->selectRaw('month, fuel, unit_name, employee_name, designation, item_name, item_code, type, energy_used, SUM(input_numeric) as total_input_numeric')
-            ->groupBy('month', 'fuel', 'unit_name', 'employee_name', 'designation', 'item_name', 'item_code', 'type', 'energy_used')
-            ->orderByRaw("FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')")
-            ->get();
-    
-        // Initialize an empty array to store the final data
+        // Valid fields for filtering, searching, and sorting
+        $validFields = [
+            'month', 'fuel', 'unit_name', 'employee_name', 'designation',
+            'item_name', 'item_code', 'type', 'energy_used'
+        ];
+
+        // Query parameters
+        $search = $request->query('param', ''); // For global search
+        $orderBy = $request->query('order_by', 'month'); // Sorting field
+        $sortBy = $request->query('sort_by', 'asc');     // asc or desc
+        $perPage = $request->query('per_page', 10);      // Pagination
+        $currentPage = $request->query('current_page', 1);
+
+        // Validate order_by field
+        if (!in_array($orderBy, $validFields)) {
+            return response()->json(['message' => 'Invalid order_by field.'], 400);
+        }
+
+        // Validate sort direction
+        if (!in_array(strtolower($sortBy), ['asc', 'desc'])) {
+            $sortBy = 'asc';
+        }
+
+        // Base query
+        $query = DB::table('energy_records')
+            ->selectRaw('
+            month, fuel, unit_name, employee_name, designation,
+            item_name, item_code, type, energy_used,
+            SUM(input_numeric) as total_input_numeric
+        ')
+            ->groupBy('month', 'fuel', 'unit_name', 'employee_name', 'designation', 'item_name', 'item_code', 'type', 'energy_used');
+
+        // Global search across valid fields
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search, $validFields) {
+                foreach ($validFields as $field) {
+                    $q->orWhere($field, 'like', "%{$search}%");
+                }
+            });
+        }
+
+        // Dynamic field-based filtering (e.g., ?fuel=Dissel&month=December)
+        foreach ($validFields as $field) {
+            if ($request->has($field)) {
+                $query->where($field, $request->query($field));
+            }
+        }
+
+        // Apply sorting (special case for month sorting)
+        if ($orderBy === 'month') {
+            $query->orderByRaw("
+            FIELD(month, 'January', 'February', 'March', 'April', 'May', 'June',
+                  'July', 'August', 'September', 'October', 'November', 'December')
+        ")->orderBy('month', $sortBy);
+        } else {
+            $query->orderBy($orderBy, $sortBy);
+        }
+
+        // Paginate results
+        $energyRecords = $query->paginate($perPage, ['*'], 'page', $currentPage);
+
+        // Format the data
         $result = [];
-    
-        // Populate data dynamically for each record
         foreach ($energyRecords as $record) {
-            $month = $record->month;
-            $key = $month . '_' . $record->fuel; // Unique key to prevent overwriting fuel data
-    
-            // Ensure the month entry exists in the result
-            if (!isset($result[$key])) {
-                $result[$key] = [
-                    'Month' => $month,
-                    'Fuel' => $record->fuel,  // Separate field for fuel type
-                    'TotalFuelAmount' => 0,   // Initialize total fuel amount
+            $monthKey = $record->month . '_' . $record->fuel;
+
+            if (!isset($result[$monthKey])) {
+                $result[$monthKey] = [
+                    'Month' => $record->month,
+                    'Fuel' => $record->fuel,
+                    'TotalFuelAmount' => 0,
                     'UnitName' => $record->unit_name,
                     'EmployeeName' => $record->employee_name,
                     'Designation' => $record->designation,
@@ -52,16 +95,21 @@ class EnergyRecordsController extends Controller
                     'EnergyUsed' => $record->energy_used,
                 ];
             }
-    
-            // Add the total input_numeric for that fuel
-            $result[$key]['TotalFuelAmount'] += $record->total_input_numeric;
+
+            $result[$monthKey]['TotalFuelAmount'] += $record->total_input_numeric;
         }
-    
-        // Optionally return the result as JSON or to a view
-        return response()->json(array_values($result)); // Use array_values to return a numerically indexed array
+
+        return response()->json([
+            'current_page' => $energyRecords->currentPage(),
+            'per_page' => $energyRecords->perPage(),
+            'total' => $energyRecords->total(),
+            'last_page' => $energyRecords->lastPage(),
+            'data' => array_values($result),
+        ]);
     }
-     
-    
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -94,7 +142,7 @@ class EnergyRecordsController extends Controller
             'all_ghgs' => 'nullable|string',
 
         ]);
-        
+
         $imageUrls = [];
         if ($request->hasFile('attachement')) {
             foreach ($request->file('attachement') as $image) {
