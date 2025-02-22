@@ -11,9 +11,10 @@ class AccidentInvestigation extends Model
     const STATUS_REVIEWED = 'Reviewed';
     const STATUS_APPROVED = 'Approved';
     const STATUS_CHANGE_REQUEST = 'change_request';
-    
+
     use HasFactory;
-    protected $fillable =[
+
+    protected $fillable = [
         'accident_id',
         'investigation_name_1',
         'investigation_designation_1',
@@ -59,7 +60,7 @@ class AccidentInvestigation extends Model
         'reviewed_by_department_signature',
         'reviewed_by_unit_signature',
         'approved_by_signature',
-        
+
         'name_of_the_factory',
         'date_of_accident',
         'accident_time',
@@ -101,10 +102,10 @@ class AccidentInvestigation extends Model
         'status',
     ];
     protected $casts = [
-        'type_of_employee' => 'array', 
-        'type_of_accident' => 'array', 
-        'nature_of_injury' => 'array', 
-        'unsafe_acts' => 'array', 
+        'type_of_employee' => 'array',
+        'type_of_accident' => 'array',
+        'nature_of_injury' => 'array',
+        'unsafe_acts' => 'array',
         'unsafe_conditions' => 'array',
         'management_deficiencies' => 'array',
         'investigation_sign_1' => 'array',
@@ -115,13 +116,18 @@ class AccidentInvestigation extends Model
         'reviewed_by_unit_signature' => 'array',
         'approved_by_signature' => 'array',
     ];
+
     public function accident()
     {
         return $this->belongsTo(Accident::class, 'accident_id');
     }
+
     public function employee()
     {
         return $this->belongsTo(EmployeeInfo::class, 'employee_id');
     }
-    
+
+
+
+
 }
