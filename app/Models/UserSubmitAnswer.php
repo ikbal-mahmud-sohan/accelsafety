@@ -20,10 +20,14 @@ class UserSubmitAnswer extends Model
     protected $casts = [
         'question_answers' => 'array', // Automatically cast question_answers to an array
     ];
-    
+
     public function employeeInfo()
     {
         return $this->belongsTo(EmployeeInfo::class, 'emp_id', 'emp_id');
+    }
+    public function trainingTopic()
+    {
+        return $this->belongsTo(TrainingTopics::class, 'training_topic_id' );
     }
 }
 

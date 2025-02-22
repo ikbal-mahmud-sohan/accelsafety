@@ -10,11 +10,56 @@ class HiraLiteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $hiraLites = HiraLite::all();
-        return response()->json($hiraLites, 200);
+        $perPage = $request->get('per_page', 10);
+        $currentPage = $request->get('current_page', 1);
+        $search = $request->get('search', '');
+        $orderBy = $request->get('order_by', 'date_conducted');
+        $sort_by = $request->get('sort_by', 'asc');
+
+        // Base query with optional search
+        $query = HiraLite::query()
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($q) use ($search) {
+                    $q->where('site_location', 'like', "%{$search}%")
+                        ->orWhere('activity_or_task', 'like', "%{$search}%")
+                        ->orWhere('risk_assessment_conducted_by', 'like', "%{$search}%")
+                        ->orWhere('process_owner_or_department', 'like', "%{$search}%")
+                        ->orWhere('activity', 'like', "%{$search}%")
+                        ->orWhere('hazard', 'like', "%{$search}%")
+                        ->orWhere('existing_control_measures', 'like', "%{$search}%")
+                        ->orWhere('risk_rating_likelihood', 'like', "%{$search}%")
+                        ->orWhere('risk_rating_severity', 'like', "%{$search}%")
+                        ->orWhere('risk_rating_overall', 'like', "%{$search}%")
+                        ->orWhere('additional_control_measures', 'like', "%{$search}%")
+                        ->orWhere('revised_risk_rating_likelihood', 'like', "%{$search}%")
+                        ->orWhere('revised_risk_rating_severity', 'like', "%{$search}%")
+                        ->orWhere('revised_risk_rating_overall', 'like', "%{$search}%")
+                        ->orWhere('person_responsible', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy($orderBy, $sort_by); // Apply ordering
+
+        $total = $query->count();
+
+        // Paginate results
+        $data = $query->skip(($currentPage - 1) * $perPage)
+            ->take($perPage)
+            ->get();
+
+        return response()->json([
+            'current_page' => $currentPage,
+            'per_page' => $perPage,
+            'total' => $total,
+            'last_page' => ceil($total / $perPage),
+            'search' => $search,
+            'order_by' => $orderBy,
+            'sort_by' => $sort_by,
+            'data' => $data,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

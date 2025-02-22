@@ -22,5 +22,10 @@ class TrainingAttendence extends Model
         'business',
         'signature'
     ];
-   
+
+    public function employee()
+    {
+        return $this->belongsTo(EmployeeInfo::class, 'emp_id');
+    }
+
 }

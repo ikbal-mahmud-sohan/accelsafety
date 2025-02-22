@@ -19,8 +19,23 @@ class SafetyObservationController extends Controller
         $perPage = $request->get('per_page', 10); // Default 10 items per page
         $currentPage = $request->get('current_page', 1); // Default page 1
         $search = $request->get('search', ''); // Search query
+        $orderBy = $request->get('order_by', 'audit_date'); // Default ordering by 'audit_date'
+        $sortBy = $request->get('sort_by', 'asc'); // Default sort order 'asc'
 
-        // Base query with optional search filters
+        // Allowed columns to prevent SQL injection
+        $allowedOrderColumns = [
+            'audit_date', 'auditor', 'plant_name', 'location', 'category', 'due_date', 'status',
+            'priority_type', 'importance_level', 'work_accomplished_by'
+        ];
+
+        // Validate the order_by column
+        if (!in_array($orderBy, $allowedOrderColumns)) {
+            $orderBy = 'audit_date'; // Fallback to default column
+        }
+
+        // Validate sort order
+        $sortBy = in_array(strtolower($sortBy), ['asc', 'desc']) ? strtolower($sortBy) : 'asc';
+
         $query = SafetyObservation::query()
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($query) use ($search) {
@@ -41,17 +56,15 @@ class SafetyObservationController extends Controller
                         ->orWhere('importance_level', 'like', "%{$search}%")
                         ->orWhere('work_accomplished_by', 'like', "%{$search}%");
                 });
-            });
+            })
+            ->orderBy($orderBy, $sortBy); // Apply ordering and sorting
 
-        // Get total records after search
         $totalCount = $query->count();
 
-        // Paginate results
         $observations = $query->skip(($currentPage - 1) * $perPage)
             ->take($perPage)
             ->get();
 
-        // Transform data with resource collection
         $safetyObservation = ResourcesSafetyObservation::collection($observations);
 
         return response()->json([
@@ -62,6 +75,7 @@ class SafetyObservationController extends Controller
             'last_page' => ceil($totalCount / $perPage),
         ]);
     }
+
 
 
     public function store(SafetyObservationRequest $request)
