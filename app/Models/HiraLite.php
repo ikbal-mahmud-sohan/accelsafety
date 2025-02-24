@@ -4,18 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HiraLite extends Model
 {
     /** @use HasFactory<\Database\Factories\HiraLiteFactory> */
     use HasFactory;
     protected $fillable = [
-        'site_location',
-        'activity_or_task',
-        'risk_assessment_conducted_by',
-        'date_conducted',
-        'process_owner_or_department',
-        'next_review_date',
+        'hira_lites_assessment_id',
         'activity',
         'hazard',
         'existing_control_measures',
@@ -29,5 +25,9 @@ class HiraLite extends Model
         'person_responsible',
         'completion_date',
     ];
-   
+
+    public function hiraLiteAssessment(): BelongsTo
+    {
+        return $this->belongsTo(HiraLitesAssessment::class, 'hira_lites_assessment_id');
+    }
 }
