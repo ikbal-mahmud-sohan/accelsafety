@@ -15,18 +15,15 @@ class HiraLiteController extends Controller
         $perPage = $request->get('per_page', 10);
         $currentPage = $request->get('current_page', 1);
         $search = $request->get('search', '');
-        $orderBy = $request->get('order_by', 'date_conducted');
+        $orderBy = $request->get('order_by', 'risk_rating_overall');
         $sort_by = $request->get('sort_by', 'asc');
 
         // Base query with optional search
         $query = HiraLite::query()
+            ->with('hiraLiteAssessment')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
-                    $q->where('site_location', 'like', "%{$search}%")
-                        ->orWhere('activity_or_task', 'like', "%{$search}%")
-                        ->orWhere('risk_assessment_conducted_by', 'like', "%{$search}%")
-                        ->orWhere('process_owner_or_department', 'like', "%{$search}%")
-                        ->orWhere('activity', 'like', "%{$search}%")
+                    $q->orWhere('activity', 'like', "%{$search}%")
                         ->orWhere('hazard', 'like', "%{$search}%")
                         ->orWhere('existing_control_measures', 'like', "%{$search}%")
                         ->orWhere('risk_rating_likelihood', 'like', "%{$search}%")
@@ -76,12 +73,8 @@ class HiraLiteController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'site_location' => 'nullable|string|max:255',
-            'activity_or_task' => 'nullable|string|max:255',
-            'risk_assessment_conducted_by' => 'nullable|string|max:255',
-            'date_conducted' => 'nullable|string',
-            'process_owner_or_department' => 'nullable|string|max:255',
-            'next_review_date' => 'nullable|string',
+
+            'hira_lites_assessment_id' => 'required|numeric|exists:hira_lites_assessments,id',
             'activity' => 'required|string|max:255',
             'hazard' => 'required|string|max:255',
             'existing_control_measures' => 'required|string|max:255',
@@ -126,12 +119,7 @@ class HiraLiteController extends Controller
     public function update(Request $request, HiraLite $hiraLite)
     {
         $validatedData = $request->validate([
-            'site_location' => 'sometimes|required|string|max:255',
-            'activity_or_task' => 'sometimes|required|string|max:255',
-            'risk_assessment_conducted_by' => 'sometimes|required|string|max:255',
-            'date_conducted' => 'sometimes|required|date',
-            'process_owner_or_department' => 'sometimes|required|string|max:255',
-            'next_review_date' => 'nullable|date',
+            'hira_lites_assessment_id' => 'required|numeric|exists:hira_lites_assessments,id',
             'activity' => 'sometimes|required|string|max:255',
             'hazard' => 'sometimes|required|string|max:255',
             'existing_control_measures' => 'sometimes|required|string|max:255',

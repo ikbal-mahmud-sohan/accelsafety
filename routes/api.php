@@ -27,6 +27,7 @@ use App\Http\Controllers\HiraActivityController;
 use App\Http\Controllers\HiraAdministrativeController;
 use App\Http\Controllers\HiraCauseController;
 use App\Http\Controllers\HiraController;
+use App\Http\Controllers\HiraLitesAssessmentController;
 use App\Http\Controllers\HiraEngineeringController;
 use App\Http\Controllers\HiraEventController;
 use App\Http\Controllers\HiraImpactController;
@@ -1146,6 +1147,11 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::post('/hira-lites/{hiraLite}', [HiraLiteController::class, 'update']);
     Route::delete('/hira-lites/{hiraLite}', [HiraLiteController::class, 'destroy']);
     Route::get('/hira-lites-drop-down', [HiraLiteController::class, 'getHiraLiteData']);
+
+//    hira lites risk assessment
+    Route::get('/hira-lites-assessment', [HiraLitesAssessmentController::class, 'index']);
+    Route::post('/hira-lites-assessment', [HiraLitesAssessmentController::class, 'store']);
+    Route::get('/hira-lites-assessment/{hiraLiteAssessment}', [HiraLitesAssessmentController::class, 'show']);
 
     Route::get('/accel-safety-words', [AccelSafetyWordController::class, 'index']);
     Route::post('/accel-safety-words', [AccelSafetyWordController::class, 'store']);

@@ -13,12 +13,7 @@ return new class extends Migration
     {
         Schema::create('hira_lites', function (Blueprint $table) {
             $table->id();
-            $table->string('site_location')->nullable();
-            $table->string('activity_or_task')->nullable();
-            $table->string('risk_assessment_conducted_by')->nullable();
-            $table->string('date_conducted')->nullable();
-            $table->string('process_owner_or_department')->nullable();
-            $table->string('next_review_date')->nullable()->nullable();
+            $table->unsignedInteger('hira_lites_assessment_id')->nullable();
             $table->string('activity');
             $table->string('hazard');
             $table->string('existing_control_measures');
