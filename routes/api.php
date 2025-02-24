@@ -167,6 +167,7 @@ use App\Http\Controllers\SafetyObservationDashboardController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserSubmitAnswerController;
 use App\Http\Controllers\WaterConsumptionController;
+use App\Http\Controllers\UnitController;
 use App\Models\UserSubmitAnswer;
 use Illuminate\Support\Facades\Mail;
 
@@ -356,6 +357,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/hira-location', [HiraLocationController::class,'index']);
     Route::post('/hira-location', [HiraLocationController::class,'store']);
     Route::delete('/hira-location/{hiraLocation}', [HiraLocationController::class,'destroy']);
+
+//    unit-name route
+    Route::prefix('unit-name')->name('unit-name.')->group(function () {
+        Route::get('/', [UnitController::class, 'index'])->name('index');
+        Route::post('/', [UnitController::class, 'store'])->name('store');
+        Route::delete('/{id}', [UnitController::class, 'destroy'])->name('destroy');
+    });
+
 
 
     Route::get('/hse-control-visitors', [HseControlVisitorsDocController::class,'index']);
