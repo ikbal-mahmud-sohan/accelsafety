@@ -170,6 +170,7 @@ use App\Http\Controllers\WaterConsumptionController;
 use App\Http\Controllers\UnitController;
 use App\Models\UserSubmitAnswer;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Calculator\CalculatorController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -1169,6 +1170,21 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::delete('/accel-safety-words/{accelSafetyWord}', [AccelSafetyWordController::class, 'destroy']);
 
     Route::post('/upload', [UploadController::class, 'uploadImage']);
+
+//   EHS calculator
+    Route::prefix('calculator')->name('calculator.')->group(function () {
+        Route::post('/fire-extinguisher-placement-calculator', [CalculatorController::class, 'fire_extinguisher_placement_calculator']);
+        Route::post('/swl-of-wire-rope', [CalculatorController::class, 'swl_of_wire_rope']);
+        Route::post('/stack-height-calculator', [CalculatorController::class, 'stack_height_calculator']);
+        Route::post('/ip-ratings-checker-calculator', [CalculatorController::class, 'ip_ratings_checker_calculator']);
+        Route::post('/excavation-slope-calculator', [CalculatorController::class, 'excavation_slope_calculator']);
+        Route::post('/fall-clearance-calculator', [CalculatorController::class, 'fall_clearance_calculator']);
+        Route::post('/ladder-length-calculator', [CalculatorController::class, 'ladder_length_calculator']);
+        Route::post('/fire-load-calculator', [CalculatorController::class, 'fire_load_calculator']);
+        Route::post('/bulldog-grips-calculator', [CalculatorController::class, 'bulldog_grips_calculator']);
+        Route::post('/lost-time-injury-frequency-rate', [CalculatorController::class, 'lost_time_injury_frequency_rate']);
+
+    });
 
 
 });
