@@ -1183,7 +1183,15 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::post('/fire-load-calculator', [CalculatorController::class, 'fire_load_calculator']);
         Route::post('/bulldog-grips-calculator', [CalculatorController::class, 'bulldog_grips_calculator']);
         Route::post('/lost-time-injury-frequency-rate', [CalculatorController::class, 'lost_time_injury_frequency_rate']);
-
+        Route::post('/severity-rate-calculator', [CalculatorController::class, 'severity_rate_calculator']);
+        Route::post('/incidence-rate-calculator', [CalculatorController::class, 'incidence_rate_calculator']);
+        Route::post('/ambient-noise-level-calculator', [CalculatorController::class, 'ambient_noise_level_calculator']);
+        Route::post('/generalized-anxiety-disorder-assessment', [CalculatorController::class, 'generalized_anxiety_disorder_assessment']);
+        Route::post('/daily-drinking-water-intake-calculator', [CalculatorController::class, 'daily_drinking_water_intake_calculator']);
+//        other country OHSA calculator
+        Route::post('/osha-total-recordable-incident-rate-trir-calculator', [CalculatorController::class, 'osha_total_recordable_incident_rate_trir_calculator']);
+        Route::post('/osha-dart-rate-calculator', [CalculatorController::class, 'osha_dart_rate_calculator']);
+        Route::post('/nema-ratings-and-ip-equivalency-calculator', [CalculatorController::class, 'nema_ratings_and_ip_equivalency_calculator']);
     });
 
 
