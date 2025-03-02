@@ -35,6 +35,7 @@ use App\Http\Controllers\HiraOccupationsController;
 use App\Http\Controllers\HiraPPEController;
 use App\Http\Controllers\HiraProcessController;
 use App\Http\Controllers\HiraTypeOfActivityController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\safetyDropDownController;
 use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
@@ -1192,6 +1193,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::post('/osha-total-recordable-incident-rate-trir-calculator', [CalculatorController::class, 'osha_total_recordable_incident_rate_trir_calculator']);
         Route::post('/osha-dart-rate-calculator', [CalculatorController::class, 'osha_dart_rate_calculator']);
         Route::post('/nema-ratings-and-ip-equivalency-calculator', [CalculatorController::class, 'nema_ratings_and_ip_equivalency_calculator']);
+    });
+
+    Route::prefix('roles')->name('roles.')->group(function () {
+        Route::resource('/', RoleController::class)->except(['update','edit']);
+        Route::get('/edit/{id}', [RoleController::class, 'edit']);
+        Route::put('/update/{id}', [RoleController::class, 'update']);
+        Route::get('/delete/{id}', [RoleController::class, 'destroy']);
+
     });
 
 
