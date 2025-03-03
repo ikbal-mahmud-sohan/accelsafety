@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('units', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('organization_name')->nullable();
+            $table->string('unit_name')->nullable();
+            $table->string('unit_location')->nullable();
+            $table->string('number_of_manpower')->nullable();
             $table->timestamps();
         });
     }

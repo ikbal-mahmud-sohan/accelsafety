@@ -36,7 +36,10 @@ class UnitController extends Controller
     public function store(Request $request)
     {
         $validated=$request->validate([
-            'name' => 'required'
+            'unit_name' => 'nullable',
+            'unit_location' => 'nullable',
+            'organization_name' => 'nullable',
+            'number_of_manpower' => 'nullable'
         ]);
 
         Unit::create($validated);
