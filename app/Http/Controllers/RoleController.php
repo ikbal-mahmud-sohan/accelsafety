@@ -13,7 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Role::all();
+        return Role::with('permissions')->get();
     }
 
 
@@ -75,12 +75,10 @@ class RoleController extends Controller
     {
         // Get all permissions
         $permissions = Permission::all();
-        $role=Role::find($role);
+        $role=Role::with('permissions')->find($role);
         // Get assigned permissions for the role
-        $rolePermissions = $role->permissions->pluck('name')->toArray();
         return response()->json([
             'role' => $role,
-            'role_has_permissions' => $rolePermissions,
             'all_permissions' => $permissions
         ]);
     }
@@ -96,7 +94,7 @@ class RoleController extends Controller
         ]);
 
         // Find the role
-        $role = Role::findOrFail($id);
+        $role = Role::with('permissions')->findOrFail($id);
 
         // Update role name
         $role->update(['name' => $request->name]);
@@ -108,7 +106,6 @@ class RoleController extends Controller
         return response()->json([
             'message' => 'Role updated successfully',
             'role' => $role,
-            'role_has_permissions' => $rolePermissions
         ]);
     }
 
@@ -122,7 +119,7 @@ class RoleController extends Controller
 
         return response()->json([
             'message' => 'Role deleted successfully',
-            'all_roles'=>Role::all(),
+            'all_roles'=>Role::with('permissions')->get(),
         ], 200);
 
     }

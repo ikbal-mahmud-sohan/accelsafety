@@ -112,6 +112,7 @@ use App\Http\Controllers\StatusHseVehicleSafetyDocsController;
 use App\Http\Controllers\StatusHseWorkatHeightController;
 use App\Http\Controllers\StatusSafetyPowerToolsController;
 use App\Http\Controllers\TransitMixerController;
+use App\Http\Controllers\UserController;
 use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
@@ -1202,6 +1203,15 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/delete/{id}', [RoleController::class, 'destroy']);
 
     });
+
+    Route::prefix('users')->name('users.')->group(function () {
+        Route::resource('/', UserController::class)->except(['update','edit']);
+        Route::get('/edit/{userId}', [UserController::class, 'edit']);
+        Route::put('/update/{userId}', [UserController::class, 'update']);
+        Route::get('/delete/{userId}', [UserController::class, 'destroy']);
+
+    });
+
 
 
 });
