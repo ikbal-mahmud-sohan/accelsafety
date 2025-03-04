@@ -35,12 +35,14 @@ use App\Http\Controllers\HiraOccupationsController;
 use App\Http\Controllers\HiraPPEController;
 use App\Http\Controllers\HiraProcessController;
 use App\Http\Controllers\HiraTypeOfActivityController;
+use App\Http\Controllers\PowerVehicleController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\safetyDropDownController;
 use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
 use App\Http\Controllers\SafetyObservationPlantNameController;
 use App\Http\Controllers\SafetyObservationRespDepartmentController;
+use App\Http\Controllers\SiteInfoPermitController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
@@ -113,6 +115,7 @@ use App\Http\Controllers\StatusHseWorkatHeightController;
 use App\Http\Controllers\StatusSafetyPowerToolsController;
 use App\Http\Controllers\TransitMixerController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitorEntryController;
 use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
@@ -1212,6 +1215,36 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
 
     });
 
+
+//    site info and permit
+    Route::prefix('site-info-permit')->name('site_info_permit.')->group(function () {
+        Route::get('/', [SiteInfoPermitController::class,'index']);
+        Route::get('/edit/{userId}', [UserController::class, 'edit']);
+        Route::put('/update/{userId}', [UserController::class, 'update']);
+        Route::get('/delete/{userId}', [UserController::class, 'destroy']);
+
+    });
+
+//    power vehicle
+    Route::prefix('power-vehicle')->name('power_vehicle.')->group(function () {
+        Route::get('/', [PowerVehicleController::class,'index']);
+        Route::post('/', [PowerVehicleController::class,'store']);
+        Route::get('/edit/{vehicleId}', [PowerVehicleController::class, 'edit']);
+        Route::put('/update/{vehicleId}', [PowerVehicleController::class, 'update']);
+        Route::get('/delete/{vehicleId}', [PowerVehicleController::class, 'destroy']);
+
+    });
+
+
+    //    Visitor Entry
+    Route::prefix('visitor-entry')->name('visitor-entry.')->group(function () {
+        Route::get('/', [VisitorEntryController::class,'index']);
+        Route::post('/', [VisitorEntryController::class,'store']);
+        Route::get('/edit/{visitorId}', [VisitorEntryController::class, 'edit']);
+        Route::post('/update/{visitorId}', [VisitorEntryController::class, 'update']);
+        Route::delete('/delete/{visitorId}', [VisitorEntryController::class, 'destroy']);
+
+    });
 
 
 });
