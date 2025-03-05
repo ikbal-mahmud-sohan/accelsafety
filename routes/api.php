@@ -1167,6 +1167,9 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::get('/hira-lites-assessment', [HiraLitesAssessmentController::class, 'index']);
     Route::post('/hira-lites-assessment', [HiraLitesAssessmentController::class, 'store']);
     Route::get('/hira-lites-assessment/{hiraLiteAssessment}', [HiraLitesAssessmentController::class, 'show']);
+    Route::get('/hira-lites-assessment/edit/{hiraLiteAssessment}', [HiraLitesAssessmentController::class, 'edit']);
+    Route::put('/hira-lites-assessment/update/{hiraLiteAssessment}', [HiraLitesAssessmentController::class, 'update']);
+    Route::delete('/hira-lites-assessment/delete/{hiraLiteAssessment}', [HiraLitesAssessmentController::class, 'destroy']);
 
     Route::get('/accel-safety-words', [AccelSafetyWordController::class, 'index']);
     Route::post('/accel-safety-words', [AccelSafetyWordController::class, 'store']);
@@ -1219,9 +1222,11 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
 //    site info and permit
     Route::prefix('site-info-permit')->name('site_info_permit.')->group(function () {
         Route::get('/', [SiteInfoPermitController::class,'index']);
-        Route::get('/edit/{userId}', [UserController::class, 'edit']);
-        Route::put('/update/{userId}', [UserController::class, 'update']);
-        Route::get('/delete/{userId}', [UserController::class, 'destroy']);
+        Route::get('/create', [SiteInfoPermitController::class, 'create']);
+        Route::post('/create', [SiteInfoPermitController::class, 'store']);
+        Route::get('/edit/{userId}', [SiteInfoPermitController::class, 'edit']);
+        Route::put('/update/{userId}', [SiteInfoPermitController::class, 'update']);
+        Route::get('/delete/{userId}', [SiteInfoPermitController::class, 'destroy']);
 
     });
 
