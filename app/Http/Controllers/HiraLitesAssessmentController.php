@@ -80,24 +80,26 @@ class HiraLitesAssessmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(HiraLitesAssessment $hiraLitesAssessment)
+    public function show( $id)
     {
+        $hiraLitesAssessment=HiraLitesAssessment::find($id);
         return response()->json($hiraLitesAssessment, 200);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(HiraLitesAssessment $hiraLitesAssessment)
+    public function edit($id)
     {
-        // This method is not used for APIs, but you can redirect if required.
-        return response()->json(['message' => 'Form rendering is not applicable for APIs'], 405);
+        $hiraLitesAssessment=HiraLitesAssessment::find($id);
+        return response()->json(['message' => 'Form rendering is not applicable for APIs',$hiraLitesAssessment
+        ], 405);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HiraLitesAssessment $hiraLitesAssessment)
+    public function update(Request $request, $hiraLitesAssessment)
     {
         $validatedData = $request->validate([
             'site_location' => 'sometimes|required|string|max:255',
@@ -108,7 +110,7 @@ class HiraLitesAssessmentController extends Controller
             'next_review_date' => 'nullable|date'
 
         ]);
-
+        $hiraLitesAssessment=HiraLitesAssessment::find($hiraLitesAssessment);
         $hiraLitesAssessment->update($validatedData);
 
         return response()->json($hiraLitesAssessment, 200);
@@ -117,8 +119,9 @@ class HiraLitesAssessmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HiraLitesAssessment $hiraLitesAssessment)
+    public function destroy($hiraLitesAssessment)
     {
+        $hiraLitesAssessment=HiraLitesAssessment::find($hiraLitesAssessment);
         $hiraLitesAssessment->delete();
         $hiraLites = HiraLitesAssessment::all();
         return response()->json($hiraLites, 200);
