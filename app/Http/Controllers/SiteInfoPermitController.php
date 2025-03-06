@@ -12,7 +12,27 @@ class SiteInfoPermitController extends Controller
     public function index(Request $request)
     {
 
-        $data = SiteInfoPermit::where('key', $request->key)->get();
+        $data = SiteInfoPermit::all();
+        $countries = getAllCountries();
+        return response([
+            'countries' => $countries,
+            'data' => $data
+        ]);
+
+    }
+
+    public function create()
+    {
+        $countries = getAllCountries();
+        return response([
+            $countries
+        ]);
+    }
+
+    public function show(Request $request)
+    {
+
+        $data = SiteInfoPermit::where('key', $request->key)->first();
         if ($request->key == 'sitecountry') {
             $countries = getAllCountries();
             return response([
@@ -29,14 +49,6 @@ class SiteInfoPermitController extends Controller
 
     }
 
-    public function create()
-    {
-        $countries = getAllCountries();
-        return response([
-            $countries
-        ]);
-    }
-
 
     public function store(Request $request)
     {
@@ -44,34 +56,58 @@ class SiteInfoPermitController extends Controller
             'key' => 'required|string',
             'value' => 'required|array',
             'value.file' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
-            'value.facility_types' => 'nullable|array',
-            'value.product_categories' => 'nullable|array',
-            'value.rubbers' => 'nullable|array',
-            'value.synthetic_leathers' => 'nullable|array',
-            'value.facility_material_process_rubbers' => 'nullable|array',
-
+            'value.*.file' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
         ]);
+
+        // Fetch existing record
+        $existingSitePermit = SiteInfoPermit::where('key', $validatedData['key'])->first();
+        $existingValue = $existingSitePermit ? $existingSitePermit->value : [];
 
         $valueData = $request->value;
 
-        // Handle File Upload (If file exists)
-        if ($request->hasFile('value.file')) {
-            $file = $request->file('value.file');
-            $path = $file->store('attachments', 'public');
-            $valueData['file'] = Storage::url($path);
-        }
+        // Process all uploaded files, delete old files if new ones exist
+        array_walk_recursive($valueData, function (&$item, $key) use ($existingValue) {
+            if ($key === 'file') {
+                if ($item instanceof \Illuminate\Http\UploadedFile) {
+                    //Delete previous file if a new file is uploaded
+                    $oldFilePath = data_get($existingValue, $key);
+                    if ($oldFilePath) {
+                        Storage::disk('public')->delete(str_replace('/storage/', '', $oldFilePath));
+                    }
 
-        // Store in database
-      $sitePermit=  SiteInfoPermit::create([
-            'key' => $validatedData['key'],
-            'value' => $valueData,
-        ]);
+                    //Upload new file & store URL
+                    $item = Storage::url($item->store('attachments', 'public'));
+                } else {
+                    $item = data_get($existingValue, $key, $item);
+                }
+            }
+        });
+
+        // Save updated data in database
+        $sitePermit = SiteInfoPermit::updateOrCreate(
+            ['key' => $validatedData['key']],  // Search by key
+            ['value' => $valueData] // Store as JSON
+        );
 
         return response()->json([
-            'message' => 'Data saved successfully!',
+            'message' => 'Data Saved successfully!',
             'data' => $sitePermit,
         ], 201);
-
-
     }
+
+    public function destroy($id)
+    {
+        $sitePermit = SiteInfoPermit::find($id);
+        if ($sitePermit){
+            $sitePermit->delete();
+            return response()->json([
+                'message' => 'Data Deleted successfully!',
+            ]);
+        } else{
+            return response()->json([
+                'message' => 'Data not found!',
+            ]);
+        }
+    }
+
 }

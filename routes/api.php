@@ -1223,10 +1223,11 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     Route::prefix('site-info-permit')->name('site_info_permit.')->group(function () {
         Route::get('/', [SiteInfoPermitController::class,'index']);
         Route::get('/create', [SiteInfoPermitController::class, 'create']);
-        Route::post('/create', [SiteInfoPermitController::class, 'store']);
-        Route::get('/edit/{userId}', [SiteInfoPermitController::class, 'edit']);
-        Route::put('/update/{userId}', [SiteInfoPermitController::class, 'update']);
-        Route::get('/delete/{userId}', [SiteInfoPermitController::class, 'destroy']);
+        Route::post('/store', [SiteInfoPermitController::class, 'store']);
+        Route::get('/show/{key}', [SiteInfoPermitController::class, 'show']);
+        Route::get('/edit/{key}', [SiteInfoPermitController::class, 'show']);
+        Route::post('/update', [SiteInfoPermitController::class, 'store']);
+        Route::delete('/delete/{id}', [SiteInfoPermitController::class, 'destroy']);
 
     });
 
