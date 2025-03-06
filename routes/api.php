@@ -1224,8 +1224,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/', [SiteInfoPermitController::class,'index']);
         Route::get('/create', [SiteInfoPermitController::class, 'create']);
         Route::post('/store', [SiteInfoPermitController::class, 'store']);
-        Route::get('/show/{key}', [SiteInfoPermitController::class, 'show']);
-        Route::get('/edit/{key}', [SiteInfoPermitController::class, 'show']);
+        Route::get('/show', [SiteInfoPermitController::class, 'show']);
+        Route::get('/edit', [SiteInfoPermitController::class, 'show']);
         Route::post('/update', [SiteInfoPermitController::class, 'store']);
         Route::delete('/delete/{id}', [SiteInfoPermitController::class, 'destroy']);
 
