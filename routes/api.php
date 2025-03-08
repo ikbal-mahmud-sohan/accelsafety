@@ -16,12 +16,14 @@ use App\Http\Controllers\AssignTrainingController;
 use App\Http\Controllers\CompleteSafetyObservationController;
 use App\Http\Controllers\ConcreteMixerController;
 use App\Http\Controllers\ConcretePumpController;
+use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DumperChecklistController;
 use App\Http\Controllers\EarthCompactorController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
 use App\Http\Controllers\EmployeeUnitController;
+use App\Http\Controllers\EmsController;
 use App\Http\Controllers\ExcavatorChecklistController;
 use App\Http\Controllers\HiraActivityController;
 use App\Http\Controllers\HiraAdministrativeController;
@@ -117,6 +119,7 @@ use App\Http\Controllers\TransitMixerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorEntryController;
 use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
+use App\Models\Driver;
 use App\Models\HiraProcess;
 use App\Models\HiraTypeOfActivity;
 use App\Models\HseEntryConfinedSpace;
@@ -1219,7 +1222,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     });
 
 
-//    site info and permit
+    //site info and permit
     Route::prefix('site-info-permit')->name('site_info_permit.')->group(function () {
         Route::get('/', [SiteInfoPermitController::class,'index']);
         Route::get('/create', [SiteInfoPermitController::class, 'create']);
@@ -1231,7 +1234,19 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
 
     });
 
-//    power vehicle
+    //EMS
+    Route::prefix('ems')->name('ems.')->group(function () {
+        Route::get('/', [EmsController::class,'index']);
+        Route::get('/create', [EmsController::class, 'create']);
+        Route::post('/store', [EmsController::class, 'store']);
+        Route::get('/show', [EmsController::class, 'show']);
+        Route::get('/edit', [EmsController::class, 'show']);
+        Route::post('/update', [EmsController::class, 'store']);
+        Route::delete('/delete/{id}', [EmsController::class, 'destroy']);
+
+    });
+
+    //power vehicle
     Route::prefix('power-vehicle')->name('power_vehicle.')->group(function () {
         Route::get('/', [PowerVehicleController::class,'index']);
         Route::post('/', [PowerVehicleController::class,'store']);
@@ -1242,13 +1257,24 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     });
 
 
-    //    Visitor Entry
+    //Visitor Entry
     Route::prefix('visitor-entry')->name('visitor-entry.')->group(function () {
         Route::get('/', [VisitorEntryController::class,'index']);
         Route::post('/', [VisitorEntryController::class,'store']);
         Route::get('/edit/{visitorId}', [VisitorEntryController::class, 'edit']);
         Route::post('/update/{visitorId}', [VisitorEntryController::class, 'update']);
         Route::delete('/delete/{visitorId}', [VisitorEntryController::class, 'destroy']);
+
+    });
+
+    //Visitor Entry
+    Route::prefix('driver')->name('driver.')->group(function () {
+        Route::get('/', [DriverController::class,'index']);
+        Route::post('/', [DriverController::class,'store']);
+        Route::get('/show/{id}', [DriverController::class,'show']);
+        Route::get('/edit/{driverId}', [DriverController::class, 'edit']);
+        Route::post('/update/{driverId}', [DriverController::class, 'update']);
+        Route::delete('/delete/{driverId}', [DriverController::class, 'destroy']);
 
     });
 
