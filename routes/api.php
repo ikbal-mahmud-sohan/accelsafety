@@ -37,8 +37,10 @@ use App\Http\Controllers\HiraOccupationsController;
 use App\Http\Controllers\HiraPPEController;
 use App\Http\Controllers\HiraProcessController;
 use App\Http\Controllers\HiraTypeOfActivityController;
+use App\Http\Controllers\PowerToolsController;
 use App\Http\Controllers\PowerVehicleController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SafetyCommitteeOrganogramController;
 use App\Http\Controllers\safetyDropDownController;
 use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
@@ -1275,6 +1277,28 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{driverId}', [DriverController::class, 'edit']);
         Route::post('/update/{driverId}', [DriverController::class, 'update']);
         Route::delete('/delete/{driverId}', [DriverController::class, 'destroy']);
+
+    });
+
+    //Power Tools
+    Route::prefix('power-tools')->name('power_tools.')->group(function () {
+        Route::get('/', [PowerToolsController::class,'index']);
+        Route::post('/', [PowerToolsController::class,'store']);
+        Route::get('/show/{id}', [PowerToolsController::class,'show']);
+        Route::get('/edit/{toolsId}', [PowerToolsController::class, 'edit']);
+        Route::post('/update/{toolsId}', [PowerToolsController::class, 'update']);
+        Route::delete('/delete/{toolsId}', [PowerToolsController::class, 'destroy']);
+
+    });
+
+    //safety-committee-organogram
+    Route::prefix('safety-committee-organogram')->name('safety_committee_organogram.')->group(function () {
+        Route::get('/', [SafetyCommitteeOrganogramController::class,'index']);
+        Route::post('/', [SafetyCommitteeOrganogramController::class,'store']);
+        Route::get('/show/{id}', [SafetyCommitteeOrganogramController::class,'show']);
+        Route::get('/edit/{toolsId}', [SafetyCommitteeOrganogramController::class, 'edit']);
+        Route::post('/update/{toolsId}', [SafetyCommitteeOrganogramController::class, 'update']);
+        Route::delete('/delete/{toolsId}', [SafetyCommitteeOrganogramController::class, 'destroy']);
 
     });
 

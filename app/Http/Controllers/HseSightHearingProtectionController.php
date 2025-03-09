@@ -15,7 +15,7 @@ class HseSightHearingProtectionController extends Controller
      */
     public function index()
     {
-        
+
         $hseSightHearingProtection = HseSightHearingProtectionResource::collection(HseSightHearingProtection::all());
         $total = $hseSightHearingProtection->count();
         return response()->json([
@@ -34,7 +34,7 @@ class HseSightHearingProtectionController extends Controller
     public function show(HseSightHearingProtection $hseSightHearingProtection)
     {
         return HseSightHearingProtectionResource::make($hseSightHearingProtection);
-        
+
     }
     public function update(UpdateHseSightHearingProtectionRequest $request, HseSightHearingProtection $hseSightHearingProtection)
     {
@@ -49,11 +49,11 @@ class HseSightHearingProtectionController extends Controller
     {
         $hseSightHearingProtection->delete();
         $hseSightHearingProtection = HseSightHearingProtectionResource::collection(HseSightHearingProtection::all());
-        $total = $$hseSightHearingProtection->count();
+        $total = $hseSightHearingProtection->count();
         return response()->json([
             'data' => $hseSightHearingProtection,
             'total' => $total
         ]);
-        
+
     }
 }
