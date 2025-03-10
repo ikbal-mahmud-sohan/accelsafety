@@ -10,6 +10,7 @@ use App\Http\Controllers\AccidentTypeController;
 use App\Http\Controllers\AirCompressorController;
 use App\Http\Controllers\AmbulanceController;
 use App\Http\Controllers\ApprovedAccidentController;
+use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\AssignMultipleTrainingController;
 use App\Http\Controllers\AssignSpecialTrainingController;
 use App\Http\Controllers\AssignTrainingController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
 use App\Http\Controllers\EmployeeUnitController;
 use App\Http\Controllers\EmsController;
+use App\Http\Controllers\EnergySourceController;
 use App\Http\Controllers\ExcavatorChecklistController;
 use App\Http\Controllers\HiraActivityController;
 use App\Http\Controllers\HiraAdministrativeController;
@@ -1224,27 +1226,15 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     });
 
 
-    //site info and permit
-    Route::prefix('site-info-permit')->name('site_info_permit.')->group(function () {
-        Route::get('/', [SiteInfoPermitController::class,'index']);
-        Route::get('/create', [SiteInfoPermitController::class, 'create']);
-        Route::post('/store', [SiteInfoPermitController::class, 'store']);
-        Route::get('/show', [SiteInfoPermitController::class, 'show']);
-        Route::get('/edit', [SiteInfoPermitController::class, 'show']);
-        Route::post('/update', [SiteInfoPermitController::class, 'store']);
-        Route::delete('/delete/{id}', [SiteInfoPermitController::class, 'destroy']);
-
-    });
-
-    //EMS
-    Route::prefix('ems')->name('ems.')->group(function () {
-        Route::get('/', [EmsController::class,'index']);
-        Route::get('/create', [EmsController::class, 'create']);
-        Route::post('/store', [EmsController::class, 'store']);
-        Route::get('/show', [EmsController::class, 'show']);
-        Route::get('/edit', [EmsController::class, 'show']);
-        Route::post('/update', [EmsController::class, 'store']);
-        Route::delete('/delete/{id}', [EmsController::class, 'destroy']);
+    //assessment
+    Route::prefix('assessment')->name('assessment.')->group(function () {
+        Route::get('/', [AssessmentController::class,'index']);
+        Route::get('/create', [AssessmentController::class, 'create']);
+        Route::post('/store', [AssessmentController::class, 'store']);
+        Route::get('/show', [AssessmentController::class, 'show']);
+        Route::get('/edit', [AssessmentController::class, 'show']);
+        Route::post('/update', [AssessmentController::class, 'store']);
+        Route::delete('/delete/{id}', [AssessmentController::class, 'destroy']);
 
     });
 
