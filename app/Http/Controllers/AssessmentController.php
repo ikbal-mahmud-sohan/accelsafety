@@ -2,39 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ems;
-use App\Models\SiteInfoPermit;
+use App\Models\Assessment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class EmsController extends Controller
+class AssessmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
 
-        $data = Ems::all();
+        $data = Assessment::all();
+        $countries = getAllCountries();
         return response([
-            'data' => $data
+            'data' => $data,
+            'countries' => $countries,
         ]);
 
     }
 
     public function create()
     {
-
+        $countries = getAllCountries();
+        return response([
+           'countries'=> $countries
+        ]);
     }
 
     public function show(Request $request)
     {
 
-        $data = Ems::where('key', $request->key)->first();
+        $data = Assessment::where('key', $request->key)->first();
+        if ($request->key == 'sitecountry') {
+            $countries = getAllCountries();
+            return response([
+                'key' => $request->key,
+                'countries' => $countries,
+                'data' => $data
+            ]);
+        } else {
             return response([
                 'key' => $request->key,
                 'data' => $data
             ]);
+        }
+
     }
 
 
@@ -48,8 +59,8 @@ class EmsController extends Controller
         ]);
 
         // Fetch existing record
-        $ems = Ems::where('key', $validatedData['key'])->first();
-        $existingValue = $ems ? $ems->value : [];
+        $existingAssessment = Assessment::where('key', $validatedData['key'])->first();
+        $existingValue = $existingAssessment ? $existingAssessment->value : [];
 
         $valueData = $request->value;
 
@@ -72,22 +83,22 @@ class EmsController extends Controller
         });
 
         // Save updated data in database
-        $ems = Ems::updateOrCreate(
+        $assessment = Assessment::updateOrCreate(
             ['key' => $validatedData['key']],  // Search by key
             ['value' => $valueData] // Store as JSON
         );
 
         return response()->json([
             'message' => 'Data Saved successfully!',
-            'data' => $ems,
+            'data' => $assessment,
         ], 201);
     }
 
     public function destroy($id)
     {
-        $ems = Ems::find($id);
-        if ($ems){
-            $ems->delete();
+        $assessment = Assessment::find($id);
+        if ($assessment){
+            $assessment->delete();
             return response()->json([
                 'message' => 'Data Deleted successfully!',
             ]);
