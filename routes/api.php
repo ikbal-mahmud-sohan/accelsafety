@@ -20,6 +20,7 @@ use App\Http\Controllers\ConcretePumpController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DumperChecklistController;
 use App\Http\Controllers\EarthCompactorController;
+use App\Http\Controllers\EmergencyResponseController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
@@ -1289,6 +1290,18 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{toolsId}', [SafetyCommitteeOrganogramController::class, 'edit']);
         Route::post('/update/{toolsId}', [SafetyCommitteeOrganogramController::class, 'update']);
         Route::delete('/delete/{toolsId}', [SafetyCommitteeOrganogramController::class, 'destroy']);
+
+    });
+
+    //Emergency Response Team
+    Route::prefix('emergency-response-team')->name('emergency_response_team.')->group(function () {
+        Route::get('/', [EmergencyResponseController::class,'index']);
+        Route::post('/', [EmergencyResponseController::class,'store']);
+        Route::get('/show/{id}', [EmergencyResponseController::class,'show']);
+        Route::get('/show-by-type', [EmergencyResponseController::class,'showByType']);
+        Route::get('/edit/{id}', [EmergencyResponseController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyResponseController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyResponseController::class, 'destroy']);
 
     });
 
