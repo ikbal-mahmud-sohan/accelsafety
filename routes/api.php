@@ -20,6 +20,7 @@ use App\Http\Controllers\ConcretePumpController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DumperChecklistController;
 use App\Http\Controllers\EarthCompactorController;
+use App\Http\Controllers\EmergencyResponseController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
@@ -49,6 +50,8 @@ use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
 use App\Http\Controllers\SafetyObservationPlantNameController;
 use App\Http\Controllers\SafetyObservationRespDepartmentController;
 use App\Http\Controllers\SiteInfoPermitController;
+use App\Http\Controllers\SmokeDetectorCheckListController;
+use App\Http\Controllers\SmokeDetectorController;
 use App\Http\Controllers\TrainingAssesmentController;
 use App\Http\Controllers\TrainingAttendenceController;
 use App\Http\Controllers\TrainingTopicsController;
@@ -1292,6 +1295,40 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
 
     });
 
+    //Emergency Response Team
+    Route::prefix('emergency-response-team')->name('emergency_response_team.')->group(function () {
+        Route::get('/', [EmergencyResponseController::class,'index']);
+        Route::post('/', [EmergencyResponseController::class,'store']);
+        Route::get('/show/{id}', [EmergencyResponseController::class,'show']);
+        Route::get('/show-by-type', [EmergencyResponseController::class,'showByType']);
+        Route::get('/edit/{id}', [EmergencyResponseController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyResponseController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyResponseController::class, 'destroy']);
+
+    });
+
+    //   	Emergency Equipment Check start
+
+    //    smoke detector
+    Route::prefix('smoke-detector')->name('smoke-detector.')->group(function () {
+        Route::get('/', [SmokeDetectorController::class,'index']);
+        Route::post('/', [SmokeDetectorController::class,'store']);
+        Route::get('/edit/{id}', [SmokeDetectorController::class, 'edit']);
+        Route::post('/update/{id}', [SmokeDetectorController::class, 'update']);
+        Route::delete('/delete/{id}', [SmokeDetectorController::class, 'destroy']);
+
+    });
+
+    //   	smoke detector checklist
+    Route::prefix('smoke-detector-checklist')->name('smoke-detector.')->group(function () {
+        Route::get('/', [SmokeDetectorCheckListController::class,'index']);
+        Route::post('/', [SmokeDetectorCheckListController::class,'store']);
+        Route::get('/create', [SmokeDetectorCheckListController::class,'create']);
+        Route::get('/edit/{id}', [SmokeDetectorCheckListController::class, 'edit']);
+        Route::post('/update/{id}', [SmokeDetectorCheckListController::class, 'update']);
+        Route::delete('/delete/{id}', [SmokeDetectorCheckListController::class, 'destroy']);
+
+    });
 
 });
 
