@@ -20,6 +20,12 @@ use App\Http\Controllers\ConcretePumpController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DumperChecklistController;
 use App\Http\Controllers\EarthCompactorController;
+use App\Http\Controllers\EmergencyAlarmAudibleChecklistController;
+use App\Http\Controllers\EmergencyAlarmAudibleController;
+use App\Http\Controllers\EmergencyAlarmVisibleChecklistController;
+use App\Http\Controllers\EmergencyAlarmVisibleController;
+use App\Http\Controllers\EmergencyExitLightCheckListController;
+use App\Http\Controllers\EmergencyExitLightController;
 use App\Http\Controllers\EmergencyResponseController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
@@ -1327,6 +1333,69 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{id}', [SmokeDetectorCheckListController::class, 'edit']);
         Route::post('/update/{id}', [SmokeDetectorCheckListController::class, 'update']);
         Route::delete('/delete/{id}', [SmokeDetectorCheckListController::class, 'destroy']);
+
+    });
+
+    //    emergency alarm audible
+    Route::prefix('emergency-alarm-audible')->name('alarm-audible.')->group(function () {
+        Route::get('/', [EmergencyAlarmAudibleController::class,'index']);
+        Route::post('/', [EmergencyAlarmAudibleController::class,'store']);
+        Route::get('/edit/{id}', [EmergencyAlarmAudibleController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyAlarmAudibleController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyAlarmAudibleController::class, 'destroy']);
+
+    });
+
+    //   	emergency alarm audible checklist
+    Route::prefix('emergency-alarm-audible-checklist')->name('emergency-alarm-audible-checklist.')->group(function () {
+        Route::get('/', [EmergencyAlarmAudibleChecklistController::class,'index']);
+        Route::post('/', [EmergencyAlarmAudibleChecklistController::class,'store']);
+        Route::get('/create', [EmergencyAlarmAudibleChecklistController::class,'create']);
+        Route::get('/edit/{id}', [EmergencyAlarmAudibleChecklistController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyAlarmAudibleChecklistController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyAlarmAudibleChecklistController::class, 'destroy']);
+
+    });
+
+    //    emergency alarm visible
+    Route::prefix('emergency-alarm-visible')->name('alarm-visible.')->group(function () {
+        Route::get('/', [EmergencyAlarmVisibleController::class,'index']);
+        Route::post('/', [EmergencyAlarmVisibleController::class,'store']);
+        Route::get('/edit/{id}', [EmergencyAlarmVisibleController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyAlarmVisibleController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyAlarmVisibleController::class, 'destroy']);
+
+    });
+
+    //   	emergency alarm visible checklist
+    Route::prefix('emergency-alarm-visible-checklist')->name('emergency-alarm-visible-checklist.')->group(function () {
+        Route::get('/', [EmergencyAlarmVisibleChecklistController::class,'index']);
+        Route::post('/', [EmergencyAlarmVisibleChecklistController::class,'store']);
+        Route::get('/create', [EmergencyAlarmVisibleChecklistController::class,'create']);
+        Route::get('/edit/{id}', [EmergencyAlarmVisibleChecklistController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyAlarmVisibleChecklistController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyAlarmVisibleChecklistController::class, 'destroy']);
+
+    });
+
+    //    emergency Exit Light
+    Route::prefix('emergency-exit-light')->name('exit-light.')->group(function () {
+        Route::get('/', [EmergencyExitLightController::class,'index']);
+        Route::post('/', [EmergencyExitLightController::class,'store']);
+        Route::get('/edit/{id}', [EmergencyExitLightController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyExitLightController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyExitLightController::class, 'destroy']);
+
+    });
+
+    //   	emergency Exit Light checklist
+    Route::prefix('emergency-exit-light-checklist')->name('emergency-exit-light-checklist.')->group(function () {
+        Route::get('/', [EmergencyExitLightCheckListController::class,'index']);
+        Route::post('/', [EmergencyExitLightCheckListController::class,'store']);
+        Route::get('/create', [EmergencyExitLightCheckListController::class,'create']);
+        Route::get('/edit/{id}', [EmergencyExitLightCheckListController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyExitLightCheckListController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyExitLightCheckListController::class, 'destroy']);
 
     });
 
