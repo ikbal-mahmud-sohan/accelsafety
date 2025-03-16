@@ -34,6 +34,8 @@ use App\Http\Controllers\EmployeeUnitController;
 use App\Http\Controllers\EmsController;
 use App\Http\Controllers\EnergySourceController;
 use App\Http\Controllers\ExcavatorChecklistController;
+use App\Http\Controllers\FireExtiguisherTEJController;
+use App\Http\Controllers\FireExtinguisherTEJChecklistController;
 use App\Http\Controllers\HiraActivityController;
 use App\Http\Controllers\HiraAdministrativeController;
 use App\Http\Controllers\HiraCauseController;
@@ -55,6 +57,7 @@ use App\Http\Controllers\SafetyObservationController;
 use App\Http\Controllers\SafetyObservationOwnerDepartmentController;
 use App\Http\Controllers\SafetyObservationPlantNameController;
 use App\Http\Controllers\SafetyObservationRespDepartmentController;
+use App\Http\Controllers\SecurityDashboardController;
 use App\Http\Controllers\SiteInfoPermitController;
 use App\Http\Controllers\SmokeDetectorCheckListController;
 use App\Http\Controllers\SmokeDetectorController;
@@ -1396,6 +1399,33 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{id}', [EmergencyExitLightCheckListController::class, 'edit']);
         Route::post('/update/{id}', [EmergencyExitLightCheckListController::class, 'update']);
         Route::delete('/delete/{id}', [EmergencyExitLightCheckListController::class, 'destroy']);
+
+    });
+
+    //    fire extinguisher
+    Route::prefix('fire-extinguisher-tej')->name('fire-extinguisher-tej.')->group(function () {
+        Route::get('/', [FireExtiguisherTEJController::class,'index']);
+        Route::post('/', [FireExtiguisherTEJController::class,'store']);
+        Route::get('/edit/{id}', [FireExtiguisherTEJController::class, 'edit']);
+        Route::post('/update/{id}', [FireExtiguisherTEJController::class, 'update']);
+        Route::delete('/delete/{id}', [FireExtiguisherTEJController::class, 'destroy']);
+
+    });
+
+    //   	fire extinguisher checklist
+    Route::prefix('fire-extinguisher-tej-checklist')->name('fire-extinguisher-tej-checklist.')->group(function () {
+        Route::get('/', [FireExtinguisherTEJChecklistController::class,'index']);
+        Route::post('/', [FireExtinguisherTEJChecklistController::class,'store']);
+        Route::get('/create', [FireExtinguisherTEJChecklistController::class,'create']);
+        Route::get('/edit/{id}', [FireExtinguisherTEJChecklistController::class, 'edit']);
+        Route::post('/update/{id}', [FireExtinguisherTEJChecklistController::class, 'update']);
+        Route::delete('/delete/{id}', [FireExtinguisherTEJChecklistController::class, 'destroy']);
+
+    });
+
+    //   	Security Dashboard
+    Route::prefix('security-dashboard')->name('security-dashboard.')->group(function () {
+        Route::get('/security-incidents', [SecurityDashboardController::class,'security_incidents']);
 
     });
 
