@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FireExtinguisherTEJChecklist extends Model
+class FireExtinguisherCTGChecklist extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'fire_extinguisher_tej_id',
+        'fire_extinguisher_ctg_id',
         'fe_pressure_gauge_condition',
         'placed_in_position',
         'safety_seal_or_pin',
@@ -23,8 +23,8 @@ class FireExtinguisherTEJChecklist extends Model
         'remarks',
     ];
 
-    public function fire_extinguisher_tej()
+    public function fire_extinguisher_ctg()
     {
-        return $this->belongsTo(FireExtiguisherTEJ::class, 'fire_extinguisher_tej_id');
+        return $this->belongsTo(FireExtinguisherCTG::class, 'fire_extinguisher_ctg_id');
     }
 }
