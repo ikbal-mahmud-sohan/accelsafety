@@ -74,7 +74,7 @@ class VisitorEntryController extends Controller
         $validated['signature'] = $imageUrl;
         $visitors_entry = VisitorEntry::create($validated);
         return response([
-            'message' => 'Power Vehicle created successfully.',
+            'message' => 'Visitors created successfully.',
             'data' => $visitors_entry,
         ], 201);
 
@@ -113,7 +113,7 @@ class VisitorEntryController extends Controller
         $visitor = VisitorEntry::find($id);
         $visitor->update($validated);
         return response([
-            'message' => 'Power Vehicle updated successfully.',
+            'message' => 'Visitors updated successfully.',
             'data' => $visitor,
         ], 200);
 

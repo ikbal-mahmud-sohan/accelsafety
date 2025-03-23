@@ -144,7 +144,7 @@ class EmergencyAlarmVisibleChecklistController extends Controller
 
         if ($exists) {
             return response()->json([
-                'message' => 'A calibration record already exists for this smoke detector in the same month.',
+                'message' => 'A calibration record already exists for the same month.',
             ], 422);
         }
 

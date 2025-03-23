@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FireExtinguisherCTG;
-use App\Models\FireExtinguisherCTGChecklist;
+use App\Models\FireExtinguisherHQ;
+use App\Models\FireExtinguisherHQChecklist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class FireExtinguisherCTGChecklistController extends Controller
+class FireExtinguisherHQChecklistController extends Controller
 {
     public function index(Request $request)
     {
@@ -18,7 +18,7 @@ class FireExtinguisherCTGChecklistController extends Controller
         $sort_by = $request->get('sort_by', 'asc');
 
         // Base query with optional search
-        $query = FireExtinguisherCTGChecklist::with('fire_extinguisher_ctg')
+        $query = FireExtinguisherHQChecklist::with('fire_extinguisher_hq')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('fe_pressure_gauge_condition', 'like', "%{$search}%")
@@ -58,14 +58,14 @@ class FireExtinguisherCTGChecklistController extends Controller
     public function create()
     {
         return response()->json([
-            'fire_extinguisher_ctg' => FireExtinguisherCTG::all(),
+            'fire_extinguisher_hq' => FireExtinguisherHQ::all(),
         ]);
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fire_extinguisher_ctg_id' => 'required|numeric|exists:fire_extinguisher_c_t_g_s,id',
+            'fire_extinguisher_hq_id' => 'required|numeric|exists:fire_extinguisher_h_q_s,id',
             'fe_pressure_gauge_condition'=> 'nullable|boolean',
             'placed_in_position'=> 'nullable|boolean',
             'safety_seal_or_pin'=> 'nullable|boolean',
@@ -82,8 +82,8 @@ class FireExtinguisherCTGChecklistController extends Controller
         // Convert refilling_date to YYYY-MM format for comparison
         $date = Carbon::createFromFormat('d-m-Y', $validated['refilling_date'])->format('Y-m');
 
-        // Check if a record already exists for the same fire_extinguisher_ctg_id and month
-        $exists = FireExtinguisherCTGChecklist::where('fire_extinguisher_ctg_id', $validated['fire_extinguisher_ctg_id'])
+        // Check if a record already exists for the same fire_extinguisher_hq_id and month
+        $exists = FireExtinguisherHQChecklist::where('fire_extinguisher_hq_id', $validated['fire_extinguisher_hq_id'])
             ->whereRaw("DATE_FORMAT(refilling_date, '%Y-%m') = ?", [$date])
             ->exists();
 
@@ -95,7 +95,7 @@ class FireExtinguisherCTGChecklistController extends Controller
 
         // Store the data
         $validated['refilling_date'] = Carbon::createFromFormat('d-m-Y', $validated['refilling_date'])->format('Y-m-d');
-        $data = FireExtinguisherCTGChecklist::create($validated);
+        $data = FireExtinguisherHQChecklist::create($validated);
 
         return response()->json([
             'message' => 'Data created successfully',
@@ -106,7 +106,7 @@ class FireExtinguisherCTGChecklistController extends Controller
     public function edit($id)
     {
         try {
-            $data = FireExtinguisherCTGChecklist::with('fire_extinguisher_ctg')->findOrFail($id);
+            $data = FireExtinguisherHQChecklist::with('fire_extinguisher_hq')->findOrFail($id);
             return response()->json([
                 'data' => $data,
             ]);
@@ -119,9 +119,9 @@ class FireExtinguisherCTGChecklistController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        // Validate request data
         $validated = $request->validate([
-            'fire_extinguisher_ctg_id' => 'required|numeric|exists:fire_extinguisher_c_t_g_s,id',
+            'fire_extinguisher_hq_id' => 'required|numeric|exists:fire_extinguisher_h_q_s,id',
             'fe_pressure_gauge_condition'=> 'nullable|boolean',
             'placed_in_position'=> 'nullable|boolean',
             'safety_seal_or_pin'=> 'nullable|boolean',
@@ -135,24 +135,25 @@ class FireExtinguisherCTGChecklistController extends Controller
             'remarks'=> 'nullable|string',
         ]);
 
-        $record = FireExtinguisherCTGChecklist::findOrFail($id);
+        // Find the record by ID
+        $record = FireExtinguisherHQChecklist::findOrFail($id);
 
         // Convert refilling_date to YYYY-MM format for comparison
         $date = Carbon::createFromFormat('d-m-Y', $validated['refilling_date'])->format('Y-m');
 
-        // Check if another record exists for the same detector and month (excluding current ID)
-        $exists = FireExtinguisherCTGChecklist::where('fire_extinguisher_ctg_id', $validated['fire_extinguisher_ctg_id'])
+        // Check if another record exists for the same extinguisher in the same month, excluding the current one
+        $exists = FireExtinguisherHQChecklist::where('fire_extinguisher_hq_id', $validated['fire_extinguisher_hq_id'])
             ->whereRaw("DATE_FORMAT(refilling_date, '%Y-%m') = ?", [$date])
             ->where('id', '!=', $id) // Exclude the current record
             ->exists();
 
         if ($exists) {
             return response()->json([
-                'message' => 'A calibration record already exists for the same month.',
+                'message' => 'A calibration record already exists for this fire extinguisher checklist in the same month.',
             ], 422);
         }
 
-        // Convert date format before updating
+        // Convert refilling_date format before updating
         $validated['refilling_date'] = Carbon::createFromFormat('d-m-Y', $validated['refilling_date'])->format('Y-m-d');
 
         // Update the record
@@ -165,9 +166,10 @@ class FireExtinguisherCTGChecklistController extends Controller
     }
 
 
+
     public function destroy($id){
         try {
-            $data=  FireExtinguisherCTGChecklist::findOrFail($id);
+            $data=  FireExtinguisherHQChecklist::findOrFail($id);
             $data->delete();
             return response()->json([
                 'message' => 'Data deleted successfully',
