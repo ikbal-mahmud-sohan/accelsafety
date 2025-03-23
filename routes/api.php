@@ -37,6 +37,8 @@ use App\Http\Controllers\ExcavatorChecklistController;
 use App\Http\Controllers\FireExtiguisherTEJController;
 use App\Http\Controllers\FireExtinguisherCTGChecklistController;
 use App\Http\Controllers\FireExtinguisherCTGController;
+use App\Http\Controllers\FireExtinguisherHQChecklistController;
+use App\Http\Controllers\FireExtinguisherHQController;
 use App\Http\Controllers\FireExtinguisherTEJChecklistController;
 use App\Http\Controllers\FireExtinguisherTONChecklistController;
 use App\Http\Controllers\FireExtinguisherTONController;
@@ -1465,6 +1467,26 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{id}', [FireExtinguisherCTGChecklistController::class, 'edit']);
         Route::post('/update/{id}', [FireExtinguisherCTGChecklistController::class, 'update']);
         Route::delete('/delete/{id}', [FireExtinguisherCTGChecklistController::class, 'destroy']);
+    });
+
+    //    fire extinguisher HQ
+    Route::prefix('fire-extinguisher-hq')->name('fire-extinguisher-hq.')->group(function () {
+        Route::get('/', [FireExtinguisherHQController::class,'index']);
+        Route::post('/', [FireExtinguisherHQController::class,'store']);
+        Route::get('/edit/{id}', [FireExtinguisherHQController::class, 'edit']);
+        Route::post('/update/{id}', [FireExtinguisherHQController::class, 'update']);
+        Route::delete('/delete/{id}', [FireExtinguisherHQController::class, 'destroy']);
+
+    });
+
+    //   	fire extinguisher HQ checklist
+    Route::prefix('fire-extinguisher-hq-checklist')->name('fire-extinguisher-hq-checklist.')->group(function () {
+        Route::get('/', [FireExtinguisherHQChecklistController::class,'index']);
+        Route::post('/', [FireExtinguisherHQChecklistController::class,'store']);
+        Route::get('/create', [FireExtinguisherHQChecklistController::class,'create']);
+        Route::get('/edit/{id}', [FireExtinguisherHQChecklistController::class, 'edit']);
+        Route::post('/update/{id}', [FireExtinguisherHQChecklistController::class, 'update']);
+        Route::delete('/delete/{id}', [FireExtinguisherHQChecklistController::class, 'destroy']);
     });
 
     //   	Security Dashboard
