@@ -24,6 +24,7 @@ use App\Http\Controllers\EmergencyAlarmAudibleChecklistController;
 use App\Http\Controllers\EmergencyAlarmAudibleController;
 use App\Http\Controllers\EmergencyAlarmVisibleChecklistController;
 use App\Http\Controllers\EmergencyAlarmVisibleController;
+use App\Http\Controllers\EmergencyDrillBluePrintController;
 use App\Http\Controllers\EmergencyExitLightCheckListController;
 use App\Http\Controllers\EmergencyExitLightController;
 use App\Http\Controllers\EmergencyResponseController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\FireExtinguisherHQController;
 use App\Http\Controllers\FireExtinguisherTEJChecklistController;
 use App\Http\Controllers\FireExtinguisherTONChecklistController;
 use App\Http\Controllers\FireExtinguisherTONController;
+use App\Http\Controllers\FirstAidChecklistController;
 use App\Http\Controllers\HiraActivityController;
 use App\Http\Controllers\HiraAdministrativeController;
 use App\Http\Controllers\HiraCauseController;
@@ -1487,6 +1489,26 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{id}', [FireExtinguisherHQChecklistController::class, 'edit']);
         Route::post('/update/{id}', [FireExtinguisherHQChecklistController::class, 'update']);
         Route::delete('/delete/{id}', [FireExtinguisherHQChecklistController::class, 'destroy']);
+    });
+
+    //   	first aid checklist
+    Route::prefix('first-aid-checklist')->name('first-aid-checklist.')->group(function () {
+        Route::get('/', [FirstAidChecklistController::class,'index']);
+        Route::post('/', [FirstAidChecklistController::class,'store']);
+        Route::get('/create', [FirstAidChecklistController::class,'create']);
+        Route::get('/edit/{id}', [FirstAidChecklistController::class, 'edit']);
+        Route::post('/update/{id}', [FirstAidChecklistController::class, 'update']);
+        Route::delete('/delete/{id}', [FirstAidChecklistController::class, 'destroy']);
+    });
+
+    //  Emergency Drill BluePrint
+    Route::prefix('emergency-drill-blueprint')->name('emergency-drill-blueprint.')->group(function () {
+        Route::get('/', [EmergencyDrillBluePrintController::class,'index']);
+        Route::post('/', [EmergencyDrillBluePrintController::class,'store']);
+        Route::get('/create', [EmergencyDrillBluePrintController::class,'create']);
+        Route::get('/edit/{id}', [EmergencyDrillBluePrintController::class, 'edit']);
+        Route::post('/update/{id}', [EmergencyDrillBluePrintController::class, 'update']);
+        Route::delete('/delete/{id}', [EmergencyDrillBluePrintController::class, 'destroy']);
     });
 
     //   	Security Dashboard
