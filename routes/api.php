@@ -56,6 +56,8 @@ use App\Http\Controllers\HiraOccupationsController;
 use App\Http\Controllers\HiraPPEController;
 use App\Http\Controllers\HiraProcessController;
 use App\Http\Controllers\HiraTypeOfActivityController;
+use App\Http\Controllers\HSEDrillReportController;
+use App\Http\Controllers\HSESafetyCommitteeMeetingMinutesController;
 use App\Http\Controllers\PowerToolsController;
 use App\Http\Controllers\PowerVehicleController;
 use App\Http\Controllers\RoleController;
@@ -1509,6 +1511,26 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/edit/{id}', [EmergencyDrillBluePrintController::class, 'edit']);
         Route::post('/update/{id}', [EmergencyDrillBluePrintController::class, 'update']);
         Route::delete('/delete/{id}', [EmergencyDrillBluePrintController::class, 'destroy']);
+    });
+
+    //  HSE Fire Drill Report doc
+    Route::prefix('hse-drill-report-doc')->name('hse-drill-report-doc.')->group(function () {
+        Route::get('/', [HSEDrillReportController::class,'index']);
+        Route::post('/', [HSEDrillReportController::class,'store']);
+        Route::get('/create', [HSEDrillReportController::class,'create']);
+        Route::get('/show/{hseDrillReportDoc}', [HSEDrillReportController::class, 'show']);
+        Route::post('/update/{hseDrillReportDoc}', [HSEDrillReportController::class, 'update']);
+        Route::delete('/delete/{hseDrillReportDoc}', [HSEDrillReportController::class, 'destroy']);
+    });
+
+    //  HSE Safety Committee Meeting Minutes
+    Route::prefix('hse-safety-committee-meeting-minutes-doc')->name('hse-safety-committee-meeting-minutes-doc.')->group(function () {
+        Route::get('/', [HSESafetyCommitteeMeetingMinutesController::class,'index']);
+        Route::post('/', [HSESafetyCommitteeMeetingMinutesController::class,'store']);
+        Route::get('/create', [HSESafetyCommitteeMeetingMinutesController::class,'create']);
+        Route::get('/show/{hseSafetyCommitteeMeetingMinutes}', [HSESafetyCommitteeMeetingMinutesController::class, 'show']);
+        Route::post('/update/{hseSafetyCommitteeMeetingMinutes}', [HSESafetyCommitteeMeetingMinutesController::class, 'update']);
+        Route::delete('/delete/{hseSafetyCommitteeMeetingMinutes}', [HSESafetyCommitteeMeetingMinutesController::class, 'destroy']);
     });
 
     //   	Security Dashboard
