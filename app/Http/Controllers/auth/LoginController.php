@@ -16,7 +16,7 @@ class LoginController extends Controller
     public function __invoke(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
-        
+
         if (!$user || !Hash::check($request->password, $user->password )){
             return response()->json([
                 'message' => 'the credential is not valid'
@@ -28,7 +28,8 @@ class LoginController extends Controller
         return response()->json([
             'token' => $token,
             'token_type' => 'Bearer',
-            'user' => $user->email
+            'user' => $user->email,
+            'id' => $user->id
         ]);
     }
 }
