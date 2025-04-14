@@ -19,9 +19,10 @@ class EmergencyAlarmVisibleChecklistController extends Controller
         $search = $request->get('search', '');
         $orderBy = $request->get('order_by', 'id');
         $sort_by = $request->get('sort_by', 'asc');
+        $emergency_alarm_visible_id = $request->get('emergency_alarm_visible_id', '1');
 
         // Base query with optional search
-        $query = EmergencyAlarmVisibleChecklist::with('emergency_alarm_visible')
+        $query = EmergencyAlarmVisibleChecklist::where('emergency_alarm_visible_id',$emergency_alarm_visible_id)->with('emergency_alarm_visible')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('power_supply', 'like', "%{$search}%")

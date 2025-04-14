@@ -17,9 +17,10 @@ class SmokeDetectorCheckListController extends Controller
         $search = $request->get('search', '');
         $orderBy = $request->get('order_by', 'id');
         $sort_by = $request->get('sort_by', 'asc');
+        $smoke_detector_id = $request->get('smoke_detector_id', '1');
 
         // Base query with optional search
-        $query = SmokeDetectorCheckList::with('smoke_detector')
+        $query = SmokeDetectorCheckList::where('smoke_detector_id',$smoke_detector_id)->with('smoke_detector')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('placement', 'like', "%{$search}%")

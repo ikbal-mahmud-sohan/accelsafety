@@ -16,9 +16,10 @@ class FireExtinguisherTEJChecklistController extends Controller
         $search = $request->get('search', '');
         $orderBy = $request->get('order_by', 'id');
         $sort_by = $request->get('sort_by', 'asc');
+        $fire_extinguisher_tej_id = $request->get('fire_extinguisher_tej_id', '1');
 
         // Base query with optional search
-        $query = FireExtinguisherTEJChecklist::with('fire_extinguisher_tej')
+        $query = FireExtinguisherTEJChecklist::where('fire_extinguisher_tej_id',$fire_extinguisher_tej_id)->with('fire_extinguisher_tej')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('fe_pressure_gauge_condition', 'like', "%{$search}%")

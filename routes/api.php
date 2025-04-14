@@ -1360,7 +1360,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
     });
 
     //   	emergency alarm audible checklist
-    Route::prefix('emergency-alarm-audible-checklist')->name('emergency-alarm-audible-checklist.')->group(function () {
+        Route::prefix('emergency-alarm-audible-checklist')->name('emergency-alarm-audible-checklist.')->group(function () {
         Route::get('/', [EmergencyAlarmAudibleChecklistController::class,'index']);
         Route::post('/', [EmergencyAlarmAudibleChecklistController::class,'store']);
         Route::get('/create', [EmergencyAlarmAudibleChecklistController::class,'create']);

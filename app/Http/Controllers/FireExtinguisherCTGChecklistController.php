@@ -16,9 +16,10 @@ class FireExtinguisherCTGChecklistController extends Controller
         $search = $request->get('search', '');
         $orderBy = $request->get('order_by', 'id');
         $sort_by = $request->get('sort_by', 'asc');
+        $fire_extinguisher_ctg_id = $request->get('fire_extinguisher_ctg_id', 'asc');
 
         // Base query with optional search
-        $query = FireExtinguisherCTGChecklist::with('fire_extinguisher_ctg')
+        $query = FireExtinguisherCTGChecklist::where('fire_extinguisher_ctg_id',$fire_extinguisher_ctg_id)->with('fire_extinguisher_ctg')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('fe_pressure_gauge_condition', 'like', "%{$search}%")
