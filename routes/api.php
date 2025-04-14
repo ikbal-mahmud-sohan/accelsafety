@@ -58,6 +58,7 @@ use App\Http\Controllers\HiraProcessController;
 use App\Http\Controllers\HiraTypeOfActivityController;
 use App\Http\Controllers\HSEDrillReportController;
 use App\Http\Controllers\HSESafetyCommitteeMeetingMinutesController;
+use App\Http\Controllers\HSESafetyCommitteeSOPDocController;
 use App\Http\Controllers\PowerToolsController;
 use App\Http\Controllers\PowerVehicleController;
 use App\Http\Controllers\RoleController;
@@ -1531,6 +1532,16 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/show/{hseSafetyCommitteeMeetingMinutes}', [HSESafetyCommitteeMeetingMinutesController::class, 'show']);
         Route::post('/update/{hseSafetyCommitteeMeetingMinutes}', [HSESafetyCommitteeMeetingMinutesController::class, 'update']);
         Route::delete('/delete/{hseSafetyCommitteeMeetingMinutes}', [HSESafetyCommitteeMeetingMinutesController::class, 'destroy']);
+    });
+
+    //  HSE Safety Committee SOP DOC
+    Route::prefix('hse-safety-committee-sop-doc')->name('hse-safety-committee-sop-doc.')->group(function () {
+        Route::get('/', [HSESafetyCommitteeSOPDocController::class,'index']);
+        Route::post('/', [HSESafetyCommitteeSOPDocController::class,'store']);
+        Route::get('/create', [HSESafetyCommitteeSOPDocController::class,'create']);
+        Route::get('/show/{hseSafetyCommitteeSOPDoc}', [HSESafetyCommitteeSOPDocController::class, 'show']);
+        Route::post('/update/{hseSafetyCommitteeSOPDoc}', [HSESafetyCommitteeSOPDocController::class, 'update']);
+        Route::delete('/delete/{hseSafetyCommitteeSOPDoc}', [HSESafetyCommitteeSOPDocController::class, 'destroy']);
     });
 
     //   	Security Dashboard
