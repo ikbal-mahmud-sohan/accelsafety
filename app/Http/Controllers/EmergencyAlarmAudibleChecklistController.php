@@ -18,9 +18,10 @@ class EmergencyAlarmAudibleChecklistController extends Controller
         $search = $request->get('search', '');
         $orderBy = $request->get('order_by', 'id');
         $sort_by = $request->get('sort_by', 'asc');
+        $emergency_alarm_audible_id = $request->get('emergency_alarm_audible_id', '1');
 
         // Base query with optional search
-        $query = EmergencyAlarmAudibleChecklist::with('emergency_alarm_audible')
+        $query = EmergencyAlarmAudibleChecklist::where('emergency_alarm_audible_id',$emergency_alarm_audible_id)->with('emergency_alarm_audible')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('sound_condition', 'like', "%{$search}%")

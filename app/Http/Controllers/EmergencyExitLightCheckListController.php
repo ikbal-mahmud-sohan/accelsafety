@@ -17,9 +17,10 @@ class EmergencyExitLightCheckListController extends Controller
         $search = $request->get('search', '');
         $orderBy = $request->get('order_by', 'id');
         $sort_by = $request->get('sort_by', 'asc');
+        $emergency_exit_light_id = $request->get('emergency_exit_light_id', '1');
 
         // Base query with optional search
-        $query = EmergencyExitLightCheckList::with('emergency_exit_light')
+        $query = EmergencyExitLightCheckList::where('emergency_exit_light_id',$emergency_exit_light_id)->with('emergency_exit_light')
             ->when($search, function ($q) use ($search) {
                 $q->where(function ($q) use ($search) {
                     $q->orWhere('power_supply', 'like', "%{$search}%")
