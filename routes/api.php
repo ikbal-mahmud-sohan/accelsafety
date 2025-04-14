@@ -28,6 +28,7 @@ use App\Http\Controllers\EmergencyDrillBluePrintController;
 use App\Http\Controllers\EmergencyExitLightCheckListController;
 use App\Http\Controllers\EmergencyExitLightController;
 use App\Http\Controllers\EmergencyResponseController;
+use App\Http\Controllers\EmergencyResponseSOPDocController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeDesignationController;
 use App\Http\Controllers\EmployeeInfoController;
@@ -145,6 +146,7 @@ use App\Http\Controllers\StatusSafetyPowerToolsController;
 use App\Http\Controllers\TransitMixerController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorEntryController;
+use App\Http\Controllers\VisitorsEntrySOPDocController;
 use App\Http\Requests\StoreHseLadderSelfInspectionChecklistRequest;
 use App\Models\Driver;
 use App\Models\HiraProcess;
@@ -1542,6 +1544,26 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function(){
         Route::get('/show/{hseSafetyCommitteeSOPDoc}', [HSESafetyCommitteeSOPDocController::class, 'show']);
         Route::post('/update/{hseSafetyCommitteeSOPDoc}', [HSESafetyCommitteeSOPDocController::class, 'update']);
         Route::delete('/delete/{hseSafetyCommitteeSOPDoc}', [HSESafetyCommitteeSOPDocController::class, 'destroy']);
+    });
+
+    //  HSE Visitors Entry SOP DOC
+    Route::prefix('hse-visitors-entry-sop-doc')->name('hse-visitors-entry-sop-doc.')->group(function () {
+        Route::get('/', [VisitorsEntrySOPDocController::class,'index']);
+        Route::post('/', [VisitorsEntrySOPDocController::class,'store']);
+        Route::get('/create', [VisitorsEntrySOPDocController::class,'create']);
+        Route::get('/show/{visitorsEntrySOPDoc}', [VisitorsEntrySOPDocController::class, 'show']);
+        Route::post('/update/{visitorsEntrySOPDoc}', [VisitorsEntrySOPDocController::class, 'update']);
+        Route::delete('/delete/{visitorsEntrySOPDoc}', [VisitorsEntrySOPDocController::class, 'destroy']);
+    });
+
+    //  HSE Emergency Response SOP DOC
+    Route::prefix('hse-emergency-response-sop-doc')->name('hse-emergency-response-sop-doc.')->group(function () {
+        Route::get('/', [EmergencyResponseSOPDocController::class,'index']);
+        Route::post('/', [EmergencyResponseSOPDocController::class,'store']);
+        Route::get('/create', [EmergencyResponseSOPDocController::class,'create']);
+        Route::get('/show/{emergencyResponseSOPDoc}', [EmergencyResponseSOPDocController::class, 'show']);
+        Route::post('/update/{emergencyResponseSOPDoc}', [EmergencyResponseSOPDocController::class, 'update']);
+        Route::delete('/delete/{emergencyResponseSOPDoc}', [EmergencyResponseSOPDocController::class, 'destroy']);
     });
 
     //   	Security Dashboard
